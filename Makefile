@@ -6,40 +6,48 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/07 01:00:36 by sduprey          ###   ########.fr        #
+#    Updated: 2016/07/07 01:58:21 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = rt
 
-FILES = main
+SRC = main.c \
 
-SRC = $(addsuffix .c, $(FILES))
+SRCDIR = src/
+OBJDIR = obj/
 
-OBJ = $(addsuffix .o, $(FILES))
+OBJ = $(SRC:%.c=$(OBJDIR)%.o)
 
-CC = gcc
+CC = clang
 
-FLAGS = -Wall -Werror -Wextra
+INC = -I ./inc -I libft/includes
 
-FLAGS_MLX = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
+LIB = -L libft -lft
 
-RM = rm -f
+CFLAGS = -Wall -Werror -Wextra
 
-all: $(NAME)
+RM = rm -rf
+
+MLXFLAGS = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
+
+all: lft $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(FLAGS_MLX) -o $(NAME) $(OBJ) -L libft/ -lft
+	$(CC) $(CFLAGS) $(MLXFLAGS) -o $(NAME) $(LIB) $^
 
-$(OBJ):
-	@make -C libft/
-	@$(CC) $(FLAGS) -I includes -c $(SRC)
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	mkdir -p $(OBJDIR)
+	$(CC) -c $(CFLAGS) $(INC) $< -o $@
+
+
+lft:
+	make -C libft
 
 clean:
-	@$(RM) $(OBJ)
+	$(RM) $(OBJDIR)
 
 fclean: clean
-	@$(RM) $(NAME)
-	@make -C libft/ fclean
+	$(RM) $(NAME)
 
 re: fclean all
