@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 05:47:00 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/07 05:49:02 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_sphere
 {
 	double			radius;
 	t_vec			center; 
+	t_color			*color;
 }					t_sphere;
 
 /*-------coord renvoyees*/
