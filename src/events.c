@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1.h                                             :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 03:11:16 by bhenne           ###   ########.fr       */
+/*   Created: 2016/07/07 02:08:38 by bhenne            #+#    #+#             */
+/*   Updated: 2016/07/07 02:35:20 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _RTV1_H
-# define _RTV1_H
-# include <math.h>
-# include <stdlib.h>
-# define ESCAPE	53
+#include "rtv1.h"
 
-typedef struct		 s_env
+int		key_hook(int keycode)
 {
-	void			*mlx;
-	void			*win;
-	void			*img;
-	int				fd;			
-}					t_env;
-
-#endif
+	if (keycode == ESCAPE)
+		exit(0);
+	else
+		return(0);
+}

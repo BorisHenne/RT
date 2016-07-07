@@ -6,13 +6,14 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/07 02:12:45 by sduprey          ###   ########.fr        #
+#    Updated: 2016/07/07 02:14:56 by bhenne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = rt
 
 SRC = main.c \
+	  events.c \
 
 SRCDIR = src/
 
