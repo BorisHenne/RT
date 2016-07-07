@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 03:11:16 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/07 03:23:13 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define _RTV1_H
 # include <math.h>
 # include <stdlib.h>
+# include <mlx.h>
 # define ESCAPE	53
 
 typedef struct		 s_env
@@ -24,4 +25,5 @@ typedef struct		 s_env
 	int				fd;			
 }					t_env;
 
+int	key_hook(int keycode, t_env *e);
 #endif
