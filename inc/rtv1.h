@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 03:33:30 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/07 05:03:36 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ typedef struct		s_vec
 
 /*----sphere*/
 
-
+typedef struct	s_sphere
+{
+	double		radius;
+	t_vec		center; 
+}				t_sphere;
 
 #endif
