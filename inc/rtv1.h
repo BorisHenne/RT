@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 05:03:36 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/07 05:24:23 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,27 @@ typedef struct		s_vec
 
 /*----sphere*/
 
-typedef struct	s_sphere
+typedef struct		s_sphere
 {
-	double		radius;
-	t_vec		center; 
-}				t_sphere;
+	double			radius;
+	t_vec			center; 
+}					t_sphere;
+
+/*-------coord renvoyees*/
+typedef struct		s_coord
+{
+   /* distance */
+	double			t;
+	t_color			color;
+	int				bool;
+}					t_coord;
+
+typedef struct		s_color
+{
+	int				R;
+	int				G;
+	int				B;
+}					t_color;
+
 
 #endif
