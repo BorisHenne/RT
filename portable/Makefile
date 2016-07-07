@@ -11,10 +11,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = rt
+NAME = rtv1
 
-SRC = main.c \
-	  events.c \
+SRC =	main.c \
+	events.c \
 
 SRCDIR = src/
 
@@ -24,32 +24,36 @@ OBJ = $(SRC:%.c=$(OBJDIR)%.o)
 
 CC = clang
 
-INC = -I ./inc -I libft/includes
+INC = -I ./inc -I libft/includes -I $(LIBX)
 
 LIB = -L libft -lft
 
-CFLAGS = -Wall -Werror -Wextra
+LIBX = minilibx_macos
+
+FLAGS = -Wall -Werror -Wextra
 
 RM = rm -rf
 
-MLXFLAGS = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -L $(LIBX) -I $(LIBX) -lmlx -framework OpenGL -framework AppKit
 
-all: lft $(NAME)
+all: lft libx $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(MLXFLAGS) -o $(NAME) $(LIB) $^
+	@$(CC) $(C_FLAGS) $(MLX_FLAGS) -o $(NAME) $(LIB) $^
 	@echo ""
 	@echo $(PX_STR) : $(EX_STR)
 	@echo ""
 
-
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@mkdir -p $(OBJDIR)
-	@$(CC) -c $(CFLAGS) $(INC) $< -o $@
+	@$(CC) -c $(C_FLAGS) $(INC) $< -o $@
 	@echo $(CC_STR) $*
 
 lft:
 	@make -C libft
+
+libx:
+	@make -C $(LIBX)
 
 clean:
 	@$(RM) $(OBJDIR)
@@ -57,6 +61,7 @@ clean:
 
 fclean: clean
 	@make fclean -C libft
+	@make fclean -C $(LIBX)
 	@$(RM) $(NAME)
 	@echo $(RM_STR) $(NAME)
 
