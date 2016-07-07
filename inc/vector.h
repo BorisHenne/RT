@@ -6,10 +6,13 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:34:01 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/07 05:37:31 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/07 06:43:39 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 typedef	struct	s_vector
 {
+	double		x;
+	double		y;
+	double		z;
 }				t_vector;
