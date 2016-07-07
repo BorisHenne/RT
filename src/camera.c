@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:21 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/08 01:28:00 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/08 01:39:49 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_cam	*init_camera(t_vec *pos, t_vec *dir)
 	cam->viewplaneWidth = 0.35f;
 	cam->viewplaneHeight = 0.5f;
 	cam->viewplaneDist = 1.0f;
-	cam->viewPlaneUpLeft = camPos + ((vecDir*viewplaneDist)+(upVec*(viewplaneHeight/2.0f))) - (rightVec*(viewplaneWidth/2.0f))
+	cam->viewPlaneUpLeft = cam->camPos + ((cam->vecDir * cam->viewplaneDist) +
+	   	(cam->upVec *(cam->viewplaneHeight/2.0f))) - (cam->rightVec *(cam->viewplaneWidth/2.0f));
 	return (cam);
 }
 
