@@ -38,6 +38,18 @@ t_vector	cross_product(t_vector *a, t_vector *b)
 	return (init_vector(x, y, z));
 }
 
+t_vector	*scalar_product(t_vector *vec, double n)
+{
+	double	x;
+	double	y;
+	double	z;
+
+	x = vec->x * n;
+	y = vec->y * n;
+	z = vec->z * n;
+	return (init_vector(x, y, z));
+}
+
 double		dot_product(t_vector *a, t_vector *b)
 {
 	double	dot;
