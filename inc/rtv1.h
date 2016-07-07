@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 05:24:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/07 05:41:21 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ typedef struct		 s_env
 	void			*img;
 	int				fd;			
 }					t_env;
+
+/* color */
+
+typedef struct		s_color
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_color;
 
 int	key_hook(int keycode, t_env *e);
 
@@ -45,6 +54,7 @@ typedef struct		s_sphere
 }					t_sphere;
 
 /*-------coord renvoyees*/
+
 typedef struct		s_coord
 {
    /* distance */
@@ -53,12 +63,6 @@ typedef struct		s_coord
 	int				bool;
 }					t_coord;
 
-typedef struct		s_color
-{
-	int				R;
-	int				G;
-	int				B;
-}					t_color;
 
 
 #endif
