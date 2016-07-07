@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 02:06:18 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/07 02:07:12 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ typedef struct		 s_env
 	int				pan_y;
 	int				depth;
 	int				smooth;
-	t_read			*read_map;
-	t_pos			***map;
 	int				max;
 	int				min;
 	int				center_x;
