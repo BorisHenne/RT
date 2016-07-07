@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 05:41:21 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/07 05:47:00 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct		s_coord
 {
    /* distance */
 	double			t;
-	t_color			color;
+	t_color			*color;
 	int				bool;
 }					t_coord;
 
