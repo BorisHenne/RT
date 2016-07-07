@@ -6,23 +6,23 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:40 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/07 06:44:28 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/07 21:50:06 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector.h>
 
-t_vector		*init_vector(double x, double y, double z)
+t_vec		*init_vector(double x, double y, double z)
 {
-	t_vector	*vec;
+	t_vec	*vec;
 
-	vec = (t_vector *)malloc(sizeof(t_vector));
+	vec = (t_vec*)malloc(sizeof(t_vec));
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;
 }
 
-double			get_length(t_vector *vec)
+double			get_length(t_vec*vec)
 {
 	double		x;
 	double		y;
@@ -35,7 +35,7 @@ double			get_length(t_vector *vec)
 }
 
 // La fonction pourrait egalement retourner un nouveau veteur noralise, a voir ...
-void			normalize(t_vector *vec)
+void			normalize(t_vec *vec)
 {
 	double		len;
 

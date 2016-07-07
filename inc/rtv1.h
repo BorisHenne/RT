@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 05:49:02 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/07 21:50:48 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 # include <mlx.h>
 # define ESCAPE	53
 
-typedef struct		 s_env
+typedef struct		s_env
 {
 	void			*mlx;
 	void			*win;
 	void			*img;
-	int				fd;			
+	int				fd;
 }					t_env;
 
-/* color */
+/*color*/
 
 typedef struct		s_color
 {
@@ -34,10 +34,16 @@ typedef struct		s_color
 	int				b;
 }					t_color;
 
+/*---Keyhook*/
+
 int	key_hook(int keycode, t_env *e);
 
+/*-----------------*/
 /*--------- objects*/
+/*-----------------*/
+
 /*---vectors*/
+
 typedef struct		s_vec
 {
 	double			x;
@@ -45,7 +51,17 @@ typedef struct		s_vec
 	double			z;
 }					t_vec;
 
-/*----sphere*/
+t_vec				*init_vector(double x, double y, double z);
+double				get_length(t_vec *vec);
+void				normalize(t_vec *vec);
+
+t_vec				*vec_add(t_vec *a, t_vec *b);
+t_vec				*vec_sub(t_vec *a, t_vec *b);
+t_vec				*cross_product(t_vec *a, t_vec *b);
+t_vec				*scalar_product(t_vec *vec, double n);
+double				dot_product(t_vec *a, t_vec *b);
+
+/*--------sphere*/
 
 typedef struct		s_sphere
 {
@@ -54,16 +70,36 @@ typedef struct		s_sphere
 	t_color			*color;
 }					t_sphere;
 
+/*------camera*/ 
+
+typedef	struct 		s_cam
+{
+	double			viewplaneWidth;
+	double			viewplaneHeight;
+	double			viewplaneDist;
+
+	t_vec			*camPos;
+	t_vec			*vecDir;
+	t_vec			*upVec;
+	t_vec			*rightVec;
+	t_vec			*viewplaneUpLeft;
+}					t_cam;
+
+/* target camera */
+
+typedef	struct		s_targetCam
+{
+	t_vec			*lookAtPoint;
+}					t_targetCam;
+
+
 /*-------coord renvoyees*/
 
 typedef struct		s_coord
 {
-   /* distance */
+/* distance */
 	double			t;
 	t_color			*color;
 	int				bool;
 }					t_coord;
-
-
-
 #endif
