@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/07 02:12:45 by sduprey          ###   ########.fr        #
+#    Updated: 2016/07/07 02:23:54 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ clean:
 	@echo $(RM_STR) objects
 
 fclean: clean
+	@make fclean -C libft
 	@$(RM) $(NAME)
 	@echo $(RM_STR) $(NAME)
 
