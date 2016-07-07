@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 21:50:48 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/08 01:28:40 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef	struct 		s_cam
 	double			viewplaneWidth;
 	double			viewplaneHeight;
 	double			viewplaneDist;
+	double			xRes;
+	double			yRes;
 
 	t_vec			*camPos;
 	t_vec			*vecDir;
@@ -91,6 +93,9 @@ typedef	struct		s_targetCam
 {
 	t_vec			*lookAtPoint;
 }					t_targetCam;
+
+/*virtual plan*/
+
 
 
 /*-------coord renvoyees*/
