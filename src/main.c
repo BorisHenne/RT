@@ -6,12 +6,13 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/07 01:05:45 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/07 02:04:04 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdlib.h>
+#include "rtv1.h"
 
 int	main(int ac, char** av)
 {
