@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/08 02:30:52 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/08 03:33:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@
 # include <mlx.h>
 # define ESCAPE	53
 
-typedef struct		s_env
-{
-	void			*mlx;
-	void			*win;
-	void			*img;
-	t_vec			pos_plan;
-	t_cam			cam;
-	int				fd;
-}					t_env;
-
 /*color*/
 
 typedef struct		s_color
@@ -35,10 +25,6 @@ typedef struct		s_color
 	int				g;
 	int				b;
 }					t_color;
-
-/*---Keyhook*/
-
-int	key_hook(int keycode, t_env *e);
 
 /*-----------------*/
 /*--------- objects*/
@@ -52,18 +38,6 @@ typedef struct		s_vec
 	double			y;
 	double			z;
 }					t_vec;
-
-t_vec				*init_vector(double x, double y, double z);
-double				get_length(t_vec *vec);
-void				normalize(t_vec *vec);
-
-void				*vec_add(t_vec *res, t_vec *a, t_vec *b);
-void				*vec_sub(t_vec *res, t_vec *a, t_vec *b);
-void       			mul_vec(t_vec *res, t_vec *a, t_vec *b);
-void				mul_vec_val(t_vec *res, t_vec *p, double val);
-t_vec				*cross_product(t_vec *a, t_vec *b);
-t_vec				*scalar_product(t_vec *vec, double n);
-double				dot_product(t_vec *a, t_vec *b);
 
 /*--------sphere*/
 
@@ -108,7 +82,6 @@ typedef	struct		s_targetCam
 /*virtual plan*/
 
 
-
 /*-------coord renvoyees*/
 
 typedef struct		s_coord
@@ -118,4 +91,37 @@ typedef struct		s_coord
 	t_color			*color;
 	int				bool;
 }					t_coord;
+
+typedef struct		s_env
+{
+	void			*mlx;
+	void			*win;
+	void			*img;
+	t_vec			pos_plan;
+	t_cam			cam;
+	int				fd;
+}					t_env;
+
+
+
+
+
+
+
+
+
+
+int	key_hook(int keycode, t_env *e);
+t_vec				*init_vector(double x, double y, double z);
+double				get_length(t_vec *vec);
+void				normalize(t_vec *vec);
+
+void				vec_add(t_vec *res, t_vec *a, t_vec *b);
+void				vec_sub(t_vec *res, t_vec *a, t_vec *b);
+void       			mul_vec(t_vec *res, t_vec *a, t_vec *b);
+void				mul_vec_val(t_vec *res, t_vec *p, double val);
+t_vec				*cross_product(t_vec *a, t_vec *b);
+t_vec				*scalar_product(t_vec *vec, double n);
+double				dot_product(t_vec *a, t_vec *b);
+
 #endif

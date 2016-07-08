@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/07 06:41:38 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/08 03:30:39 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ t_coord	is_hit(t_camera *cam, t_sphere *sphere)
 double	find_det(t_camera *cam, t_sphere *sphere, double *a, double *b)
 {
 	double c;
+	t_vec tmp;
+		
+	*a = dot_product(cam->dir, cam->dir);;
 
-	*a = pow(cam->dir.x, 2) + pow(cam->dir.y, 2) + pow(cam->dir.z, 2);
-	*b = 2.0 * (cam->dir.x * (cam->origin.x - sphere->center.x) +
-		cam->dir.y * (cam->origin.y - sphere->center.y) +
-		cam->dir.z * (cam->origin.z - sphere->center.z));
-	c = pow((cam->origin.x - sphere->center.x), 2) +
-		pow((cam->origin.y - sphere->center.y), 2) +
-		pow((cam->origin.z - sphere->center.z), 2) -
-		pow(sphere->radius, 2);
+	vec_sub(&tmp, sphere->center, cam->ori);
+	*b = 2.0 * dot_product(cam->dir, tmp);
+
+	vec_sub(&tmp, sphere->center, cam->ori)
+	c = dot_product(tmp, tmp) + pow(sphere->radius, 2);
 
 	return (pow(b, 2) - (4 * a * c));
 }
