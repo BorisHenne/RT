@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:21 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/09 00:04:51 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/09 00:09:25 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void init_cam(t_vec ori, t_vec look, t_vec init_vec, t_cam *cam)
 {
-	cam->ori = ori;
+	cam->ori = &ori;
 	t_vec *dir;
 	t_vec *norm_dir;
 	t_vec *vec_hor;
 	t_vec *vec_vert;
-	t_vec pos_init_plane;
+	t_vec *pos_init_plane;
 
 	vec_hor = (t_vec*)malloc(sizeof(t_vec));
 	vec_vert = (t_vec*)malloc(sizeof(t_vec));
@@ -28,11 +28,11 @@ void init_cam(t_vec ori, t_vec look, t_vec init_vec, t_cam *cam)
 	pos_init_plane = (t_vec*)malloc(sizeof(t_vec));
 
 	/*calcul et normalisation du vecteur directeur de la camera */
-	dir = sub_vec(look, ori);
+	dir = sub_vec(&look, &ori);
 	norm_dir = normalize(dir);
 
 	/*calcul vecteur unitaire horizontal et vertical du plan de la camera*/
-	vec_hor = mul_vec(init_vec, norm_dir);
+	vec_hor = mul_vec(&init_vec, norm_dir);
 	vec_vert = mul_vec(norm_dir, vec_hor);
 
 	cam->hor = vec_hor;
@@ -55,7 +55,7 @@ void init_cam(t_vec ori, t_vec look, t_vec init_vec, t_cam *cam)
 	vec_vert = mul_vec_val(vec_vert, (plane_height / 2.0));
 	vec_hor = mul_vec_val(vec_hor, (plane_width / 2.0));
 
-	pos_init_plane = add_vec(add_vec(ori, norm_dir), vec_vert);
+	pos_init_plane = add_vec(add_vec(&ori, norm_dir), vec_vert);
 	pos_init_plane = sub_vec(pos_init_plane, vec_hor);
 	
 	cam->pos_init_plane = pos_init_plane;

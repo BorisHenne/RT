@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/08 04:55:07 by nbelouni         ###   ########.fr        #
+#    Updated: 2016/07/09 00:05:45 by nbelouni         ###   ########.fr        #
 #    Updated: 2016/07/07 02:23:54 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -14,8 +14,13 @@
 NAME = rtv1
 
 SRC =	main.c \
-	events.c \
-	draw_scene.c \
+		camera.c \
+		draw_scene.c \
+		events.c \
+		sphere.c \
+		targetCamera.c \
+		vector.c \
+		vector_math.c \
 
 SRCDIR = src/
 

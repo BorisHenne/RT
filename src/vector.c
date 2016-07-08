@@ -6,20 +6,22 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:40 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/07 21:50:06 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/09 00:21:40 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <vector.h>
+#include "rtv1.h"
 
 t_vec		*init_vector(double x, double y, double z)
 {
 	t_vec	*vec;
 
-	vec = (t_vec*)malloc(sizeof(t_vec));
+	if (!(vec = (t_vec *)malloc(sizeof(t_vec))))
+		return (NULL);
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;
+	return (vec);
 }
 
 double			get_length(t_vec*vec)
@@ -34,18 +36,23 @@ double			get_length(t_vec*vec)
 	return (sqrt(x + y + z));
 }
 
-// La fonction pourrait egalement retourner un nouveau veteur noralise, a voir ...
-void			normalize(t_vec *vec)
-{
-	double		len;
-
-	len = get_length(vec);
-	if (len == 0.0f)
-	{
-		len = 1; //!\ HELP !!!
-	}
-	vec->x /= len; // a verifier si existe en C le /=, j'ai un doute ...
-	vec->y /= len;
-	vec->z /= len;
-	return ;
-}
+/*
+ *	Cette fonction a ete codee dans vector_math.c 
+ *	(fichier qui contient toutes les operations de vecteurs dont on a besoin en theorie)
+ *
+ * La fonction pourrait egalement retourner un nouveau veteur noralise, a voir ...
+ *void			normalize(t_vec *vec)
+ *{
+ *	double		len;
+ *
+ *	len = get_length(vec);
+ *	if (len == 0.0f)
+ *	{
+ *		len = 1; //!\ HELP !!!
+ *	}
+ *	vec->x /= len; // a verifier si existe en C le /=, j'ai un doute ...
+ *	vec->y /= len;
+ *	vec->z /= len;
+ *	return ;
+ *}
+ */

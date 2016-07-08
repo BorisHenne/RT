@@ -6,61 +6,28 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/08 03:30:39 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/09 00:21:43 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_coord	is_hit(t_camera *cam, t_sphere *sphere)
-{
-	t_coord hit;
-	double det;
-	double a;
-	double b;
-
-	/* calcul determinant */
-	det = find_det(cam, sphere, &a, &b);
-	if (det < 0)
-	{
-		/* pas de solution */
-		hit.bool = 0;
-		hit.t = 0;
-		hit->color.r = 0;
-		hit->color.g = 0;
-		hit->color.b = 0;
-	}
-	else if (det == 0)
-	{
-		/* une solution unique */
-		hit.bool = 1;
-		hit.t = (-b / (2 * a));
-		hit->color = sphere->color;
-	}
-	else
-	{
-		/* deux solutions */
-		hit.bool = 1;
-		hit.t = find_closest_hit(a, b, det);
-		hit->color = sphere->color;
-	}
-	return hit;
-}
-
-double	find_det(t_camera *cam, t_sphere *sphere, double *a, double *b)
+double	find_det(t_cam *cam, t_sphere *sphere, double *a, double *b)
 {
 	double c;
-	t_vec tmp;
-		
+	t_vec *tmp;
+
+	if (!(tmp = (t_vec *)malloc(sizeof(t_vec))))
+		return (0);
 	*a = dot_product(cam->dir, cam->dir);;
 
-	vec_sub(&tmp, sphere->center, cam->ori);
+	tmp = sub_vec(&(sphere->center), cam->ori);
 	*b = 2.0 * dot_product(cam->dir, tmp);
 
-	vec_sub(&tmp, sphere->center, cam->ori)
+	tmp = sub_vec(&(sphere->center), cam->ori);
 	c = dot_product(tmp, tmp) + pow(sphere->radius, 2);
 
-	return (pow(b, 2) - (4 * a * c));
+	return (pow(*b, 2) - (4 * (*a) * c));
 }
 
 double	find_closest_hit(double a, double b, double det)
@@ -75,4 +42,39 @@ double	find_closest_hit(double a, double b, double det)
 	if (t1 < 0 && t2 < 0)
 		return (t1 < t2 ? t2 : t1);
 	return (t1 < t2 ? t1 : t2);
+}
+
+t_coord	is_hit(t_cam *cam, t_sphere *sphere)
+{
+	t_coord hit;
+	double det;
+	double a;
+	double b;
+
+	/* calcul determinant */
+	det = find_det(cam, sphere, &a, &b);
+	if (det < 0)
+	{
+		/* pas de solution */
+		hit.bool = 0;
+		hit.t = 0;
+		hit.color->r = 0;
+		hit.color->g = 0;
+		hit.color->b = 0;
+	}
+	else if (det == 0)
+	{
+		/* une solution unique */
+		hit.bool = 1;
+		hit.t = (-b / (2 * a));
+		hit.color = sphere->color;
+	}
+	else
+	{
+		/* deux solutions */
+		hit.bool = 1;
+		hit.t = find_closest_hit(a, b, det);
+		hit.color = sphere->color;
+	}
+	return hit;
 }
