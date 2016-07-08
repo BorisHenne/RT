@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/09 00:04:38 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/09 01:20:41 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,9 @@ typedef struct		s_env
 
 
 
-
-
+t_coord				is_hit(t_cam *cam, t_sphere *sphere);
+t_vec				*calcul_vect_dir(int x, int y, t_cam *cam);
+void				init_cam(t_vec ori, t_vec look, t_vec init_vec, t_cam *cam);
 
 int	key_hook(int keycode, t_env *e);
 t_vec				*init_vector(double x, double y, double z);

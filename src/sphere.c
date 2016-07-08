@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/09 00:21:43 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/09 01:30:14 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,12 @@ t_coord	is_hit(t_cam *cam, t_sphere *sphere)
 	double a;
 	double b;
 
+	hit.color = (t_color *)malloc(sizeof(t_color));
 	/* calcul determinant */
 	det = find_det(cam, sphere, &a, &b);
 	if (det < 0)
 	{
+	//	ft_putendl("det < 0");
 		/* pas de solution */
 		hit.bool = 0;
 		hit.t = 0;
@@ -64,6 +66,7 @@ t_coord	is_hit(t_cam *cam, t_sphere *sphere)
 	}
 	else if (det == 0)
 	{
+	//	ft_putendl("det == 0");
 		/* une solution unique */
 		hit.bool = 1;
 		hit.t = (-b / (2 * a));
@@ -71,6 +74,7 @@ t_coord	is_hit(t_cam *cam, t_sphere *sphere)
 	}
 	else
 	{
+	/	ft_putendl("det > 0");
 		/* deux solutions */
 		hit.bool = 1;
 		hit.t = find_closest_hit(a, b, det);
