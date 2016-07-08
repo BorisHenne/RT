@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/08 01:28:40 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/08 02:30:52 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct		s_env
 	void			*mlx;
 	void			*win;
 	void			*img;
+	t_vec			pos_plan;
+	t_cam			cam;
 	int				fd;
 }					t_env;
 
@@ -55,8 +57,10 @@ t_vec				*init_vector(double x, double y, double z);
 double				get_length(t_vec *vec);
 void				normalize(t_vec *vec);
 
-t_vec				*vec_add(t_vec *a, t_vec *b);
-t_vec				*vec_sub(t_vec *a, t_vec *b);
+void				*vec_add(t_vec *res, t_vec *a, t_vec *b);
+void				*vec_sub(t_vec *res, t_vec *a, t_vec *b);
+void       			mul_vec(t_vec *res, t_vec *a, t_vec *b);
+void				mul_vec_val(t_vec *res, t_vec *p, double val);
 t_vec				*cross_product(t_vec *a, t_vec *b);
 t_vec				*scalar_product(t_vec *vec, double n);
 double				dot_product(t_vec *a, t_vec *b);
@@ -71,22 +75,29 @@ typedef struct		s_sphere
 }					t_sphere;
 
 /*------camera*/ 
-
-typedef	struct 		s_cam
+typedef struct		s_cam
 {
-	double			viewplaneWidth;
-	double			viewplaneHeight;
-	double			viewplaneDist;
-	double			xRes;
-	double			yRes;
-
-	t_vec			*camPos;
-	t_vec			*vecDir;
-	t_vec			*upVec;
-	t_vec			*rightVec;
-	t_vec			*viewplaneUpLeft;
+	t_vec			ori;
+	t_vec			dir;
+	t_vec			right;
+	t_vec			down;
 }					t_cam;
+/*
+   typedef	struct 		s_cam
+   {
+   double			viewplaneWidth;
+   double			viewplaneHeight;
+   double			viewplaneDist;
+   double			xRes;
+   double			yRes;
 
+   t_vec			*camPos;
+   t_vec			*vecDir;
+   t_vec			*upVec;
+   t_vec			*rightVec;
+   t_vec			*viewplaneUpLeft;
+   }					t_cam;
+   */
 /* target camera */
 
 typedef	struct		s_targetCam
@@ -102,7 +113,7 @@ typedef	struct		s_targetCam
 
 typedef struct		s_coord
 {
-/* distance */
+	/* distance */
 	double			t;
 	t_color			*color;
 	int				bool;
