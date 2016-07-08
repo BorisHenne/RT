@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/08 07:13:06 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/08 08:13:58 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		draw_scene(t_env *env)
 		y = -1;
 		while (++y < HEIGHT)
 		{
-			put_pixel_on_image(env->img, x, y, 0xff0000);
+			put_pixel_on_image(env->img, x, y, 0x444444);
 		}
 	}
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
