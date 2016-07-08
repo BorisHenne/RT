@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/08 08:25:13 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/09 00:04:38 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,10 @@ int	key_hook(int keycode, t_env *e);
 t_vec				*init_vector(double x, double y, double z);
 double				get_length(t_vec *vec);
 
-void				add_vec(t_vec *res, t_vec *a, t_vec *b);
-void				sub_vec(t_vec *res, t_vec *a, t_vec *b);
-void       			mul_vec(t_vec *res, t_vec *a, t_vec *b);
-void				mul_vec_val(t_vec *res, t_vec *p, double val);
+t_vec				*add_vec(t_vec *a, t_vec *b);
+t_vec				*sub_vec(t_vec *a, t_vec *b);
+t_vec				*mul_vec(t_vec *a, t_vec *b);
+t_vec				*mul_vec_val(t_vec *p, double val);
 t_vec				*cross_product(t_vec *a, t_vec *b);
 t_vec				*scalar_product(t_vec *vec, double n);
 double				dot_product(t_vec *a, t_vec *b);
