@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 02:08:38 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/07 23:42:55 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/08 07:12:46 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	key_hook(int keycode, t_env *e)
 	// si appuie sur "echp" on quitte le programme
 	if (keycode == ESCAPE)
 		exit(0);
-	//mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 	return (0);
 }
 

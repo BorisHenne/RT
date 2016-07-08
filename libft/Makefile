@@ -12,7 +12,7 @@
 
 NAME = libft.a
 
-SRC = ft_putstr.c
+SRC = ft_putstr.c ft_putendl.c ft_putchar.c ft_putnbr.c
 
 NO_COLOR = "\033[0;0m"
 CC_COLOR = "\033[0;33m"

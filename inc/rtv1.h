@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/08 03:33:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/08 04:54:21 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 # include <math.h>
 # include <stdlib.h>
 # include <mlx.h>
+# include <libft.h>
 # define ESCAPE	53
+
+# define WIDTH	640
+# define HEIGHT 480
 
 /*color*/
 
@@ -123,5 +127,6 @@ void				mul_vec_val(t_vec *res, t_vec *p, double val);
 t_vec				*cross_product(t_vec *a, t_vec *b);
 t_vec				*scalar_product(t_vec *vec, double n);
 double				dot_product(t_vec *a, t_vec *b);
+int					draw_scene(t_env *env);
 
 #endif

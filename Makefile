@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/07 03:13:42 by bhenne           ###   ########.fr        #
+#    Updated: 2016/07/08 04:55:07 by nbelouni         ###   ########.fr        #
 #    Updated: 2016/07/07 02:23:54 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -15,6 +15,7 @@ NAME = rtv1
 
 SRC =	main.c \
 	events.c \
+	draw_scene.c \
 
 SRCDIR = src/
 
@@ -24,13 +25,15 @@ OBJ = $(SRC:%.c=$(OBJDIR)%.o)
 
 CC = clang
 
-INC = -I ./inc -I libft/includes
+INC = -I ./inc -I libft
 
 LIB = -L libft -lft
 
 FLAGS = -Wall -Werror -Wextra
 
 RM = rm -rf
+
+C_FLAGS= -Wall -Werror -Wextra
 
 MLX_FLAGS = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
 
