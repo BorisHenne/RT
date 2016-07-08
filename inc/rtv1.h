@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/08 08:21:29 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/08 08:25:13 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ typedef struct		s_sphere
 /*------camera*/ 
 typedef struct		s_cam
 {
-	t_vec			ori;
-	t_vec			dir;
-	t_vec			right;
-	t_vec			down;
+	t_vec			*ori;
+	t_vec			*dir;
+	t_vec			*hor;
+	t_vec			*vert;
+	t_vec			*pos_init_plane;
 }					t_cam;
 /*
    typedef	struct 		s_cam
@@ -119,8 +120,8 @@ int	key_hook(int keycode, t_env *e);
 t_vec				*init_vector(double x, double y, double z);
 double				get_length(t_vec *vec);
 
-void				vec_add(t_vec *res, t_vec *a, t_vec *b);
-void				vec_sub(t_vec *res, t_vec *a, t_vec *b);
+void				add_vec(t_vec *res, t_vec *a, t_vec *b);
+void				sub_vec(t_vec *res, t_vec *a, t_vec *b);
 void       			mul_vec(t_vec *res, t_vec *a, t_vec *b);
 void				mul_vec_val(t_vec *res, t_vec *p, double val);
 t_vec				*cross_product(t_vec *a, t_vec *b);
