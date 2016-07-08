@@ -6,13 +6,14 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 02:18:07 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/08 03:30:45 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/08 07:50:15 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void		vec_add(t_vec *res, t_vec *a, t_vec *b)
+//addition de 2 vecteurs (a + b)
+void	add_vec(t_vec *res, t_vec *a, t_vec *b)
 {
 	if(!res || !a || !b)
 		return ;
@@ -21,7 +22,8 @@ void		vec_add(t_vec *res, t_vec *a, t_vec *b)
 	res->z = a->z + b->z;
 }
 
-void	vec_sub(t_vec *res, t_vec *a, t_vec *b)
+// soustraction de 2 vecteurs (a - b)
+void	sub_vec(t_vec *res, t_vec *a, t_vec *b)
 {
 	if(!res || !a || !b)
 		return ;
@@ -30,20 +32,18 @@ void	vec_sub(t_vec *res, t_vec *a, t_vec *b)
 	res->z = b->z - a->z;
 }
 
+// multiplication de 2 vecteurs (a * b)
+// = cross product = produit vectoriel
 void	mul_vec(t_vec *res, t_vec *a, t_vec *b)
 {
-	t_vec	tmp;
-
 	if (!res || !a || !b)
 		return ;
-	tmp.x = a->x;
-	tmp.y = a->y;
-	tmp.z = a->z;
-	res->x = tmp.y * b->z - tmp.z * b->y;
-	res->y = tmp.z * b->x - tmp.x * b->z;
-	res->z = tmp.x * b->y - tmp.y * b->x;
+	res->x = a->y * b->z - a->z * b->y;
+	res->y = a->z * b->x - a->x * b->z;
+	res->z = a->x * b->y - a->y * b->x;
 }
 
+// multiplication d'un vecteur par un reel (ex: 5 * a)
 void	mul_vec_val(t_vec *res, t_vec *p, double val)
 {
 	if (!res || !p)
@@ -53,24 +53,32 @@ void	mul_vec_val(t_vec *res, t_vec *p, double val)
 	res->z = p->z * val;
 }
 
+// produit scalaire d'un vecteur (angle entre les 2 vecteurs)
 double		dot_product(t_vec *a, t_vec *b)
 {
 	return (a->x * b->x + a->y * b->y + a->z * b->z);
 }
 
+//normalisation d'un vecteur (le mettre dans un repere connu)
+t_vec	*normalize(t_vec *vec)
+{
+	double a;
+	double b;
+	double c;
+	double norm;
+	t_vec vec_norm;
+
+	a = pow(vec.x, 2);
+	b = pow(vec.y, 2);
+	c = pow(vec.z, 2);
+	norm = sqrt(a + b + c);
+	
+	vec_norm.x = vec.x / norm;
+	vec_norm.y = vec.y / norm;
+	vec_norm.z = vec.z / norm;
+}
+
 /*
-   t_vector	cross_product(t_vector *a, t_vector *b)
-   {
-   double	x;
-   double	y;
-   double	z;
-
-   x = (a->y * b->z) - (a->z * b->y);
-   y = (a->z * b->x) - (a->x * b->z);
-   z = (a->x * b->y) - (a->y * b->x);
-   return (init_vector(x, y, z));
-   }
-
    t_vector	*scalar_product(t_vector *vec, double n)
    {
    double	x;

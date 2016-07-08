@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/08 08:12:27 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/08 08:21:29 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ typedef struct		s_env
 int	key_hook(int keycode, t_env *e);
 t_vec				*init_vector(double x, double y, double z);
 double				get_length(t_vec *vec);
-void				normalize(t_vec *vec);
 
 void				vec_add(t_vec *res, t_vec *a, t_vec *b);
 void				vec_sub(t_vec *res, t_vec *a, t_vec *b);
