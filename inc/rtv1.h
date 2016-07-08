@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/08 04:54:21 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/08 08:12:27 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ t_vec				*cross_product(t_vec *a, t_vec *b);
 t_vec				*scalar_product(t_vec *vec, double n);
 double				dot_product(t_vec *a, t_vec *b);
 int					draw_scene(t_env *env);
+t_vec				*normalize(t_vec *vec);
 
 #endif
