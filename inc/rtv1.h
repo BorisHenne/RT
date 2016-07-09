@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/09 23:53:19 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/09 23:59:11 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 
 # include <math.h>
 # include <stdlib.h>
+
 # include <mlx.h>
 # include <libft.h>
-# include "camera.h"
-# include "vector.h"
-# include "objects.h"
+
+# include <camera.h>
+# include <vector.h>
+# include <objects.h>
+# include <node.h>
 
 # define ESCAPE	53
 # define WIDTH	640
