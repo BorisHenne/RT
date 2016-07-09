@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1.h                                             :+:      :+:    :+:   */
+/*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/09 23:53:19 by bhenne           ###   ########.fr       */
+/*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
+/*   Updated: 2016/07/09 23:52:18 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _RTV1_H
-# define _RTV1_H
-
-# include <math.h>
-# include <stdlib.h>
-# include <mlx.h>
-# include <libft.h>
-# include "camera.h"
+#ifndef _OBJECTS_H
+# define _OBJECTS_H
+# include "rtv1.h"
 # include "vector.h"
-# include "objects.h"
+# include "camera.h"
 
-# define ESCAPE	53
-# define WIDTH	640
-# define HEIGHT 480
-
-typedef struct		s_env
+typedef struct		s_color
 {
-	void			*mlx;
-	void			*win;
-	void			*img;
-	t_vec			pos_plan;
-	t_cam			cam;
-	int				fd;
-}					t_env;
+	int				r;
+	int				g;
+	int				b;
+}					t_color;
 
-int					key_hook(int keycode, t_env *e);
-int					draw_scene(t_env *env);
+/*--------sphere*/
+
+typedef struct		s_sphere
+{
+	double			radius;
+	t_vec			center; 
+	t_color			*color;
+}					t_sphere;
+
 #endif
