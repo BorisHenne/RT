@@ -30,9 +30,9 @@ OBJ = $(SRC:%.c=$(OBJDIR)%.o)
 
 CC = clang
 
-INC = -I ./inc -I libft
+INC = -I ./inc -I libft -I mlx
 
-LIB = -L libft -lft
+LIB = -L libft -lft -L mlx -lmlx
 
 FLAGS = -Wall -Werror -Wextra
 
@@ -40,7 +40,7 @@ RM = rm -rf
 
 C_FLAGS= -Wall -Werror -Wextra
 
-MLX_FLAGS = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -L/usr/local/lib -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
 
 all: lft $(NAME)
 
