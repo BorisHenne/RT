@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:21 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/09 05:13:25 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/09 23:56:26 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,10 @@ void init_cam(t_vec ori, t_vec look, t_vec init_vec, t_cam *cam)
 	vec_vert = mul_vec(norm_dir, vec_hor);
 
 	cam->hor = (t_vec *)malloc(sizeof(t_vec));
-	cam->hor->x = vec_hor->x;
-	cam->hor->y = vec_hor->y;
-	cam->hor->z = vec_hor->z;
 	cam->vert = (t_vec *)malloc(sizeof(t_vec));
-	cam->vert->x = vec_vert->x;
-	cam->vert->y = vec_vert->y;
-	cam->vert->z = vec_vert->z;
+
+	cam->hor = vec_hor;
+	cam->vert = vec_vert;
 
 	/* calcul du vecteur de position initial (m_viewPlaneUpLeft dans le .cpp) */
 	double plane_dist;
