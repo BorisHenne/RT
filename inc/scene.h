@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   node.c                                             :+:      :+:    :+:   */
+/*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/09 23:50:11 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/10 01:52:19 by sduprey          ###   ########.fr       */
+/*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
+/*   Updated: 2016/07/10 01:52:16 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rtv1.h>
-#include <stdio.h>
+#ifndef SCENE_H
+# define SCENE_H
 
-#define CAMERA 1
-
-t_node		*init_node(int type, void *data)
+typedef struct	s_scene
 {
-	t_node	*node;
+	t_cam		*cam;
+	int			xRes;
+	int			yRes;
+	t_node		*nodes;
+}				t_scene;
 
-	node = (t_node *)malloc(sizeof(t_node));
-	node->type = type;
-	node->data = data;
-	return (node);
-}
+t_scene			*init_scene(t_cam *cam, int xRes, int yRes);
 
-int			main(void)
-{
-	t_vec	*ori;
-	t_vec	*look;
-	t_node	*node;
-	t_cam	*cam;
-
-	cam = inti_cam();
-	node = init_node(CAMERA, cam);
-	return (0);
-}
+#endif
