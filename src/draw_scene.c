@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/09 01:24:32 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/09 05:13:46 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ int         put_pixel_on_image(void *img, int x, int y, t_color *color)
 	i = x * bpp + y * sl;
 	if (x >= WIDTH || y >= HEIGHT)
 		return (0);
-	data[i] = color->r;
+	data[i] = color->b;
 	data[i + 1] = color->g;
-	data[i + 2] = color->b;
+	data[i + 2] = color->r;
 	return (0);
 }
 
+//#include <stdio.h>
 int		draw_scene(t_env *env)
 {
 	int		x;
@@ -37,25 +38,25 @@ int		draw_scene(t_env *env)
 
 	t_vec ori;
 	ori.x = 0.0;
-	ori.y = 1.0;
+	ori.y = 0.0;
 	ori.z = 0.0;
 	t_vec look;
-	look.x = 1.0;
+	look.x = 0.0;
 	look.y = 0.0;
-	look.z = 0.0;
+	look.z = 1.0;
 	t_vec init_vec;
 	init_vec.x = 0.0;
-	init_vec.y = 0.0;
+	init_vec.y = 1.0;
 	init_vec.z = 0.0;
 	t_cam cam;
 	
 	init_cam(ori, look, init_vec, &cam);
 	
 	t_sphere	sphere;
-	sphere.radius = 2.2;
-	sphere.center.x = 1.0;
-	sphere.center.y = 1.0;
-	sphere.center.z = 1.0;
+	sphere.radius = 4.0;
+	sphere.center.x = 0.0;
+	sphere.center.y = 0.0;
+	sphere.center.z = 10.0;
 	if (!(sphere.color = (t_color *)malloc(sizeof(t_color))))
 		return (-1);
 	sphere.color->r = 123;
@@ -69,7 +70,8 @@ int		draw_scene(t_env *env)
 		y = -1;
 		while (++y < HEIGHT)
 		{
-			calcul_vect_dir(x, y, &cam);
+			cam.dir = calcul_vect_dir(x, y, &cam);
+//			printf("cam.dir : x = %f, y = %f, z = %f\n", cam.dir->x, cam.dir->y, cam.dir->z);
 			drawn_pixel = is_hit(&cam, &sphere);
 			put_pixel_on_image(env->img, x, y, drawn_pixel.color);
 		}

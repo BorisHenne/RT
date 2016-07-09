@@ -13,4 +13,6 @@ ________________________
 .plusieurs sources de lumiere
 .Brillance
 
-
+Infos:
+- tous les calculs vectoriels (vector_math.c) omt ete modifies
+- se rappeler que dans sub_vec(a, b) , 'a' est soustrait a 'b' => b - a 

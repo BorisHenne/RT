@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:21 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/09 00:09:25 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/09 05:13:25 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ void init_cam(t_vec ori, t_vec look, t_vec init_vec, t_cam *cam)
 	vec_hor = mul_vec(&init_vec, norm_dir);
 	vec_vert = mul_vec(norm_dir, vec_hor);
 
-	cam->hor = vec_hor;
-	cam->vert = vec_vert;
+	cam->hor = (t_vec *)malloc(sizeof(t_vec));
+	cam->hor->x = vec_hor->x;
+	cam->hor->y = vec_hor->y;
+	cam->hor->z = vec_hor->z;
+	cam->vert = (t_vec *)malloc(sizeof(t_vec));
+	cam->vert->x = vec_vert->x;
+	cam->vert->y = vec_vert->y;
+	cam->vert->z = vec_vert->z;
 
 	/* calcul du vecteur de position initial (m_viewPlaneUpLeft dans le .cpp) */
 	double plane_dist;
@@ -85,10 +91,11 @@ t_vec	*calcul_vect_dir(int x, int y, t_cam *cam)
 	/* correspond a : 
 	 ** m_viewPlaneUpLeft + m_rightVec*xIndent*x -  m_upVec*yIndent*y - GetPosition();
 	 */
+	//calcul errone -> trouver le bon calcul
 	res = mul_vec_val(cam->hor, (x_indent * (double)x));
 	tmp = mul_vec_val(cam->vert, (y_indent * (double)y));
 	res = add_vec(res, cam->pos_init_plane);
-	res = sub_vec(res, tmp);
+	res = sub_vec(tmp, res);
 	res = sub_vec(res, cam->ori);
 
 	return (res);
