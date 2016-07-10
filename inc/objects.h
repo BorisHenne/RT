@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/10 00:04:14 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/10 03:11:25 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,16 @@ typedef struct		s_sphere
 	t_vec			*center; 
 	t_color			*color;
 }					t_sphere;
+
+/*
+ * Plan
+ * */
+
+typedef struct		s_plan
+{
+	t_vec			*pos;
+	t_vec			*normal;
+	t_color			*color;					
+}					t_plan;
 
 #endif

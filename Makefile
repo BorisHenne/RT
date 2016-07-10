@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/09 00:05:45 by nbelouni         ###   ########.fr        #
+#    Updated: 2016/07/10 04:14:10 by bhenne           ###   ########.fr        #
 #    Updated: 2016/07/07 02:23:54 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -18,6 +18,7 @@ SRC =	main.c \
 		draw_scene.c \
 		events.c \
 		sphere.c \
+		plane.c \
 		targetCamera.c \
 		vector.c \
 		vector_math.c \

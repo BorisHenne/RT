@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/10 02:21:07 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/10 04:29:41 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,25 @@ int		draw_scene(t_env *env)
 	sphere.color->r = 123;
 	sphere.color->g = 0;
 	sphere.color->b = 0;
+	
+	t_plan		plan;
+	if(!(plan.pos = (t_vec *)malloc(sizeof(t_vec))))
+		return(-1);	
+	plan.pos->x = -2.0;
+	plan.pos->y = -1.0;
+	plan.pos->z = 0.0;	
+	if(!(plan.normal = (t_vec *)malloc(sizeof(t_vec))))
+		return(-1);
+	plan.normal->x = 1.0;
+	plan.normal->y = 1.0;
+	plan.normal->z = 1.0;
+	if (!(plan.color = (t_color *)malloc(sizeof(t_color))))
+		return(-1);
+	plan.color->r = 0;
+	plan.color->g = 0;
+	plan.color->b = 123;
+
+
 
 	t_coord		drawn_pixel;
 	(void)drawn_pixel;
@@ -75,8 +94,9 @@ int		draw_scene(t_env *env)
 		{
 			cam.dir = calcul_vect_dir(x, y, &cam);
 //			printf("\ncam.dir : x = %f, y = %f, z = %f\n", cam.dir->x, cam.dir->y, cam.dir->z);
-			drawn_pixel = is_hit(&cam, &sphere);
-			if (drawn_pixel.bool == 1)
+		//1	1drawn_pixel = is_sphere_hit(&cam, &sphere);
+			drawn_pixel = is_plane_hit(&cam, &plan);
+			if (drawn_pixel.bool == 1 && drawn_pixel.t < 0.5)
 				put_pixel_on_image(env->img, x, y, drawn_pixel.color);
 			else
 			{

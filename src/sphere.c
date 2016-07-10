@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/10 03:33:21 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/10 04:02:26 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_coord	is_sphere_hit(t_cam *cam, t_sphere *sphere)
 	/* calcul determinant */
 	if (sphere->radius > 0.0)
 	{
-		det = find_det(cam, sphere, &a, &b);
+		det = find_sphere_det(cam, sphere, &a, &b);
 		if (det == 0)
 		{
 			/* une solution unique */
@@ -71,9 +71,9 @@ t_coord	is_sphere_hit(t_cam *cam, t_sphere *sphere)
 		{
 			/* deux solutions */
 			hit.bool = 1;
-			hit.t = find_closest_hit(a, b, det);
+			hit.t = find_sphere_closest_hit(a, b, det);
 			hit.color = sphere->color;
 		}
 	}
-	return hit;
+	return (hit);
 }
