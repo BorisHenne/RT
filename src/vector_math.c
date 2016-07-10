@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 02:18:07 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/09 00:26:43 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/10 02:00:29 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_vec	*mul_vec(t_vec *a, t_vec *b)
 
 	if (!(res = (t_vec *)malloc(sizeof(t_vec))))
 		return (NULL);
-	if(!a || !b)
+	if (!a || !b)
 		return (NULL);
 	res->x = a->y * b->z - a->z * b->y;
 	res->y = a->z * b->x - a->x * b->z;
@@ -65,7 +65,7 @@ t_vec	*mul_vec_val(t_vec *p, double val)
 
 	if (!(res = (t_vec *)malloc(sizeof(t_vec))))
 		return (NULL);
-	if(!p)
+	if (!p)
 		return (NULL);
 	res->x = p->x * val;
 	res->y = p->y * val;
