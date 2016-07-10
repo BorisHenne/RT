@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/10 01:52:18 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/10 03:35:35 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <libft.h>
 
 # include <camera.h>
+# include <camera2.h>
 # include <vector.h>
 # include <objects.h>
 # include <node.h>

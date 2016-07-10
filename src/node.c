@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:50:11 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/10 03:06:15 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/10 03:19:18 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			main(void)
 	look = init_vector(0.0f, 0.0f, 0.0f);
 	init_vec = init_vector(0.0f, 0.0f, 0.0f);
 
-	cam = init_cam(ori, look, init_vec, cam);
+	cam = init_cam(&ori, look, init_vec, cam);
 	//node = init_node(CAMERA, cam);
 	return (0);
 }

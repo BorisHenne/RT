@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:21 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/10 01:18:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/10 06:42:08 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void init_cam(t_vec ori, t_vec look, t_vec init_vec, t_cam *cam)
 	double plane_height;
 	double plane_width;
 
-	plane_dist = 1.0;
-	plane_height = 0.35;
-	plane_width = 0.5;
+	plane_dist = 1.0f;
+	plane_height = 0.35f;
+	plane_width = 0.5f;
 
 	/* correspond a :
 	 **  camPos + ((m_vecDir*m_viewplaneDist) + (m_upVec*(m_viewplaneHeight/2.0f)))
