@@ -6,12 +6,12 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/09 23:57:38 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/10 02:00:26 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NODE_H
-# define NODE_H
+#ifndef _NODE_H
+# define _NODE_H
 
 typedef struct	s_node
 {
