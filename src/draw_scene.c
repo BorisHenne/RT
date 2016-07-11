@@ -6,12 +6,12 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/10 04:29:41 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/12 00:43:12 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-int         put_pixel_on_image(void *img, int x, int y, t_color *color)
+int         put_pixel_on_image(void *img, int x, int y, t_color color)
 {
 	char    *data;
 	int     i;
@@ -24,9 +24,9 @@ int         put_pixel_on_image(void *img, int x, int y, t_color *color)
 	i = x * bpp + y * sl;
 	if (x >= WIDTH || y >= HEIGHT)
 		return (0);
-	data[i] = color->b;
-	data[i + 1] = color->g;
-	data[i + 2] = color->r;
+	data[i] = color.b;
+	data[i + 1] = color.g;
+	data[i + 2] = color.r;
 	return (0);
 }
 
@@ -50,39 +50,31 @@ int		draw_scene(t_env *env)
 	init_vec.z = 0.0;
 	t_cam cam;
 	
-	init_cam(ori, look, init_vec, &cam);
+	cam = init_camera(ori, look, init_vec);
 	
 	t_sphere	sphere;
 	sphere.radius = 0.5;
-	if (!(sphere.center = (t_vec *)malloc(sizeof(t_vec))))
-		return (-1);
-	sphere.center->x = -1.0;
-	sphere.center->y = 0.0;
-	sphere.center->z = 20.0;
-	if (!(sphere.color = (t_color *)malloc(sizeof(t_color))))
-		return (-1);
-	sphere.color->r = 123;
-	sphere.color->g = 0;
-	sphere.color->b = 0;
-	
+	sphere.center.x = -1.0;
+	sphere.center.y = 0.0;
+	sphere.center.z = 20.0;
+	sphere.color.r = 123;
+	sphere.color.g = 0;
+	sphere.color.b = 0;
+	/*
 	t_plan		plan;
-	if(!(plan.pos = (t_vec *)malloc(sizeof(t_vec))))
-		return(-1);	
-	plan.pos->x = -2.0;
-	plan.pos->y = -1.0;
-	plan.pos->z = 0.0;	
-	if(!(plan.normal = (t_vec *)malloc(sizeof(t_vec))))
-		return(-1);
-	plan.normal->x = 1.0;
-	plan.normal->y = 1.0;
-	plan.normal->z = 1.0;
+	plan.pos.x = -2.0;
+	plan.pos.y = -1.0;
+	plan.pos.z = 0.0;	
+	plan.norma.x = 1.0;
+	plan.norma.y = 1.0;
+	plan.normal.z = 1.0;
 	if (!(plan.color = (t_color *)malloc(sizeof(t_color))))
 		return(-1);
 	plan.color->r = 0;
 	plan.color->g = 0;
 	plan.color->b = 123;
 
-
+*/
 
 	t_coord		drawn_pixel;
 	(void)drawn_pixel;
@@ -92,18 +84,13 @@ int		draw_scene(t_env *env)
 		y = -1;
 		while (++y < HEIGHT)
 		{
-			cam.dir = calcul_vect_dir(x, y, &cam);
-//			printf("\ncam.dir : x = %f, y = %f, z = %f\n", cam.dir->x, cam.dir->y, cam.dir->z);
-		//1	1drawn_pixel = is_sphere_hit(&cam, &sphere);
-			drawn_pixel = is_plane_hit(&cam, &plan);
+			cam.dir = calc_vec_dir(x, y, cam);
+			drawn_pixel = is_sphere_hit(cam, sphere);
 			if (drawn_pixel.bool == 1 && drawn_pixel.t < 0.5)
 				put_pixel_on_image(env->img, x, y, drawn_pixel.color);
 			else
 			{
-				t_color *test;
-				test = (t_color *)malloc(sizeof(t_color));
-				test->r = test->g = test->b = 0;
-				put_pixel_on_image(env->img, x, y, test);
+				put_pixel_on_image(env->img, x, y, drawn_pixel.color);
 			}
 		}
 	}

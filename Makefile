@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/12 00:29:44 by sduprey          ###   ########.fr        #
+#    Updated: 2016/07/12 00:44:15 by tlepeche         ###   ########.fr        #
 #    Updated: 2016/07/07 02:23:54 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -18,8 +18,6 @@ SRC =	main.c \
 		draw_scene.c \
 		events.c \
 		sphere.c \
-		plane.c \
-		targetCamera.c \
 		vector.c \
 		vector_math.c \
 
@@ -31,9 +29,9 @@ OBJ = $(SRC:%.c=$(OBJDIR)%.o)
 
 CC = clang
 
-INC = -I ./inc -I libft -I mlx
+INC = -I ./inc -I libft
 
-LIB = -L libft -lft -L mlx -lmlx
+LIB = -L libft -lft
 
 FLAGS = -Wall -Werror -Wextra
 

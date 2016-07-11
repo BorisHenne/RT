@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/10 03:11:25 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/11 23:42:20 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define _OBJECTS_H
 # include "rtv1.h"
 # include "vector.h"
-# include "camera.h"
+# include "camera2.h"
 
 typedef struct		s_color
 {

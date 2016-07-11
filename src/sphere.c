@@ -6,25 +6,23 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/10 04:02:26 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/12 00:41:14 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-double	find_sphere_det(t_cam *cam, t_sphere *sphere, double *a, double *b)
+double	find_sphere_det(t_cam cam, t_sphere sphere, double *a, double *b)
 {
 	double c;
-	t_vec *tmp;
+	t_vec tmp;
 
-	if (!(tmp = (t_vec *)malloc(sizeof(t_vec))))
-		return (0);
-	*a = dot_product(cam->dir, cam->dir);;
+	*a = dot_product(cam.dir, cam.dir);;
 
-	tmp = sub_vec(cam->ori, sphere->center);
-	*b = 2.0 * dot_product(cam->dir, tmp);
+	tmp = vec_sub(cam.pos, sphere.center);
+	*b = 2.0 * dot_product(cam.dir, tmp);
 
-	c = dot_product(tmp, tmp) - pow(sphere->radius, 2);
+	c = dot_product(tmp, tmp) - pow(sphere.radius, 2);
 
 	return (pow(*b, 2) - (4 * (*a) * c));
 }
@@ -43,21 +41,20 @@ double	find_sphere_closest_hit(double a, double b, double det)
 	return (t1 < t2 ? t1 : t2);
 }
 
-t_coord	is_sphere_hit(t_cam *cam, t_sphere *sphere)
+t_coord	is_sphere_hit(t_cam cam, t_sphere sphere)
 {
 	t_coord hit;
 	double det;
 	double a;
 	double b;
 
-	hit.color = (t_color *)malloc(sizeof(t_color));
 	hit.bool = 0;
 	hit.t = 0;
-	hit.color->r = 0;
-	hit.color->g = 0;
-	hit.color->b = 0;
+	hit.color.r = 0;
+	hit.color.g = 0;
+	hit.color.b = 0;
 	/* calcul determinant */
-	if (sphere->radius > 0.0)
+	if (sphere.radius > 0.0)
 	{
 		det = find_sphere_det(cam, sphere, &a, &b);
 		if (det == 0)
@@ -65,14 +62,14 @@ t_coord	is_sphere_hit(t_cam *cam, t_sphere *sphere)
 			/* une solution unique */
 			hit.bool = 1;
 			hit.t = (-b / (2 * a));
-			hit.color = sphere->color;
+			hit.color = sphere.color;
 		}
 		else if (det > 0)
 		{
 			/* deux solutions */
 			hit.bool = 1;
 			hit.t = find_sphere_closest_hit(a, b, det);
-			hit.color = sphere->color;
+			hit.color = sphere.color;
 		}
 	}
 	return (hit);
