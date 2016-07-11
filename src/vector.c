@@ -41,7 +41,6 @@ t_vec		normalize(t_vec vec)
 	double	len;
 
 	len = get_length(vec);
-	printf("len: %f\n", len);
 	if (len == 0.0f)
 	{
 		len = 1; //!\ HELP !!!

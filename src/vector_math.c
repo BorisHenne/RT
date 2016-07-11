@@ -54,8 +54,5 @@ t_vec		cross_product(t_vec a, t_vec b)
 
 double		dot_product(t_vec a, t_vec b)
 {
-	t_vec	res;
-
-	dot = (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
-	return (res);
+	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
 }

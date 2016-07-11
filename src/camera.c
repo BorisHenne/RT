@@ -5,95 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/07 05:31:21 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/10 06:42:08 by sduprey          ###   ########.fr       */
+/*   Created: 2016/07/10 03:20:20 by sduprey           #+#    #+#             */
+/*   Updated: 2016/07/10 07:12:41 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h" 
+#include <rtv1.h>
 
-void init_cam(t_vec ori, t_vec look, t_vec init_vec, t_cam *cam)
+t_vec		calc_vec_init(t_cam cam)
 {
-	cam->ori = &ori;
-	t_vec *dir;
-	t_vec *norm_dir;
-	t_vec *vec_hor;
-	t_vec *vec_vert;
-	t_vec *pos_init_plane;
-
-	vec_hor = (t_vec*)malloc(sizeof(t_vec));
-	vec_vert = (t_vec*)malloc(sizeof(t_vec));
-	dir = (t_vec*)malloc(sizeof(t_vec));
-	norm_dir = (t_vec*)malloc(sizeof(t_vec));
-	pos_init_plane = (t_vec*)malloc(sizeof(t_vec));
-
-	/*calcul et normalisation du vecteur directeur de la camera */
-	dir = sub_vec(&look, &ori);
-	norm_dir = normalize(dir);
-
-	/*calcul vecteur unitaire horizontal et vertical du plan de la camera*/
-	vec_hor = mul_vec(&init_vec, norm_dir);
-	vec_vert = mul_vec(norm_dir, vec_hor);
-
-	cam->hor = (t_vec *)malloc(sizeof(t_vec));
-	cam->vert = (t_vec *)malloc(sizeof(t_vec));
-
-	cam->hor = vec_hor;
-	cam->vert = vec_vert;
-
-	/* calcul du vecteur de position initial (m_viewPlaneUpLeft dans le .cpp) */
-	double plane_dist;
-	double plane_height;
-	double plane_width;
-
-	plane_dist = 1.0f;
-	plane_height = 0.35f;
-	plane_width = 0.5f;
-
-	/* correspond a :
-	 **  camPos + ((m_vecDir*m_viewplaneDist) + (m_upVec*(m_viewplaneHeight/2.0f)))
-	 ** -(m_rightVec*(m_viewplaneWidth/2.0f))
-	 */
-	norm_dir = mul_vec_val(norm_dir, plane_dist);
-	vec_vert = mul_vec_val(vec_vert, (plane_height / 2.0));
-	vec_hor = mul_vec_val(vec_hor, (plane_width / 2.0));
-
-	pos_init_plane = add_vec(add_vec(&ori, norm_dir), vec_vert);
-	pos_init_plane = sub_vec(pos_init_plane, vec_hor);
+	t_vec	dir;
+	t_vec	ver;
+	t_vec	hor;
 	
-	cam->pos_init_plane = pos_init_plane;
+	dir = scalar_product(cam.dir, cam.d);
+	ver = scalar_product(cam.ver, (cam.h / 2.0f));
+	hor = scalar_product(cam.hor, (cam.w / 2.0f));
+	return (vec_add(cam.pos, vec_sub(vec_add(dir, ver), hor)));
 }
 
-t_vec	*calcul_vect_dir(int x, int y, t_cam *cam)
+t_cam		init_camera(t_vec pos, t_vec look, t_vec ver)
 {
-	/*
-	 ** calcul du vecteur directeur du nouveau vecteur lance au pixel [x,y]
-	 ** (fonction CalcDirVec dans le .cpp)
-	 */
-	double x_indent;
-	double y_indent;
-	double plane_height;
-	double plane_width;
-	t_vec *res;
-	t_vec *tmp;
+	t_cam	cam;
 
-	res = (t_vec*)malloc(sizeof(t_vec));
-	tmp = (t_vec*)malloc(sizeof(t_vec));
-	plane_height = 0.35;
-	plane_width = 0.5;
+	cam.pos = pos;
+	cam.ver = ver;
+	cam.d = 1.0f;
+	cam.h = 0.35f;
+	cam.w = 0.5f;
+	cam.dir = normalize(vec_sub(look, pos));
+	cam.hor = cross_product(ver, cam.dir);
+	cam.ver = cross_product(cam.hor, cam.dir);
+	cam.init = calc_vec_init(cam);
+	return (cam);
+}
 
-	x_indent = 	plane_width / (double)WIDTH;
-	y_indent = 	plane_height / (double)HEIGHT;
-	
-	/* correspond a : 
-	 ** m_viewPlaneUpLeft + m_rightVec*xIndent*x -  m_upVec*yIndent*y - GetPosition();
-	 */
-	//calcul errone -> trouver le bon calcul
-	res = mul_vec_val(cam->hor, (x_indent * (double)x));
-	tmp = mul_vec_val(cam->vert, (y_indent * (double)y));
-	res = add_vec(res, cam->pos_init_plane);
-	res = sub_vec(tmp, res);
-	res = sub_vec(res, cam->ori);
+t_vec		calc_vec_dir(int x, int y, t_cam cam)
+{
+	double	x_indent;
+	double	y_indent;
+	t_vec	hor;
+	t_vec	ver;
 
-	return (res);
+	x_indent = cam.w / (double)WIDTH;
+	y_indent = cam.h / (double)HEIGHT;
+	hor = scalar_product(cam.hor, (x_indent * (double)x));
+	ver = scalar_product(cam.ver, (y_indent * (double)y));
+	return (vec_sub(vec_sub(vec_add(cam.init, hor), ver), cam.pos));
 }

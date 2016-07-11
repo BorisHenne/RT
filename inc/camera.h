@@ -3,41 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/09 23:41:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/10 04:30:50 by bhenne           ###   ########.fr       */
+/*   Created: 2016/07/10 03:20:28 by sduprey           #+#    #+#             */
+/*   Updated: 2016/07/12 00:18:49 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _CAMERA_H
 # define _CAMERA_H
-# include <rtv1.h>
-# include <vector.h>
-# include <objects.h>
 
-/*------camera*/ 
 typedef struct		s_cam
 {
-	t_vec			*ori;
-	t_vec			*dir;
-	t_vec			*hor;
-	t_vec			*vert;
-	t_vec			*pos_init_plane;
-}					t_cam;
+	t_vec		pos;
+	t_vec		dir;
+	t_vec		hor;		// right
+	t_vec		ver;		// up
+	t_vec		init;		// upLeft
+	double		w;		// HEIGHT
+	double		h;		// WIDTH
+	double		d;		// DIST
+}			t_cam;
 
-/*-------coord renvoyees*/
+t_cam	init_camera(t_vec pos, t_vec look, t_vec ver);
+t_vec	calc_vec_dir(int x, int y, t_cam cam);
 
-typedef struct		s_coord
-{
-	/* distance */
-	double			t;
-	t_color			*color;
-	int				bool;
-}					t_coord;
-
-void				init_cam(t_vec ori, t_vec look, t_vec init_vec, t_cam *cam);
-t_coord				is_sphere_hit(t_cam *cam, t_sphere *sphere);
-t_coord				is_plane_hit(t_cam *cam, t_plan *plan);
-t_vec				*calcul_vect_dir(int x, int y, t_cam *cam);
 #endif
