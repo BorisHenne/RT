@@ -1,7 +1,8 @@
 #ifndef _SPHERE_H
 # define _SPHERE_H
 
-#include <rtv1.h>
+#include <color.h>
+#include <camera.h>
 
 typedef struct	s_sphere
 {

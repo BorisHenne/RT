@@ -6,12 +6,14 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:20:28 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/12 00:18:49 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/12 00:24:42 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _CAMERA_H
 # define _CAMERA_H
+
+# include <vector.h>
 
 typedef struct		s_cam
 {
