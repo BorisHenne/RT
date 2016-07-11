@@ -6,11 +6,12 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/12 00:41:14 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/12 01:14:02 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+#include <stdio.h>
 
 double	find_sphere_det(t_cam cam, t_sphere sphere, double *a, double *b)
 {
@@ -23,7 +24,6 @@ double	find_sphere_det(t_cam cam, t_sphere sphere, double *a, double *b)
 	*b = 2.0 * dot_product(cam.dir, tmp);
 
 	c = dot_product(tmp, tmp) - pow(sphere.radius, 2);
-
 	return (pow(*b, 2) - (4 * (*a) * c));
 }
 
