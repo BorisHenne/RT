@@ -30,9 +30,9 @@ OBJ = $(SRC:%.c=$(OBJDIR)%.o)
 
 CC = clang
 
-INC = -I ./inc -I libft
+INC = -I ./inc -I libft -I mlx
 
-LIB = -L libft -lft
+LIB = -L libft -lft -L mlx -lmlx
 
 FLAGS = -Wall -Werror -Wextra
 
