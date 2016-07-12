@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/12 00:25:00 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/12 02:58:18 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <scene.h>
 # include <sphere.h>
 # include <color.h>
+# include <cylinder.h>
 
 # define ESCAPE	53
 # define WIDTH	640
