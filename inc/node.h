@@ -6,18 +6,18 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/10 03:19:24 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/12 02:53:22 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _NODE_H
 # define _NODE_H
 
-typedef struct	s_node
+typedef struct		s_node
 {
-	int			type;
-	void		*data;
-	void		*next;
-}				t_node;
+	int				type;
+	void			*data;
+	struct s_node	*next;
+}					t_node;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:50:11 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/10 03:19:18 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/12 02:53:25 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 #define CAMERA 1
+#define SPHERE 2
 
 t_node		*init_node(int type, void *data)
 {
@@ -22,24 +23,54 @@ t_node		*init_node(int type, void *data)
 	node = (t_node *)malloc(sizeof(t_node));
 	node->type = type;
 	node->data = data;
+	node->next = NULL;
 	return (node);
+}
+
+void		node_add(t_node **node, t_node	*new)
+{
+	new->next = *(node);
+	*node = new;
 }
 
 int			main(void)
 {
-	t_vec	*ori;
-	t_vec	*look;
-	t_vec	*init_vec;
+	t_node		*node;
+	t_node		*node2;
+	t_node		*tmp;
+	t_sphere	sphere;
+	t_sphere	sphere2;
+	t_vec		center;
+	t_vec		center2;
 
-	t_node	*node;
-	t_cam	*cam;
+	// vector
+	center = init_vector(0.0f, 0.0f, 0.0f);
+	center2 = init_vector(1.0f, 1.0f, 1.0f);
+	// sphere
+	sphere.radius = 2.0f;
+	sphere.center = center;
+	sphere2.radius = 1.0f;
+	sphere2.center = center2;
+	// node
+	node = init_node(SPHERE, &sphere);
+	node2 = init_node(SPHERE, &sphere2);
+	node_add(&node, node2);
+	
+	// TEST
+	tmp = node;
+	while (tmp != NULL)
+	{
+		t_sphere	*s;
 
-	cam = (t_cam *)malloc(sizeof(t_cam));
-	ori = init_vector(0.0f, 0.0f, 0.0f);
-	look = init_vector(0.0f, 0.0f, 0.0f);
-	init_vec = init_vector(0.0f, 0.0f, 0.0f);
-
-	cam = init_cam(&ori, look, init_vec, cam);
-	//node = init_node(CAMERA, cam);
+		s = (t_sphere *)(tmp->data);
+		printf("type: %d\n", tmp->type);
+		if (tmp->type == SPHERE)
+		{
+			printf("Hey la sphere\n");
+			printf("radius: %f\n", s->radius);
+			printf("center: x: %f\t%f\t%f\n", s->center.x, s->center.y, s->center.z);
+		}
+		tmp = tmp->next;
+	}
 	return (0);
 }
