@@ -15,9 +15,13 @@
 
 typedef struct		s_node
 {
-	int				type;
-	void			*data;
+	int		type;
+	char		*name;
+	void		*data;
 	struct s_node	*next;
 }					t_node;
+
+t_node	*init_node(int type, void *data, char *name);
+void	node_add(t_node **node, t_node *new);
 
 #endif

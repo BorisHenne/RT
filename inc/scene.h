@@ -16,11 +16,11 @@
 typedef struct	s_scene
 {
 	t_cam		*cam;
-	int			w;
-	int			h;
+	int		w;
+	int		h;
 	t_node		*nodes;
-}				t_scene;
+}			t_scene;
 
-t_scene			*init_scene(t_cam *cam, int w, int h);
+t_scene			init_scene(int w, int h);
 
 #endif
