@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/12 00:44:15 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/07/12 07:08:54 by tlepeche         ###   ########.fr        #
 #    Updated: 2016/07/07 02:23:54 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -20,6 +20,7 @@ SRC =	main.c \
 		sphere.c \
 		vector.c \
 		vector_math.c \
+		cylinder.c \
 
 SRCDIR = src/
 

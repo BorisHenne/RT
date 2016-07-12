@@ -6,22 +6,20 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:20:20 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/12 00:49:39 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/12 07:19:26 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+#include <stdio.h>
 
 t_vec		calc_vec_init(t_cam cam)
 {
+	(void)cam;
 	t_vec	dir;
-	t_vec	ver;
-	t_vec	hor;
 	
 	dir = scalar_product(cam.dir, cam.d);
-	ver = scalar_product(cam.ver, (cam.h / 2.0f));
-	hor = scalar_product(cam.hor, (cam.w / 2.0f));
-	return (vec_add(cam.pos, vec_sub(vec_add(dir, ver), hor)));
+	return(dir);
 }
 
 t_cam		init_camera(t_vec pos, t_vec look, t_vec ver)
@@ -33,10 +31,8 @@ t_cam		init_camera(t_vec pos, t_vec look, t_vec ver)
 	cam.d = 1.0f;
 	cam.h = 0.35f;
 	cam.w = 0.5f;
-	cam.dir = normalize(vec_sub(look, pos));
-	cam.hor = cross_product(ver, cam.dir);
-	cam.ver = cross_product(cam.hor, cam.dir);
-	cam.init = calc_vec_init(cam);
+	cam.dir = vec_sub(look, pos);
+	cam.dir = normalize(cam.dir);
 	return (cam);
 }
 
@@ -44,12 +40,22 @@ t_vec		calc_vec_dir(int x, int y, t_cam cam)
 {
 	double	x_indent;
 	double	y_indent;
-	t_vec	hor;
-	t_vec	ver;
+	t_vec	res;
 
 	x_indent = cam.w / (double)WIDTH;
 	y_indent = cam.h / (double)HEIGHT;
-	hor = scalar_product(cam.hor, (x_indent * (double)x));
-	ver = scalar_product(cam.ver, (y_indent * (double)y));
-	return (vec_sub(vec_sub(vec_add(cam.init, hor), ver), cam.pos));
+
+	res.x = ((x - (double)WIDTH/2.0) * x_indent);
+	res.y = ((y - (double)HEIGHT/2.0) * y_indent);
+	res.z = cam.d;
+
+	// calcul pour faire une rotation sur l'axe des z;
+	double a = 0;
+	t_vec tmp;
+	tmp.x = res.x * cos(a) - res.y * sin(a);
+	tmp.y = res.x * sin(a) + res.y * cos(a);
+	tmp.z = res.z;
+//	printf("x = %.2f, y = %.2f, z = %.2f\n", res.x, res.y, res.z);
+
+	return tmp;
 }

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:40 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/12 01:09:08 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/12 04:44:11 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,16 @@ t_vec		normalize(t_vec vec)
 	len = get_length(vec);
 	if (len == 0.0f)
 	{
-		len = 1; //!\ HELP !!!
+		res.x = 0.0;
+		res.y = 0.0;
+		res.z = 0.0;
 	}
-	res.x = vec.x / len;
-	res.y = vec.y / len;
-	res.z = vec.z / len;
+	else
+	{
+		res.x = vec.x / len;
+		res.y = vec.y / len;
+		res.z = vec.z / len;
+	}
 	return (res);
 }
 

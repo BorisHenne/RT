@@ -6,15 +6,13 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/11 23:42:20 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/12 02:10:35 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _OBJECTS_H
 # define _OBJECTS_H
-# include "rtv1.h"
-# include "vector.h"
-# include "camera2.h"
+# include <vector.h>
 
 typedef struct		s_color
 {
@@ -23,24 +21,31 @@ typedef struct		s_color
 	int				b;
 }					t_color;
 
-/*--------sphere*/
-
-typedef struct		s_sphere
+typedef struct s_coord
 {
-	double			radius;
-	t_vec			*center; 
-	t_color			*color;
-}					t_sphere;
+	double 		t;
+	t_color		color;
+	int			bool;
+}				t_coord;
 
 /*
- * Plan
- * */
-
-typedef struct		s_plan
+ * Sphere
+ */
+/*typedef struct		s_sphere
 {
-	t_vec			*pos;
-	t_vec			*normal;
-	t_color			*color;					
-}					t_plan;
-
+	double			radius;
+	t_vec			center; 
+	t_color			color;
+}					t_sphere;
+*/
+/*
+ * Plane
+ */
+/*typedef struct		s_plane
+{
+	t_vec			pos;
+	t_vec			normal;
+	t_color			color;					
+}					t_plane;
+*/
 #endif
