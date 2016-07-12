@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/12 07:19:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/13 01:03:17 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int		draw_scene(t_env *env)
 	t_vec ori;
 	ori.x = 0.0;
 	ori.y = 0.0;
-	ori.z = -5.0;
+	ori.z = -8.0;
 	t_vec look;
-//	look = rotation avec valeur a mettre en radian pour le moment;
+	//	look = rotation avec valeur a mettre en radian pour le moment;
 	look.x = 0;
 	look.y = 0.0;
-	look.z = 0;
+	look.z = M_PI/2;
 	t_vec init_vec;
 	init_vec.x = 0.0;
 	init_vec.y = 1.0;
@@ -57,7 +57,7 @@ int		draw_scene(t_env *env)
 	sphere.radius = 0.4;
 	sphere.center.x = 0.0;
 	sphere.center.y = 0.0;
-	sphere.center.z = 0.0;
+	sphere.center.z = 8.0;
 	sphere.color.r = 123;
 	sphere.color.g = 0;
 	sphere.color.b = 0;
@@ -66,13 +66,16 @@ int		draw_scene(t_env *env)
 	t_cylinder	cylinder;
 	cylinder.radius = 0.2;
 	cylinder.pos.x = 0.0;
-	cylinder.pos.y = -1.0;
-	cylinder.pos.z = 10.0;
-	cylinder.length = 20.0;
+	cylinder.pos.y = -0.8;
+	cylinder.pos.z = 5.0;
+	cylinder.rot.x = 1.0;
+	cylinder.rot.y = 1.0;
+	cylinder.rot.z = 1.0;
+	cylinder.length = 2.0;
 	cylinder.color.r = 0;
 	cylinder.color.g = 123;
 	cylinder.color.b = 0;
-	
+
 	/*
 	   t_plan		plan;
 	   plan.pos.x = -2.0;
@@ -91,7 +94,7 @@ int		draw_scene(t_env *env)
 
 	t_coord		drawn_pixel;
 	t_coord		tmp;
-	(void)drawn_pixel;
+
 	x = -1;
 	while (++x < WIDTH)
 	{
@@ -101,8 +104,14 @@ int		draw_scene(t_env *env)
 			cam.dir = calc_vec_dir(x, y, cam);
 			drawn_pixel = is_sphere_hit(cam, sphere);
 			tmp = is_cylinder_hit(cam, cylinder);
-			if (tmp.bool == 1 && tmp.t < drawn_pixel.t)
-				drawn_pixel = tmp;
+			//			drawn_pixel = is_cylinder_hit(cam, cylinder);
+			if (tmp.bool == 1)
+			{
+				if (drawn_pixel.bool == 0)
+					drawn_pixel = tmp;
+				else if (tmp.t < drawn_pixel.t)
+					drawn_pixel = tmp;
+			}
 			if (drawn_pixel.bool == 1)
 				put_pixel_on_image(env->img, x, y, drawn_pixel.color);
 			else
