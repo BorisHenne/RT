@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/12 02:58:18 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/12 07:25:14 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <node.h>
 # include <scene.h>
 # include <sphere.h>
-# include <color.h>
 # include <cylinder.h>
 
 # define ESCAPE	53
