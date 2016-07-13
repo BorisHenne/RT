@@ -6,38 +6,39 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/10 04:04:46 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/07/13 05:28:28 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-double find_plane_closest_hit(t_cam *cam, t_plan *plan)
+#include <stdio.h>
+double find_plane_hit(t_cam *cam, t_plane *plan)
 {
-	if((dot_product(plan->normal, cam->dir)) == 0)
+	double	tmp_magic;
+	if((tmp_magic = dot_product(plan->normal, cam->dir)) == 0.0)
 		return(0);
 	else
-		return(-(dot_product(plan->normal, cam->ori)) / (dot_product(plan->normal,
-				cam->dir)));
+		return((dot_product(plan->normal, vec_sub(cam->pos, plan->pos))) / tmp_magic);
 }
 
-t_coord	is_plane_hit(t_cam *cam, t_plan *plan)
+t_coord	is_plane_hit(t_cam cam, t_plane plan)
 {
 	t_coord hit;
+	double res;
 	
-	hit.color = (t_color *)malloc(sizeof(t_color));
 	hit.bool = 0;
 	hit.t = 0;
-	hit.color->r = 0;
-	hit.color->g = 0;
-	hit.color->b = 0;
+	hit.color.r = 0;
+	hit.color.g = 0;
+	hit.color.b = 0;
 	
-
-	if(find_plane_closest_hit(cam, plan) != 0)
+	res = find_plane_hit(&cam, &plan);
+	if (res != 0)
 	{
 		hit.bool = 1;
-		hit.t = find_plane_closest_hit(cam, plan);
-		hit.color = plan->color;
+		hit.t = res;
+		hit.color = plan.color;
 	}
 	return (hit);
 }

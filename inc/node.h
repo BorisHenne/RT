@@ -6,18 +6,23 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/12 02:53:22 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/13 02:58:19 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _NODE_H
 # define _NODE_H
 
+#define CAMERA		1
+#define SPHERE		2
+#define CYLINDER	3
+#define PLANE		4
+
 typedef struct		s_node
 {
-	int		type;
-	char		*name;
-	void		*data;
+	int				type;
+	char			*name;
+	void			*data;
 	struct s_node	*next;
 }					t_node;
 

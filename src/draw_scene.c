@@ -6,11 +6,14 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/13 01:03:17 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/13 05:28:14 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
+void		write_scene(t_scene s);
+
 int         put_pixel_on_image(void *img, int x, int y, t_color color)
 {
 	char    *data;
@@ -31,6 +34,7 @@ int         put_pixel_on_image(void *img, int x, int y, t_color color)
 }
 
 #include <stdio.h>
+
 int		draw_scene(t_env *env)
 {
 	int		x;
@@ -54,10 +58,10 @@ int		draw_scene(t_env *env)
 	cam = init_camera(ori, look, init_vec);
 
 	t_sphere	sphere;
-	sphere.radius = 0.4;
+	sphere.radius = 1.0;
 	sphere.center.x = 0.0;
 	sphere.center.y = 0.0;
-	sphere.center.z = 8.0;
+	sphere.center.z = 0.0;
 	sphere.color.r = 123;
 	sphere.color.g = 0;
 	sphere.color.b = 0;
@@ -68,33 +72,51 @@ int		draw_scene(t_env *env)
 	cylinder.pos.x = 0.0;
 	cylinder.pos.y = -0.8;
 	cylinder.pos.z = 5.0;
-	cylinder.rot.x = 1.0;
-	cylinder.rot.y = 1.0;
-	cylinder.rot.z = 1.0;
+//	cylinder.rot.x = 1.0;
+//	cylinder.rot.y = 1.0;
+//	cylinder.rot.z = 1.0;
 	cylinder.length = 2.0;
 	cylinder.color.r = 0;
 	cylinder.color.g = 123;
 	cylinder.color.b = 0;
 
-	/*
-	   t_plan		plan;
-	   plan.pos.x = -2.0;
-	   plan.pos.y = -1.0;
-	   plan.pos.z = 0.0;	
-	   plan.norma.x = 1.0;
-	   plan.norma.y = 1.0;
-	   plan.normal.z = 1.0;
-	   if (!(plan.color = (t_color *)malloc(sizeof(t_color))))
-	   return(-1);
-	   plan.color->r = 0;
-	   plan.color->g = 0;
-	   plan.color->b = 123;
-
+	   t_plane	   plan1;
+	   plan1.pos.x = 0.0;
+	   plan1.pos.y = 0.0;
+	   plan1.pos.z = 0.0;
+	   plan1.normal.x = 0.0;
+	   plan1.normal.y = 1.0;
+	   plan1.normal.z = 0.1;
+	   plan1.color.r = 223;
+	   plan1.color.g = 123;
+	   plan1.color.b = 0;
+/*
+	   t_plane	   plan2;
+	   plan2.pos.x = 100.0;
+	   plan2.pos.y = 0.0;
+	   plan2.pos.z = 0.0;
+	   plan2.normal.x = -1.0;
+	   plan2.normal.y = 0.0;
+	   plan2.normal.z = 0.0;
+	   plan2.color.r = 223;
+	   plan2.color.g = 123;
+	   plan2.color.b = 0;
 */
-
+	t_node		*node;
+	t_scene		scene;
 	t_coord		drawn_pixel;
-	t_coord		tmp;
-
+	
+	scene = init_scene(WIDTH, HEIGHT);
+	node = init_node(SPHERE, &sphere, "sphere 1");
+	node_add(&(scene.nodes), node);
+	node = init_node(CYLINDER, &cylinder, "cylinder 1");
+	node_add(&(scene.nodes), node);
+	node = init_node(PLANE, &plan1, "plan 1");
+	node_add(&(scene.nodes), node);
+/*
+	node = init_node(PLANE, &plan2, "plan 2");
+	node_add(&(scene.nodes), node);
+*/	
 	x = -1;
 	while (++x < WIDTH)
 	{
@@ -102,20 +124,8 @@ int		draw_scene(t_env *env)
 		while (++y < HEIGHT)
 		{
 			cam.dir = calc_vec_dir(x, y, cam);
-			drawn_pixel = is_sphere_hit(cam, sphere);
-			tmp = is_cylinder_hit(cam, cylinder);
-			//			drawn_pixel = is_cylinder_hit(cam, cylinder);
-			if (tmp.bool == 1)
-			{
-				if (drawn_pixel.bool == 0)
-					drawn_pixel = tmp;
-				else if (tmp.t < drawn_pixel.t)
-					drawn_pixel = tmp;
-			}
-			if (drawn_pixel.bool == 1)
-				put_pixel_on_image(env->img, x, y, drawn_pixel.color);
-			else
-				put_pixel_on_image(env->img, x, y, drawn_pixel.color);
+			drawn_pixel = find_closest_object(scene.nodes, cam);
+			put_pixel_on_image(env->img, x, y, drawn_pixel.color);
 		}
 	}
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);

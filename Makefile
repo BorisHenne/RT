@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/12 07:08:54 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/07/13 03:08:23 by nbelouni         ###   ########.fr        #
 #    Updated: 2016/07/07 02:23:54 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -15,12 +15,16 @@ NAME = rtv1
 
 SRC =	main.c \
 		camera.c \
+		cylinder.c \
 		draw_scene.c \
 		events.c \
+		find_closest_object.c \
+		node.c \
+		plane.c \
+		scene.c \
 		sphere.c \
 		vector.c \
 		vector_math.c \
-		cylinder.c \
 
 SRCDIR = src/
 

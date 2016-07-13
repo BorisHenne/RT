@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/12 07:25:14 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/13 03:18:58 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@
 # include <libft.h>
 
 # include <camera.h>
-# include <vector.h>
+# include <cylinder.h>
 # include <node.h>
+# include <find_closest_object.h>
+# include <plane.h>
 # include <scene.h>
 # include <sphere.h>
-# include <cylinder.h>
+# include <vector.h>
 
 # define ESCAPE	53
 # define WIDTH	640
