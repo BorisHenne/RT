@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/12 06:57:30 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/13 05:14:50 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ double	find_sphere_det(t_cam cam, t_sphere sphere, double *a, double *b)
 
 	*a = dot_product(cam.dir, cam.dir);;
 
-	tmp = vec_sub(cam.pos, sphere.center);
+	tmp = vec_sub(sphere.center, cam.pos);
 	*b = 2.0 * dot_product(cam.dir, tmp);
 
 	c = dot_product(tmp, tmp) - pow(sphere.radius, 2);

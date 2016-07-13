@@ -6,13 +6,12 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/10 03:36:15 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/13 03:46:02 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
-#include <node.h>
 
 void		write_scene(t_scene s);
 
@@ -44,13 +43,13 @@ void		add_camera(t_scene *s, t_cam *cam)
 {
 	s->cam = cam;
 }
-
+/*
 int		main(void)
 {
 	t_scene	scene;
 	t_cam		cam;
 	t_node		*node;
-	t_node		*tmp;
+//	t_node		*tmp;
 	t_sphere	s1;
 	t_sphere	s2;
 	//t_sphere	s3;
@@ -101,8 +100,9 @@ int		main(void)
 	write_scene(scene);
 	return (0);
 }
-
+*/
 // SALE !!!
+// putain c'est clair, la prochaine fois SUPPRIME TON MAIN !!!!!! stp :)
 void		write_scene(t_scene s)
 {
 	t_node	*tmp;
