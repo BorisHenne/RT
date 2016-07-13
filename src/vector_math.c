@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 02:18:07 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/10 06:10:15 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/13 00:23:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,34 @@ t_vec		cross_product(t_vec a, t_vec b)
 double		dot_product(t_vec a, t_vec b)
 {
 	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
+}
+
+t_vec	vec_rot_y(t_vec a, double angle)
+{
+	t_vec res;
+
+	res.x = a.z * sin(angle) + a.x * cos(angle);
+	res.y = a.y;
+	res.z = a.z * cos(angle) - a.x * sin(angle);
+	return (res);
+}
+
+t_vec	vec_rot_x(t_vec a, double angle)
+{
+	t_vec res;
+
+	res.x = a.x;
+	res.y = a.y * cos(angle) - a.z * sin(angle);
+	res.z = a.y * sin(angle) + a.z * cos(angle);
+	return (res);
+}
+
+t_vec	vec_rot_z(t_vec a, double angle)
+{
+	t_vec res;
+
+	res.x = a.x * cos(angle) - a.y * sin(angle);
+	res.y = a.x * sin(angle) + a.y * cos(angle);
+	res.z = a.z;
+	return (res);
 }

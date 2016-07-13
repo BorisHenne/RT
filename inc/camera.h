@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:20:28 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/12 06:58:43 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/13 01:30:30 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct		s_cam
 	double		d;		// DIST
 }			t_cam;
 
-t_cam	init_camera(t_vec pos, t_vec look, t_vec ver);
-t_vec	calc_vec_dir(int x, int y, t_cam cam);
+t_cam	init_camera(t_vec pos);
+t_vec	calc_vec_dir(int x, int y, t_cam cam, t_vec look);
 
 #endif
