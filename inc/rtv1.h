@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/13 03:18:58 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 00:42:41 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@
 # include <node.h>
 # include <find_closest_object.h>
 # include <plane.h>
+# include <ray.h>
 # include <scene.h>
 # include <sphere.h>
 # include <vector.h>
 
 # define ESCAPE	53
-# define WIDTH	640
-# define HEIGHT 480
+# define WIDTH 1920
+# define HEIGHT 1080
 
 typedef struct		s_env
 {

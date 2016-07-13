@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:09:27 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/13 05:29:27 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/14 01:12:39 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 #include <stdio.h>
 #include <libft.h>
 
-double	find_cylinder_det(t_cam cam, t_cylinder cylinder, double *a, double *b)
+double	find_cylinder_det(t_ray ray, t_cylinder cylinder, double *a, double *b)
 {
 	(void)b;
 	(void)a;
 	double c;
 	t_vec tmp;
 
-	tmp = vec_sub(cylinder.pos, cam.pos);
+	tmp = vec_sub(cylinder.pos, ray.pos);
 
-	*a = pow(cam.dir.x, 2) + pow(cam.dir.y, 2);
+	*a = pow(ray.dir.x, 2) + pow(ray.dir.y, 2);
 
-	*b = 2.0 * (cam.dir.x * tmp.x + cam.dir.y * tmp.y);
+	*b = 2.0 * (ray.dir.x * tmp.x + ray.dir.y * tmp.y);
 
 	c = pow(tmp.x, 2) + pow(tmp.y, 2) - pow(cylinder.radius, 2);
 	return (pow(*b, 2) - (4 * (*a) * c));
@@ -33,11 +33,11 @@ double	find_cylinder_det(t_cam cam, t_cylinder cylinder, double *a, double *b)
 }
 
 
-double	find_cylinder_heigth(t_cam cam, t_cylinder cylinder, double t1, double t2)
+double	find_cylinder_heigth(t_ray ray, t_cylinder cylinder, double t1, double t2)
 {
 	double hit_z;
 
-	hit_z = cam.pos.z + t1 * cam.dir.z;
+	hit_z = ray.pos.z + t1 * ray.dir.z;
 
 	double max_heigth;
 
@@ -46,7 +46,7 @@ double	find_cylinder_heigth(t_cam cam, t_cylinder cylinder, double t1, double t2
 		return t1;
 	else
 	{
-		hit_z = cam.pos.z + t2 * cam.dir.z;
+		hit_z = ray.pos.z + t2 * ray.dir.z;
 
 		max_heigth = cylinder.pos.z + cylinder.length;
 		if (cylinder.pos.z <= hit_z && hit_z <= max_heigth)
@@ -56,7 +56,7 @@ double	find_cylinder_heigth(t_cam cam, t_cylinder cylinder, double t1, double t2
 	}
 }
 
-double	find_cylinder_closest_hit(t_cam cam, t_cylinder cylinder, double a, double b, double det)
+double	find_cylinder_closest_hit(t_ray ray, t_cylinder cylinder, double a, double b, double det)
 {
 	double t1;
 	double t2;
@@ -64,10 +64,10 @@ double	find_cylinder_closest_hit(t_cam cam, t_cylinder cylinder, double a, doubl
 	t1 = (-b - sqrt(det)) / (2 * a);
 	t2 = (-b + sqrt(det)) / (2 * a); 
 
-	return (find_cylinder_heigth(cam, cylinder, t1, t2));
+	return (find_cylinder_heigth(ray, cylinder, t1, t2));
 }
 
-t_coord	is_cylinder_hit(t_cam cam, t_cylinder cylinder)
+t_coord	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 {
 	t_coord hit;
 	double det;
@@ -83,7 +83,7 @@ t_coord	is_cylinder_hit(t_cam cam, t_cylinder cylinder)
 	/* calcul determinant */
 	if (cylinder.radius > 0 && cylinder.length != 0)
 	{
-		det = find_cylinder_det(cam, cylinder, &a, &b);
+		det = find_cylinder_det(ray, cylinder, &a, &b);
 		if (det == 0)
 		{
 			// une solution unique 
@@ -94,7 +94,7 @@ t_coord	is_cylinder_hit(t_cam cam, t_cylinder cylinder)
 		else if (det > 0)
 		{
 			// deux solutions 
-			if ((hit.t = find_cylinder_closest_hit(cam, cylinder, a, b, det)) != 0.0)
+			if ((hit.t = find_cylinder_closest_hit(ray, cylinder, a, b, det)) != 0.0)
 			{
 				//				printf("t = %.2f\n", hit.t);
 				hit.bool = 1;

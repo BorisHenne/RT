@@ -6,22 +6,22 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/13 05:14:50 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 01:10:00 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
 
-double	find_sphere_det(t_cam cam, t_sphere sphere, double *a, double *b)
+double	find_sphere_det(t_ray ray, t_sphere sphere, double *a, double *b)
 {
 	double c;
 	t_vec tmp;
 
-	*a = dot_product(cam.dir, cam.dir);;
+	*a = dot_product(ray.dir, ray.dir);;
 
-	tmp = vec_sub(sphere.center, cam.pos);
-	*b = 2.0 * dot_product(cam.dir, tmp);
+	tmp = vec_sub(sphere.center, ray.pos);
+	*b = 2.0 * dot_product(ray.dir, tmp);
 
 	c = dot_product(tmp, tmp) - pow(sphere.radius, 2);
 	return (pow(*b, 2) - (4 * (*a) * c));
@@ -41,7 +41,7 @@ double	find_sphere_closest_hit(double a, double b, double det)
 	return (t1 < t2 ? t1 : t2);
 }
 
-t_coord	is_sphere_hit(t_cam cam, t_sphere sphere)
+t_coord	is_sphere_hit(t_ray ray, t_sphere sphere)
 {
 	t_coord hit;
 	double det;
@@ -56,7 +56,7 @@ t_coord	is_sphere_hit(t_cam cam, t_sphere sphere)
 	/* calcul determinant */
 	if (sphere.radius > 0.0)
 	{
-		det = find_sphere_det(cam, sphere, &a, &b);
+		det = find_sphere_det(ray, sphere, &a, &b);
 		if (det == 0)
 		{
 			/* une solution unique */

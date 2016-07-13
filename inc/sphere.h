@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphere.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/07/14 01:13:12 by nbelouni          #+#    #+#             */
+/*   Updated: 2016/07/14 01:13:29 by nbelouni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef _SPHERE_H
 # define _SPHERE_H
 
-# include <camera.h>
+# include <ray.h>
 # include <objects.h>
 
 typedef struct	s_sphere
@@ -19,8 +31,8 @@ typedef struct	s_coord
 }		t_coord;
 */
 
-double		find_sphere_det(t_cam cam, t_sphere sphere, double *a, double *b);
+double		find_sphere_det(t_ray ray, t_sphere sphere, double *a, double *b);
 double		find_sphere_closest_hit(double a, double b, double det);
-t_coord		is_sphere_hit(t_cam cam, t_sphere sphere);
+t_coord		is_sphere_hit(t_ray ray, t_sphere sphere);
 
 #endif
