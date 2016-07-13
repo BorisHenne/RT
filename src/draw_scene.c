@@ -6,13 +6,19 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/13 05:28:14 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/13 06:11:16 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void		write_scene(t_scene s);
+double		deg_to_rad(double angle)
+{
+	double res;
+
+	res = angle * M_PI / 180;
+	return res;
+}
 
 int         put_pixel_on_image(void *img, int x, int y, t_color color)
 {
@@ -46,16 +52,16 @@ int		draw_scene(t_env *env)
 	ori.z = -8.0;
 	t_vec look;
 	//	look = rotation avec valeur a mettre en radian pour le moment;
-	look.x = 0;
-	look.y = 0.0;
-	look.z = M_PI/2;
+	look.x = deg_to_rad(0);
+	look.y = deg_to_rad(0);
+	look.z = deg_to_rad(0);
 	t_vec init_vec;
 	init_vec.x = 0.0;
 	init_vec.y = 1.0;
 	init_vec.z = 0.0;
 	t_cam cam;
 
-	cam = init_camera(ori, look, init_vec);
+	cam = init_camera(ori);
 
 	t_sphere	sphere;
 	sphere.radius = 1.0;
@@ -123,7 +129,7 @@ int		draw_scene(t_env *env)
 		y = -1;
 		while (++y < HEIGHT)
 		{
-			cam.dir = calc_vec_dir(x, y, cam);
+			cam.dir = calc_vec_dir(x, y, cam, look);
 			drawn_pixel = find_closest_object(scene.nodes, cam);
 			put_pixel_on_image(env->img, x, y, drawn_pixel.color);
 		}
