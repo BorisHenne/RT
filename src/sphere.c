@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/14 02:59:36 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 05:35:20 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ double	find_sphere_closest_hit(double a, double b, double det)
 	double t1;
 	double t2;
 
-	t1 = (-b + sqrt(det)) / (2 * a);
-	t2 = (-b - sqrt(det)) / (2 * a); 
+	t1 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
+	t1 /= (double)PRECISION;
 
-	/* retourne la valeur la plus proche de 0 car c'est la plus pres de la cam */
-	if (t1 < 0 && t2 < 0)
-		return 45.0;
+	t2 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
+	t2 /= (double)PRECISION;
+
+
+	if (t1 <= 0.0 && t2 <= 0.0)
+		return -1.0;
 	if (t1 <= 0.0)
 		return (t2);
 	else if (t2 <= 0.0)
 		return (t1);
 	else
 		return (t1 < t2 ? t1 : t2);
-/*	if (t1 > 0 && t2 > 0)
-		return (t1 < t2 ? t1 : t2);
-	return (t1 < t2 ? t2 : t1);*/
 }
 
 t_coord	is_sphere_hit(t_ray ray, t_sphere sphere)
@@ -68,15 +68,15 @@ t_coord	is_sphere_hit(t_ray ray, t_sphere sphere)
 		if (det == 0)
 		{
 			/* une solution unique */
-			hit.bool = 1;
 			hit.t = (-b / (2 * a));
+			hit.bool = hit.t > 0.0 ? 1 : 0;
 			hit.color = sphere.color;
 		}
 		else if (det > 0)
 		{
 			/* deux solutions */
-			hit.bool = 1;
 			hit.t = find_sphere_closest_hit(a, b, det);
+			hit.bool = hit.t > 0.00 ? 1 : 0;
 			hit.color = sphere.color;
 		}
 	}

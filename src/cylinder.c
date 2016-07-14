@@ -6,13 +6,13 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:09:27 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/14 03:32:30 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/14 05:35:31 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <rtv1.h>
 #include <cylinder.h>
 #include <stdio.h>
-#include <libft.h>
 
 double	find_cylinder_det(t_ray ray, t_cylinder cylinder, double *a, double *b)
 {
@@ -61,8 +61,11 @@ double	find_cylinder_closest_hit(t_ray ray, t_cylinder cylinder, double a, doubl
 	double t1;
 	double t2;
 
-	t1 = (-b - sqrt(det)) / (2 * a);
-	t2 = (-b + sqrt(det)) / (2 * a); 
+	t1 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
+	t1 /= (double)PRECISION;
+
+	t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
+	t2/= (double)PRECISION;
 
 	return (find_cylinder_heigth(ray, cylinder, t1, t2));
 }
@@ -96,7 +99,6 @@ t_coord	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 			// deux solutions 
 			if ((hit.t = find_cylinder_closest_hit(ray, cylinder, a, b, det)) != 0.0)
 			{
-				//				printf("t = %.2f\n", hit.t);
 				hit.bool = 1;
 				hit.color = cylinder.color;
 			}

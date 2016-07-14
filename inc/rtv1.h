@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/14 03:39:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/14 05:22:21 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ESCAPE	53
 # define WIDTH 1920
 # define HEIGHT 1080
+# define PRECISION 10000000
 
 typedef struct		s_env
 {

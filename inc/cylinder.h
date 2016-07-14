@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:30:13 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/14 01:11:22 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 05:32:56 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ typedef struct	s_cylinder
 {
 	double		radius;
 	t_vec		pos;
-//	t_vec		rot;
-	//t_vec		dir;
 	double		length;
 	t_color		color;
 
