@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/14 01:10:00 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 02:59:36 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,16 @@ double	find_sphere_closest_hit(double a, double b, double det)
 
 	/* retourne la valeur la plus proche de 0 car c'est la plus pres de la cam */
 	if (t1 < 0 && t2 < 0)
-		return (t1 < t2 ? t2 : t1);
-	return (t1 < t2 ? t1 : t2);
+		return 45.0;
+	if (t1 <= 0.0)
+		return (t2);
+	else if (t2 <= 0.0)
+		return (t1);
+	else
+		return (t1 < t2 ? t1 : t2);
+/*	if (t1 > 0 && t2 > 0)
+		return (t1 < t2 ? t1 : t2);
+	return (t1 < t2 ? t2 : t1);*/
 }
 
 t_coord	is_sphere_hit(t_ray ray, t_sphere sphere)

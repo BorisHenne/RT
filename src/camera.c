@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:20:20 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/14 01:02:05 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 02:24:35 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cam		init_camera(t_vec pos)
 
 	cam.ray.pos = pos;
 	cam.d = 1.0f;
-	cam.h = 0.35f;
+	cam.h = 0.28f;
 	cam.w = 0.5f;
 	return (cam);
 }

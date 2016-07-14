@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/14 01:08:32 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 01:40:45 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ t_scene		init_scene(int w, int h)
 	s.w = w;
 	s.h = h;
 	s.cam = NULL;
-	s.nodes = NULL;
+	s.objects = NULL;
+	s.lights = NULL;
 	return (s);
 }
 
@@ -59,13 +60,26 @@ void		write_scene(t_scene s)
 		write_camera(s.cam);
 	}
 	printf("\tNODES:\n ");
-	if (s.nodes == NULL)
+	if (s.objects == NULL)
 	{
 		printf("\t\t- NULL\n");
 	}
 	else
 	{
-		tmp = s.nodes;
+		tmp = s.objects;
+		while (tmp != NULL)
+		{
+			printf("\t\t- coucou %s\n", tmp->name);
+			tmp = tmp->next;
+		}
+	}
+	if (s.lights == NULL)
+	{
+		printf("\t\t- NULL\n");
+	}
+	else
+	{
+		tmp = s.lights;
 		while (tmp != NULL)
 		{
 			printf("\t\t- coucou %s\n", tmp->name);

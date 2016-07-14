@@ -6,13 +6,14 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/13 02:58:19 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 01:38:55 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _NODE_H
 # define _NODE_H
 
+#define LIGHT		0
 #define CAMERA		1
 #define SPHERE		2
 #define CYLINDER	3
