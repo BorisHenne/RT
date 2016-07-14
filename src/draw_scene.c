@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/14 01:15:38 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 03:32:27 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,31 +146,44 @@ int		draw_scene(t_env *env)
 	   back_side.color.g = 0;
 	   back_side.color.b = 0;
 
+	   t_cone	cone;
+	   cone.pos = init_vector(5.0f, -5.0f, 10.0f);
+	   cone.dir = init_vector(0.0f, 0.0f, 0.0f);
+	   cone.len = 1.0f;
+	   cone.ang = 0.785398;
+	   cone.color.r = 255;
+	   cone.color.g = 0;
+	   cone.color.b = 255;
+
 	t_node		*node;
 	t_scene		scene;
 	t_coord		drawn_pixel;
 	
 	scene = init_scene(WIDTH, HEIGHT);
+
 	node = init_node(SPHERE, &sphere, "sphere 1");
 	node_add(&(scene.nodes), node);
 	node = init_node(SPHERE, &sphere2, "sphere 2");
-	node_add(&(scene.nodes), node);
+//	node_add(&(scene.nodes), node);
 	node = init_node(CYLINDER, &cylinder, "cylinder 1");
-	node_add(&(scene.nodes), node);
+//	node_add(&(scene.nodes), node);
 	node = init_node(PLANE, &ground, "ground");
 	node_add(&(scene.nodes), node);
 	node = init_node(PLANE, &ceil, "ceil");
 	node_add(&(scene.nodes), node);
 	node = init_node(PLANE, &left_side, "left_side");
-	node_add(&(scene.nodes), node);
+//	node_add(&(scene.nodes), node);
 	node = init_node(PLANE, &right_side, "right_side");
-	node_add(&(scene.nodes), node);
+//	node_add(&(scene.nodes), node);
 	node = init_node(PLANE, &back_side, "back_side");
-	node_add(&(scene.nodes), node);
+//	node_add(&(scene.nodes), node);
 /*
 	node = init_node(PLANE, &plan2, "plan 2");
 	node_add(&(scene.nodes), node);
-*/	
+*/
+	node = init_node(CONE, &cone, "cone 1");
+	node_add(&(scene.nodes), node);
+
 	x = -1;
 	while (++x < WIDTH)
 	{
