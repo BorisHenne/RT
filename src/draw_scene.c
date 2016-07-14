@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/14 06:02:47 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/14 06:24:04 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,15 @@ int		draw_scene(t_env *env)
 	light.color.g = 255;
 	light.color.b = 255;
 
+	t_light		light2;
+	light2.pos.x	= 5.0;
+	light2.pos.y	= -5.0;
+	light2.pos.z	= 3.0;
+	light2.color.r = 255;
+	light2.color.g = 255;
+	light2.color.b = 255;
+
+
 	t_node		*node;
 	t_scene		scene;
 	t_coord		drawn_pixel;
@@ -122,6 +131,8 @@ int		draw_scene(t_env *env)
 	node_add(&(scene.objects), node);
 
 	node = init_node(LIGHT, &light, "light 1");
+	node_add(&(scene.lights), node);
+	node = init_node(LIGHT, &light2, "light 2");
 	node_add(&(scene.lights), node);
 
 	x = -1;
