@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/14 01:44:26 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 03:39:23 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <libft.h>
 
 # include <camera.h>
+# include <cone.h>
 # include <cylinder.h>
 # include <node.h>
 # include <find_closest_object.h>

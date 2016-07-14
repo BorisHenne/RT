@@ -6,18 +6,19 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/14 01:38:55 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 03:39:52 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _NODE_H
 # define _NODE_H
 
-#define LIGHT		0
-#define CAMERA		1
-#define SPHERE		2
-#define CYLINDER	3
-#define PLANE		4
+# define LIGHT		0
+# define CAMERA		1
+# define SPHERE		2
+# define CYLINDER	3
+# define PLANE		4
+# define CONE		5
 
 typedef struct		s_node
 {
