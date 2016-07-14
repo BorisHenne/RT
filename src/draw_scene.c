@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/14 02:54:00 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/14 03:36:00 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		draw_scene(t_env *env)
 	   ground.color.g = 123;
 	   ground.color.b = 123;
 
+<<<<<<< HEAD
 //	   t_plane	   ceil;
 //	   ceil.pos.x = 0.0;
 //	   ceil.pos.y = -1.0;
@@ -146,6 +147,60 @@ int		draw_scene(t_env *env)
 //	   back_side.color.g = 0;
 //	   back_side.color.b = 0;
 //
+=======
+	   t_plane	   ceil;
+	   ceil.pos.x = 0.0;
+	   ceil.pos.y = -1.0;
+	   ceil.pos.z = 0.0;
+	   ceil.normal.x = 0.0;
+	   ceil.normal.y = 1.0;
+	   ceil.normal.z = -0.0;
+	   ceil.color.r = 223;
+	   ceil.color.g = 223;
+	   ceil.color.b = 223;
+
+	   t_plane	   left_side;
+	   left_side.pos.x = 1.0;
+	   left_side.pos.y = 0.0;
+	   left_side.pos.z = 0.0;
+	   left_side.normal.x = 1.0;
+	   left_side.normal.y = 0.0;
+	   left_side.normal.z = 0.0;
+	   left_side.color.r = 177;
+	   left_side.color.g = 177;
+	   left_side.color.b = 177;
+
+	   t_plane	   right_side;
+	   right_side.pos.x = -1.0;
+	   right_side.pos.y = 0.0;
+	   right_side.pos.z = 0.0;
+	   right_side.normal.x = -1.0;
+	   right_side.normal.y = 0.0;
+	   right_side.normal.z = 0.0;
+	   right_side.color.r = 177;
+	   right_side.color.g = 177;
+	   right_side.color.b = 177;
+
+	   t_plane	   back_side;
+	   back_side.pos.x = 0.0;
+	   back_side.pos.y = 0.0;
+	   back_side.pos.z = 25.0;
+	   back_side.normal.x = 0.0;
+	   back_side.normal.y = 0.0;
+	   back_side.normal.z = 1.0;
+	   back_side.color.r = 0;
+	   back_side.color.g = 0;
+	   back_side.color.b = 0;
+
+	   t_cone	cone;
+	   cone.pos = init_vector(5.0f, -5.0f, 10.0f);
+	   cone.dir = init_vector(0.0f, 0.0f, 0.0f);
+	   cone.len = 1.0f;
+	   cone.ang = 0.785398;
+	   cone.color.r = 255;
+	   cone.color.g = 0;
+	   cone.color.b = 255;
+
 	t_node		*node;
 	t_scene		scene;
 	t_coord		drawn_pixel;
@@ -179,6 +234,9 @@ int		draw_scene(t_env *env)
 
 	node = init_node(LIGHT, &light, "light 1");
 	node_add(&(scene.lights), node);
+
+	node = init_node(CONE, &cone, "cone 1");
+	node_add(&(scene.nodes), node);
 
 	x = -1;
 	while (++x < WIDTH)
