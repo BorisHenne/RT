@@ -6,10 +6,11 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:24:52 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/14 05:39:18 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/14 06:07:44 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <rtv1.h>
 #include <cone.h>
 #include <stdio.h>
 
@@ -34,37 +35,22 @@ double		find_cone_det(t_ray ray, t_cone cone, double *a, double*b)
 
 double		find_cone_heigth(t_ray ray, t_cone cone, double t1, double t2)
 {
-	double hit_z;
+	double hit_y;
 	double max_heigth;
-/*
-	hit_z = ray.pos.z + t1 * ray.dir.z;
-	max_heigth = cone.pos.z + cone.len;
-	if (cone.pos.z <= hit_z && hit_z <= max_heigth)
-	{
-		return (t1);
-	}
-	else
-	{
-			hit_z = ray.pos.z + t2 * ray.dir.z;
-			max_heigth = cone.pos.z + cone.len;
-			if (cone.pos.z <= hit_z && hit_z <= max_heigth)
-				return (t2);
-			else
-				return (0.0f);
-	}
 
-	*/
-	hit_z = ray.pos.y + t1 * ray.dir.y;
+	hit_y = ray.pos.y + t1 * ray.dir.y;
 	max_heigth = cone.pos.y + cone.len;
-	if (cone.pos.y <= hit_z && hit_z <= max_heigth)
-	{
+	
+	t1 = (int)(t1 * PRECISION);
+	t1 /= (double)PRECISION;
+
+	if (cone.pos.y <= hit_y && hit_y <= max_heigth && t1 != 0.0)
 		return (t1);
-	}
 	else
 	{
-			hit_z = ray.pos.y + t2 * ray.dir.y;
+			hit_y = ray.pos.y + t2 * ray.dir.y;
 			max_heigth = cone.pos.y + cone.len;
-			if (cone.pos.y <= hit_z && hit_z <= max_heigth)
+			if (cone.pos.y <= hit_y && hit_y <= max_heigth)
 				return (t2);
 			else
 				return (0.0f);
@@ -76,8 +62,11 @@ double		find_cone_closest_hit(t_ray ray, t_cone cone, double a, double b, double
 	double	t1;
 	double	t2;
 
-	t1 = (-b - sqrt(det)) / (2.0f * a);
-	t2 = (-b + sqrt(det)) / (2.0f * a);
+	t1 = (int)((-b - sqrt(det)) / (2.0f * a) * PRECISION);
+	t1 /= (double)PRECISION;
+
+	t2 = (int)((-b + sqrt(det)) / (2.0f * a) * PRECISION);
+	t2 /= (double)PRECISION;
 	return (find_cone_heigth(ray, cone, t1, t2));
 }
 

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:09:27 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/14 05:35:31 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/14 06:07:22 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ double	find_cylinder_det(t_ray ray, t_cylinder cylinder, double *a, double *b)
 double	find_cylinder_heigth(t_ray ray, t_cylinder cylinder, double t1, double t2)
 {
 	double hit_z;
+	double max_heigth;
 
 	hit_z = ray.pos.z + t1 * ray.dir.z;
 
-	double max_heigth;
-
 	max_heigth = cylinder.pos.z + cylinder.length;
-	if (cylinder.pos.z <= hit_z && hit_z <= max_heigth)
+	t1 = (int)(t1 * PRECISION);
+	t1 /= (double)PRECISION;
+
+	if (cylinder.pos.z <= hit_z && hit_z <= max_heigth && t1 != 0.0)
 		return t1;
 	else
 	{

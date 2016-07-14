@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/14 05:38:16 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/14 06:02:47 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int		draw_scene(t_env *env)
 
 	t_vec ori;
 	ori.x = 0.0;
-	ori.y = 0.0;
+	ori.y = -1.0;
 	ori.z = -10.0;
 	t_vec look;
-	look.x = deg_to_rad(0);
+	look.x = deg_to_rad(-5);
 	look.y = deg_to_rad(0);
 	look.z = deg_to_rad(0);
 	t_vec init_vec;
@@ -65,7 +65,7 @@ int		draw_scene(t_env *env)
 	t_sphere	sphere2;
 	sphere2.radius = 0.3;
 	sphere2.center.x = -1.0;
-	sphere2.center.y = 0.5;
+	sphere2.center.y = 0.0;
 	sphere2.center.z = 0.0;
 	sphere2.color.r = 123;
 	sphere2.color.g = 173;
@@ -73,11 +73,19 @@ int		draw_scene(t_env *env)
 
 	t_cylinder	cylinder;
 	cylinder.radius = 0.3;
-	cylinder.pos = init_vector(1.0, 0.5, 0.0);
+	cylinder.pos = init_vector(1.0, 0.0, 0.0);
 	cylinder.length = 5.0;
 	cylinder.color.r = 0;
-	cylinder.color.r = 123;
-	cylinder.color.r = 173;
+	cylinder.color.g = 123;
+	cylinder.color.b = 173;
+
+	t_cone		cone;
+	cone.ang = deg_to_rad(25);
+	cone.pos = init_vector(0.0, -1.0, 1.0);
+	cone.len = 0.8;
+	cone.color.r = 173;
+	cone.color.g = 0;
+	cone.color.b = 123;
 
 	t_plane	   ground;
 	ground.pos.x = 0.0;
@@ -91,8 +99,8 @@ int		draw_scene(t_env *env)
 	ground.color.b = 123;
 
 	t_light		light;
-	light.pos.x	= 0.0;
-	light.pos.y	= -1.0;
+	light.pos.x	= -5.0;
+	light.pos.y	= -5.0;
 	light.pos.z	= -3.0;
 	light.color.r = 255;
 	light.color.g = 255;
@@ -103,9 +111,12 @@ int		draw_scene(t_env *env)
 	t_coord		drawn_pixel;
 
 	scene = init_scene(WIDTH, HEIGHT);
+
 	node = init_node(SPHERE, &sphere2, "sphere 2");
 	node_add(&(scene.objects), node);
 	node = init_node(CYLINDER, &cylinder, "cylinder");
+	node_add(&(scene.objects), node);
+	node = init_node(CONE, &cone, "cone");
 	node_add(&(scene.objects), node);
 	node = init_node(PLANE, &ground, "ground");
 	node_add(&(scene.objects), node);

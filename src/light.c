@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/14 05:27:44 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/14 05:51:57 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 				tmp_content = is_cylinder_hit(light_ray, *(t_cylinder *)tmp_object->data);
 			else if (tmp_object->type == PLANE)
 				tmp_content = is_plane_hit(light_ray, *(t_plane *)tmp_object->data);
+			else if (tmp_object->type == CONE)
+				tmp_content = is_cone_hit(light_ray, *(t_cone *)tmp_object->data);
 		if (tmp_content.bool == 1 && tmp_content.t > 0.0)
 		{
 			apply_shadow(&(curr_pixel.color));
