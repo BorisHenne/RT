@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/14 06:24:04 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/15 06:45:39 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,35 @@ int		draw_scene(t_env *env)
 	sphere2.center.x = -1.0;
 	sphere2.center.y = 0.0;
 	sphere2.center.z = 0.0;
-	sphere2.color.r = 123;
-	sphere2.color.g = 173;
+	sphere2.color.r = 255;
+	sphere2.color.g = 0;
 	sphere2.color.b = 0;
+
+	t_sphere	sphere3;
+	sphere3.radius = 0.3;
+	sphere3.center.x = 1.0;
+	sphere3.center.y = 0.0;
+	sphere3.center.z = 0.0;
+	sphere3.color.r = 255;
+	sphere3.color.g = 255;
+	sphere3.color.b = 0;
+
+	t_sphere	sphere4;
+	sphere4.radius = 0.3;
+	sphere4.center.x = 0.0;
+	sphere4.center.y = 0.0;
+	sphere4.center.z = 0.0;
+	sphere4.color.r = 34;
+	sphere4.color.g = 123;
+	sphere4.color.b = 255;
 
 	t_cylinder	cylinder;
 	cylinder.radius = 0.3;
 	cylinder.pos = init_vector(1.0, 0.0, 0.0);
 	cylinder.length = 5.0;
-	cylinder.color.r = 0;
-	cylinder.color.g = 123;
-	cylinder.color.b = 173;
+	cylinder.color.r = 255;
+	cylinder.color.g = 255;
+	cylinder.color.b = 255;
 
 	t_cone		cone;
 	cone.ang = deg_to_rad(25);
@@ -99,20 +117,36 @@ int		draw_scene(t_env *env)
 	ground.color.b = 123;
 
 	t_light		light;
-	light.pos.x	= -5.0;
+	light.pos.x	= -1.0;
 	light.pos.y	= -5.0;
-	light.pos.z	= -3.0;
+	light.pos.z	= -5.0;
 	light.color.r = 255;
 	light.color.g = 255;
 	light.color.b = 255;
 
 	t_light		light2;
-	light2.pos.x	= 5.0;
-	light2.pos.y	= -5.0;
-	light2.pos.z	= 3.0;
+	light2.pos.x = 0.0;
+	light2.pos.y = -5.0;
+	light2.pos.z = -5.0;
 	light2.color.r = 255;
 	light2.color.g = 255;
 	light2.color.b = 255;
+
+	t_light		light3;
+	light3.pos.x = 1.0;
+	light3.pos.y = -5.0;
+	light3.pos.z = -5.0;
+	light3.color.r = 255;
+	light3.color.g = 255;
+	light3.color.b = 255;
+
+	t_light		light4;
+	light4.pos.x = 0.0;
+	light4.pos.y = -5.0;
+	light4.pos.z = 5.0;
+	light4.color.r = 255;
+	light4.color.g = 255;
+	light4.color.b = 255;
 
 
 	t_node		*node;
@@ -121,18 +155,26 @@ int		draw_scene(t_env *env)
 
 	scene = init_scene(WIDTH, HEIGHT);
 
-	node = init_node(SPHERE, &sphere2, "sphere 2");
+	node = init_node(SPHERE, &sphere2, "sphere 1 couleur");
 	node_add(&(scene.objects), node);
-	node = init_node(CYLINDER, &cylinder, "cylinder");
+	node = init_node(SPHERE, &sphere3, "sphere 2 couleurs");
 	node_add(&(scene.objects), node);
-	node = init_node(CONE, &cone, "cone");
+	node = init_node(SPHERE, &sphere4, "sphere 3 couleurs");
 	node_add(&(scene.objects), node);
+//	node = init_node(CYLINDER, &cylinder, "cylinder");
+//	node_add(&(scene.objects), node);
+//	node = init_node(CONE, &cone, "cone");
+//	node_add(&(scene.objects), node);
 	node = init_node(PLANE, &ground, "ground");
 	node_add(&(scene.objects), node);
 
 	node = init_node(LIGHT, &light, "light 1");
 	node_add(&(scene.lights), node);
 	node = init_node(LIGHT, &light2, "light 2");
+	node_add(&(scene.lights), node);
+	node = init_node(LIGHT, &light3, "light 3");
+	node_add(&(scene.lights), node);
+	node = init_node(LIGHT, &light4, "light 4");
 	node_add(&(scene.lights), node);
 
 	x = -1;
@@ -143,7 +185,8 @@ int		draw_scene(t_env *env)
 		{
 			cam.ray.dir = calc_vec_dir(x, y, cam, look);
 			drawn_pixel = find_closest_object(scene.objects, cam.ray);
-			drawn_pixel = apply_light(scene, drawn_pixel, cam.ray);
+			if (drawn_pixel.bool == 1)
+				drawn_pixel = apply_light(scene, drawn_pixel, cam.ray);
 			put_pixel_on_image(env->img, x, y, drawn_pixel.color);
 		}
 	}

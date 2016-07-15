@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/12 02:10:35 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/15 00:13:06 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_coord
 	double 		t;
 	t_color		color;
 	int			bool;
+	t_vec		point_norm; // a calculer pour la brillance
 }				t_coord;
 
 /*
