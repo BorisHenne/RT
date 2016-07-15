@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/15 07:46:57 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/15 07:57:41 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@ void		apply_shadow(t_coord *curr_px, t_vec obj_pos, t_vec light_pos)
 	light_ray.dir = normalize(vec_sub(obj_pos, light_pos));
 	norm_obj_point = normalize(vec_sub(curr_px->point_norm, light_ray.dir));
 	angle = acos(dot_product(light_ray.dir, norm_obj_point));
-	new_color = angle;
+	new_color = 255;
 	printf("new_color : %f, angle : %f\n", new_color, angle);
-	if (curr_px->color.r * new_color <= 255 && curr_px->color.r * new_color >= 0.0)
-		curr_px->color.r *= new_color;
-	else if (curr_px->color.r * new_color > 255)
+	if (curr_px->color.r - new_color <= 255 && curr_px->color.r - new_color >= 0.0)
+		curr_px->color.r -= new_color;
+	else if (curr_px->color.r - new_color > 255)
 		curr_px->color.r = 255;
 	else
 		curr_px->color.r = 0;
-	if (curr_px->color.g * new_color <= 255 && curr_px->color.g * new_color >= 0.0)
-		curr_px->color.g *= new_color;
-	else if (curr_px->color.g * new_color > 255)
+	if (curr_px->color.g - new_color <= 255 && curr_px->color.g - new_color >= 0.0)
+		curr_px->color.g -= new_color;
+	else if (curr_px->color.g - new_color > 255)
 		curr_px->color.g = 255;
 	else
 		curr_px->color.g = 0;
-	if (curr_px->color.b * new_color <= 255 && curr_px->color.b * new_color >= 0.0)
-		curr_px->color.b *= new_color;
-	else if (curr_px->color.b * new_color > 255)
+	if (curr_px->color.b - new_color <= 255 && curr_px->color.b - new_color >= 0.0)
+		curr_px->color.b -= new_color;
+	else if (curr_px->color.b - new_color > 255)
 		curr_px->color.b = 255;
 	else
 		curr_px->color.b = 0;
@@ -106,15 +106,15 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 				tmp_content = is_plane_hit(light_ray, *(t_plane *)tmp_object->data);
 			else if (tmp_object->type == CONE)
 				tmp_content = is_cone_hit(light_ray, *(t_cone *)tmp_object->data);
-//			if (tmp_content.bool == 1 && tmp_content.t > 0.0)
-//			{
-//					apply_shadow(&curr_pixel, obj_pos, ((t_light *)(tmp_light->data))->pos);
-//					break ;
-//			}
+			if (tmp_content.bool == 1 && tmp_content.t > 0.0)
+			{
+					apply_shadow(&curr_pixel, obj_pos, ((t_light *)(tmp_light->data))->pos);
+				//	break ;
+			}
 			if (tmp_content.bool == 0)
 			{
 		  			diffuse_light(&curr_pixel, obj_pos, ((t_light *)(tmp_light->data))->pos);
-					break ;
+				//	break ;
 			}
 			tmp_object = tmp_object->next;
 		}
