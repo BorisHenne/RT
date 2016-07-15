@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/15 06:45:39 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/15 07:47:45 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ int		draw_scene(t_env *env)
 	sphere4.center.x = 0.0;
 	sphere4.center.y = 0.0;
 	sphere4.center.z = 0.0;
-	sphere4.color.r = 34;
-	sphere4.color.g = 123;
-	sphere4.color.b = 255;
+	sphere4.color.r = 100;
+	sphere4.color.g = 200;
+	sphere4.color.b = 200;
 
 	t_cylinder	cylinder;
 	cylinder.radius = 0.3;
@@ -170,12 +170,12 @@ int		draw_scene(t_env *env)
 
 	node = init_node(LIGHT, &light, "light 1");
 	node_add(&(scene.lights), node);
-	node = init_node(LIGHT, &light2, "light 2");
-	node_add(&(scene.lights), node);
-	node = init_node(LIGHT, &light3, "light 3");
-	node_add(&(scene.lights), node);
-	node = init_node(LIGHT, &light4, "light 4");
-	node_add(&(scene.lights), node);
+//	node = init_node(LIGHT, &light2, "light 2");
+//	node_add(&(scene.lights), node);
+//	node = init_node(LIGHT, &light3, "light 3");
+//	node_add(&(scene.lights), node);
+//	node = init_node(LIGHT, &light4, "light 4");
+//	node_add(&(scene.lights), node);
 
 	x = -1;
 	while (++x < WIDTH)
