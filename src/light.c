@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/16 03:17:47 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/16 04:34:40 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,23 @@ t_color		diffuse_light(t_coord *curr_px, t_vec obj_pos, t_vec light_pos, t_coord
 	double	angle;
 	double	new_color;
 	t_color	tmp_color;
+//	t_vec test;
 
 	(void)tmp_content;
 	light_ray.pos = light_pos;
-	light_ray.dir = normalize(vec_sub(obj_pos, light_pos));
+	light_ray.dir = vec_sub(obj_pos, light_pos);
+//	test = vec_add(light_ray.pos, scalar_product(light_ray.dir, tmp_content.t));
+
 //	norm_obj_point = normalize(vec_sub(curr_px->point_norm, light_ray.dir));
-	angle = acos(dot_product(light_ray.dir, curr_px->point_norm));
-	angle = (tmp_content.bool == 1 && tmp_content.t > 0.0) ? angle : 1 - angle;
-	new_color = fabs(curr_px->color.r * angle);
+	angle = dot_product(normalize(light_ray.dir), normalize(curr_px->point_norm)) / (get_length(light_ray.dir) * get_length(curr_px->point_norm));
+//	angle = dot_product(normalize(test), normalize(curr_px->point_norm)) / (get_length(test) * get_length(curr_px->point_norm));
+	angle = acos(angle);
+	if (angle == 0.0 || angle == M_PI)
+		printf("angle : %f\n", angle);
+	angle = 1 - angle;
+//	if (angle > 0.0)
+//		angle = /*(tmp_content.bool == 1 && tmp_content.t > 0.0) ? angle :*/ angle;
+	new_color = angle * 255;
 	//	printf("new_color : %f, angle : %f\n", new_color, angle);
 	if (curr_px->color.r <= 255 && curr_px->color.r > 0.0)
 		tmp_color.r = new_color;
@@ -89,7 +98,7 @@ t_color		diffuse_light(t_coord *curr_px, t_vec obj_pos, t_vec light_pos, t_coord
 //		curr_px->color.r = 255;
 //	else
 //		curr_px->color.r = 0;
-	new_color = fabs(curr_px->color.g * angle);
+//	new_color = fabs(curr_px->color.g * angle);
 	if (curr_px->color.g <= 255 && curr_px->color.g > 0.0)
 		tmp_color.g = new_color;
 	else
@@ -98,7 +107,7 @@ t_color		diffuse_light(t_coord *curr_px, t_vec obj_pos, t_vec light_pos, t_coord
 //		curr_px->color.g = 255;
 //	else
 //		curr_px->color.g = 0;
-	new_color = fabs(curr_px->color.b * angle);
+//	new_color = fabs(curr_px->color.b * angle);
 	if (curr_px->color.b <= 255 && curr_px->color.b > 0.0)
 		tmp_color.b = new_color;
 	else
@@ -146,7 +155,7 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 //			}
 //			if (tmp_content.bool == 0)
 //			{
-		  			tmp_color = add_color(diffuse_light(&curr_pixel, obj_pos, ((t_light *)(tmp_light->data))->pos, tmp_content), tmp_color, curr_pixel.color);
+		  			tmp_color = /*add_color(*/diffuse_light(&curr_pixel, obj_pos, ((t_light *)(tmp_light->data))->pos, tmp_content)/*, tmp_color, curr_pixel.color)*/;
 //					if (tmp_content.bool == 1 && tmp_content.t > 0.0)
 						break ;
 //			}

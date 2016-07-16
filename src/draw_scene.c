@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/16 03:19:07 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/16 05:07:26 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ int		draw_scene(t_env *env)
 	t_light		light;
 	light.pos.x = 5.0;
 	light.pos.y = 0.0;
-	light.pos.z = 0.0;
+	light.pos.z = 5.0;
 	light.color.r = 255;
 	light.color.g = 255;
 	light.color.b = 255;
 
 	t_light		light2;
-	light2.pos.x = 5.0;
+	light2.pos.x = -5.0;
 	light2.pos.y = 0.0;
 	light2.pos.z = 0.0;
 	light2.color.r = 255;
