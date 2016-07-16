@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 00:35:14 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/14 01:07:16 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/16 08:01:07 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct	s_ray
 {
 	t_vec		pos;
 	t_vec		dir;
+	double		length;
 }				t_ray;
 
 #endif

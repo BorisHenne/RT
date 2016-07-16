@@ -6,11 +6,12 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/15 00:30:23 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/16 08:03:50 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+# include <Stdio.h>
 
 double find_plane_hit(t_ray ray, t_plane *plan)
 {
@@ -35,9 +36,9 @@ t_coord	is_plane_hit(t_ray ray, t_plane plan)
 	res = find_plane_hit(ray, &plan);
 	if (res != 0)
 	{
-		hit.bool = 1;
 		hit.t = (int)(res * PRECISION);
 		hit.t /= (double)PRECISION;
+		hit.bool = (hit.t == 0.0) ? 0 : 1;
 		hit.color = plan.color;
 		hit.point_norm = plan.normal;
 	}

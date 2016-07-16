@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/15 00:08:56 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/16 07:02:05 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_coord		find_closest_object(t_node *nodes, t_ray ray)
 			tmp_content = is_plane_hit(ray, *(t_plane *)tmp->data);
 		else if (tmp->type == CONE)
 			tmp_content = is_cone_hit(ray, *(t_cone *)tmp->data);
-		if (tmp_content.bool == 1)
+		if (tmp_content.bool == 1 && tmp_content.t > 0.0)
 		{
-			if ((closest_hit.bool == 0 || tmp_content.t <= closest_hit.t) && tmp_content.t > 0)
+			if (closest_hit.bool == 0 || tmp_content.t <= closest_hit.t)
 				closest_hit = tmp_content;
 		}
 		tmp = tmp->next;

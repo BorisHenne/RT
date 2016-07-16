@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/16 03:46:26 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/16 07:21:09 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ t_coord	is_sphere_hit(t_ray ray, t_sphere sphere)
 			hit.bool = hit.t > 0.00 ? 1 : 0;
 			hit.color = sphere.color;
 			hit.point_norm = vec_sub(sphere.center, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
-
 		}
 	}
 	return (hit);
