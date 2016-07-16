@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/16 07:02:05 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/16 03:18:09 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_coord		find_closest_object(t_node *nodes, t_ray ray)
 	closest_hit.color.b = 0;
 	closest_hit.bool = 0;
 	tmp = nodes;
+//	printf("nouvelle boucle      ");
 	while (tmp)
 	{
 		if (tmp->type == SPHERE)
@@ -35,11 +36,15 @@ t_coord		find_closest_object(t_node *nodes, t_ray ray)
 			tmp_content = is_plane_hit(ray, *(t_plane *)tmp->data);
 		else if (tmp->type == CONE)
 			tmp_content = is_cone_hit(ray, *(t_cone *)tmp->data);
-		if (tmp_content.bool == 1 && tmp_content.t > 0.0)
+//		if (tmp->type == CONE)
+//			printf("type = %s, t = %.2f\n", tmp->name, tmp_content.t);		
+		if (tmp_content.bool == 1)
 		{
-			if (closest_hit.bool == 0 || tmp_content.t <= closest_hit.t)
+			if ((closest_hit.bool == 0 || tmp_content.t <= closest_hit.t) && tmp_content.t > 0)
+			{
 				closest_hit = tmp_content;
-		}
+			}
+		}I
 		tmp = tmp->next;
 	}
 	return (closest_hit);
