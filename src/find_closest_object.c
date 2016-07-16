@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/16 03:18:09 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/16 09:15:23 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_coord		find_closest_object(t_node *nodes, t_ray ray)
 			{
 				closest_hit = tmp_content;
 			}
-		}I
+		}
 		tmp = tmp->next;
 	}
 	return (closest_hit);
