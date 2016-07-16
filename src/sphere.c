@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/15 06:35:50 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/16 02:07:28 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_coord	is_sphere_hit(t_ray ray, t_sphere sphere)
 			hit.t = (-b / (2 * a));
 			hit.bool = hit.t > 0.0 ? 1 : 0;
 			hit.color = sphere.color;
-			hit.point_norm = normalize(vec_sub(vec_add(ray.pos, scalar_product(ray.dir, hit.t)), sphere.center));
+			hit.point_norm = normalize(vec_sub(sphere.center, vec_add(ray.pos, scalar_product(ray.dir, hit.t))));
 
 		}
 		else if (det > 0)
@@ -80,7 +80,7 @@ t_coord	is_sphere_hit(t_ray ray, t_sphere sphere)
 			hit.t = find_sphere_closest_hit(a, b, det);
 			hit.bool = hit.t > 0.00 ? 1 : 0;
 			hit.color = sphere.color;
-			hit.point_norm = normalize(vec_sub(vec_add(ray.pos, scalar_product(ray.dir, hit.t)), sphere.center));
+			hit.point_norm = normalize(vec_sub(sphere.center, vec_add(ray.pos, scalar_product(ray.dir, hit.t))));
 
 		}
 	}

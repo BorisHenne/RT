@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/15 07:58:51 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/16 03:19:07 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int		draw_scene(t_env *env)
 	cam = init_camera(ori);
 
 	t_sphere	sphere2;
-	sphere2.radius = 0.3;
-	sphere2.center.x = -1.0;
+	sphere2.radius = 0.5;
+	sphere2.center.x = 0.0;
 	sphere2.center.y = 0.0;
 	sphere2.center.z = 0.0;
 	sphere2.color.r = 255;
@@ -117,17 +117,17 @@ int		draw_scene(t_env *env)
 	ground.color.b = 123;
 
 	t_light		light;
-	light.pos.x	= -1.0;
-	light.pos.y	= -5.0;
-	light.pos.z	= -5.0;
+	light.pos.x = 5.0;
+	light.pos.y = 0.0;
+	light.pos.z = 0.0;
 	light.color.r = 255;
 	light.color.g = 255;
 	light.color.b = 255;
 
 	t_light		light2;
-	light2.pos.x = 0.0;
-	light2.pos.y = -5.0;
-	light2.pos.z = -5.0;
+	light2.pos.x = 5.0;
+	light2.pos.y = 0.0;
+	light2.pos.z = 0.0;
 	light2.color.r = 255;
 	light2.color.g = 255;
 	light2.color.b = 255;
@@ -157,10 +157,10 @@ int		draw_scene(t_env *env)
 
 	node = init_node(SPHERE, &sphere2, "sphere 1 couleur");
 	node_add(&(scene.objects), node);
-	node = init_node(SPHERE, &sphere3, "sphere 2 couleurs");
-	node_add(&(scene.objects), node);
-	node = init_node(SPHERE, &sphere4, "sphere 3 couleurs");
-	node_add(&(scene.objects), node);
+//	node = init_node(SPHERE, &sphere3, "sphere 2 couleurs");
+//	node_add(&(scene.objects), node);
+//	node = init_node(SPHERE, &sphere4, "sphere 3 couleurs");
+//	node_add(&(scene.objects), node);
 //	node = init_node(CYLINDER, &cylinder, "cylinder");
 //	node_add(&(scene.objects), node);
 //	node = init_node(CONE, &cone, "cone");
