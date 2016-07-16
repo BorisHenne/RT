@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/14 03:33:17 by nbelouni         ###   ########.fr        #
+#    Updated: 2016/07/16 05:26:46 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = rtv1
 
 SRC =	main.c \
 		camera.c \
-		cylinder.c \
+		cylinder_v2.c \
 		draw_scene.c \
 		events.c \
 		find_closest_object.c \
@@ -25,7 +25,7 @@ SRC =	main.c \
 		sphere.c \
 		vector.c \
 		vector_math.c \
-		cone.c \
+		cone_v2.c \
 
 SRCDIR = src/
 
