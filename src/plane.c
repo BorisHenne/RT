@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/16 08:03:50 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/17 00:10:25 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ t_coord	is_plane_hit(t_ray ray, t_plane plan)
 		hit.t /= (double)PRECISION;
 		hit.bool = (hit.t == 0.0) ? 0 : 1;
 		hit.color = plan.color;
-		hit.point_norm = plan.normal;
+		hit.point_norm.x = -plan.normal.x;
+		hit.point_norm.y = -plan.normal.y;
+		hit.point_norm.z = -plan.normal.z;
 	}
 	return (hit);
 }

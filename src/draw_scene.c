@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/16 09:09:12 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/17 00:11:08 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		draw_scene(t_env *env)
 	ground.color.b = 255;
 
 	t_light		light;
-	light.pos.x = 0.0;
+	light.pos.x = -5.0;
 	light.pos.y = -5.0;
 	light.pos.z = 0.0;
 	light.color.r = 255;
@@ -125,8 +125,8 @@ int		draw_scene(t_env *env)
 	light.color.b = 255;
 
 	t_light		light2;
-	light2.pos.x = 5.0;
-	light2.pos.y = 0.0;
+	light2.pos.x = 0.0;
+	light2.pos.y = -5.0;
 	light2.pos.z = 0.0;
 	light2.color.r = 255;
 	light2.color.g = 255;
@@ -168,10 +168,10 @@ int		draw_scene(t_env *env)
 	node = init_node(PLANE, &ground, "ground");
 	node_add(&(scene.objects), node);
 
-	node = init_node(LIGHT, &light, "light 1");
-	node_add(&(scene.lights), node);
-	node = init_node(LIGHT, &light2, "light 2");
+//	node = init_node(LIGHT, &light, "light 1");
 //	node_add(&(scene.lights), node);
+	node = init_node(LIGHT, &light2, "light 2");
+	node_add(&(scene.lights), node);
 //	node = init_node(LIGHT, &light3, "light 3");
 //	node_add(&(scene.lights), node);
 //	node = init_node(LIGHT, &light4, "light 4");
