@@ -6,45 +6,12 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/17 02:37:49 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/17 04:05:10 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
-//t_color		apply_shadow(t_coord *curr_px, t_vec obj_pos, t_vec light_pos)
-//{
-//	t_ray	light_ray;
-//	t_vec	norm_obj_point;
-//	double	angle;
-//	double	new_color;
-//	t_color	tmp_color;
-//
-//	light_ray.pos = light_pos;
-//	light_ray.dir = normalize(vec_sub(obj_pos, light_pos));
-//	norm_obj_point = normalize(vec_sub(curr_px->point_norm, light_ray.dir));
-//	angle = acos(dot_product(light_ray.dir, norm_obj_point));
-//	new_color = 175;
-////	printf("new_color : %f, angle : %f\n", new_color, angle);
-//	if (curr_px->color.r - new_color <= 255 && curr_px->color.r - new_color >= 0.0)
-//		curr_px->color.r -= new_color;
-//	else if (curr_px->color.r - new_color > 255)
-//		curr_px->color.r = 255;
-//	else
-//		curr_px->color.r = 0;
-//	if (curr_px->color.g - new_color <= 255 && curr_px->color.g - new_color >= 0.0)
-//		curr_px->color.g -= new_color;
-//	else if (curr_px->color.g - new_color > 255)
-//		curr_px->color.g = 255;
-//	else
-//		curr_px->color.g = 0;
-//	if (curr_px->color.b - new_color <= 255 && curr_px->color.b - new_color >= 0.0)
-//		curr_px->color.b -= new_color;
-//	else if (curr_px->color.b - new_color > 255)
-//		curr_px->color.b = 255;
-//	else
-//		curr_px->color.b = 0;
-//}
 
 t_color		diffuse_light(t_coord *curr_px, t_vec obj_pos, t_vec light_pos, t_coord tmp_content)
 {
@@ -159,7 +126,7 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 		n_lights += 1;
 	}
 	if (test_ombre)
-		tmp_color = apply_shadow(curr_pixel.color, test_ombre, n_lights);
+		tmp_color = apply_shadow(tmp_color, test_ombre, n_lights);
 	/*	if(test.g == 0 && test.b == 0)
 		{
 		printf("choose color: r = %d, g = %d, b = %d\n", tmp_color.r, tmp_color.g, tmp_color.b);

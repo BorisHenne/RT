@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/17 02:36:55 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/17 04:05:52 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		draw_scene(t_env *env)
 	t_sphere	sphere2;
 	sphere2.radius = 0.2;
 	sphere2.center.x = 0.5;
-	sphere2.center.y = 0.7;
+	sphere2.center.y = 0.8;
 	sphere2.center.z = 0.0;
 	sphere2.color.r = 0;
 	sphere2.color.g = 223;
@@ -74,7 +74,7 @@ int		draw_scene(t_env *env)
 	t_sphere	sphere3;
 	sphere3.radius = 0.3;
 	sphere3.center.x = 0.0;
-	sphere3.center.y = 1.0;
+	sphere3.center.y = 0.7;
 	sphere3.center.z = 0.0;
 	sphere3.color.r = 255;
 	sphere3.color.g = 255;
@@ -83,7 +83,7 @@ int		draw_scene(t_env *env)
 	t_sphere	sphere4;
 	sphere4.radius = 0.2;
 	sphere4.center.x = -0.2;
-	sphere4.center.y = 0.6;
+	sphere4.center.y = 0.8;
 	sphere4.center.z = -0.4;
 	sphere4.color.r = 255;
 	sphere4.color.g = 78;
