@@ -16,9 +16,12 @@
 int	key_hook(int keycode, t_env *e)
 {
 	(void)e;
-	// si appuie sur "echp" on quitte le programme
-	if (keycode == ESCAPE)
+	if (keycode == 53) //esc
 		exit(0);
+	if (keycode == 123) //leftarrow
+	if (keycode == 124) //rightarrow
+	if (keycode == 125) // downarrow
+	if (keycode == 126) // uparrow
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 	return (0);
 }
