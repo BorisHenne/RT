@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/16 08:50:02 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/17 00:21:52 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct		s_color
 
 typedef struct s_coord
 {
+	int			id;
 	double 		t;
 	t_color		color;
 	int			bool;

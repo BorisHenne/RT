@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/17 00:10:25 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/17 00:22:54 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_coord	is_plane_hit(t_ray ray, t_plane plan)
 {
 	t_coord hit;
 	double res;
-	
+
 	hit.bool = 0;
 	hit.t = 0;
 	hit.color.r = 0;

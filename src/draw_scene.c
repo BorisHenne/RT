@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/17 00:11:08 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/17 02:36:55 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,31 +63,31 @@ int		draw_scene(t_env *env)
 	cam = init_camera(ori);
 
 	t_sphere	sphere2;
-	sphere2.radius = 0.5;
-	sphere2.center.x = 0.0;
-	sphere2.center.y = 0.0;
+	sphere2.radius = 0.2;
+	sphere2.center.x = 0.5;
+	sphere2.center.y = 0.7;
 	sphere2.center.z = 0.0;
-	sphere2.color.r = 255;
-	sphere2.color.g = 0;
-	sphere2.color.b = 0;
+	sphere2.color.r = 0;
+	sphere2.color.g = 223;
+	sphere2.color.b = 223;
 
-	/*t_sphere	sphere3;
+	t_sphere	sphere3;
 	sphere3.radius = 0.3;
-	sphere3.center.x = 1.0;
-	sphere3.center.y = 0.0;
+	sphere3.center.x = 0.0;
+	sphere3.center.y = 1.0;
 	sphere3.center.z = 0.0;
 	sphere3.color.r = 255;
 	sphere3.color.g = 255;
 	sphere3.color.b = 0;
 
 	t_sphere	sphere4;
-	sphere4.radius = 0.3;
-	sphere4.center.x = 0.0;
-	sphere4.center.y = 0.0;
-	sphere4.center.z = 0.0;
-	sphere4.color.r = 100;
-	sphere4.color.g = 200;
-	sphere4.color.b = 200;
+	sphere4.radius = 0.2;
+	sphere4.center.x = -0.2;
+	sphere4.center.y = 0.6;
+	sphere4.center.z = -0.4;
+	sphere4.color.r = 255;
+	sphere4.color.g = 78;
+	sphere4.color.b = 123;
 
 	t_cylinder	cylinder;
 	cylinder.radius = 0.3;
@@ -103,7 +103,7 @@ int		draw_scene(t_env *env)
 	cone.len = 0.8;
 	cone.color.r = 173;
 	cone.color.g = 0;
-	cone.color.b = 123;*/
+	cone.color.b = 123;
 
 	t_plane	   ground;
 	ground.pos.x = 0.0;
@@ -125,14 +125,14 @@ int		draw_scene(t_env *env)
 	light.color.b = 255;
 
 	t_light		light2;
-	light2.pos.x = 0.0;
+	light2.pos.x = 5.0;
 	light2.pos.y = -5.0;
 	light2.pos.z = 0.0;
 	light2.color.r = 255;
 	light2.color.g = 255;
 	light2.color.b = 255;
 
-/*	t_light		light3;
+	t_light		light3;
 	light3.pos.x = 0.0;
 	light3.pos.y = 0.0;
 	light3.pos.z = -5.0;
@@ -143,10 +143,10 @@ int		draw_scene(t_env *env)
 	t_light		light4;
 	light4.pos.x = 0.0;
 	light4.pos.y = -5.0;
-	light4.pos.z = 5.0;
+	light4.pos.z = 0.0;
 	light4.color.r = 255;
 	light4.color.g = 255;
-	light4.color.b = 255*/;
+	light4.color.b = 255;
 
 
 	t_node		*node;
@@ -155,27 +155,27 @@ int		draw_scene(t_env *env)
 
 	scene = init_scene(WIDTH, HEIGHT);
 
-	node = init_node(SPHERE, &sphere2, "sphere 1 couleur");
+	node = init_node(SPHERE, &sphere2, "sphere 1 couleur", 1);
 	node_add(&(scene.objects), node);
-//	node = init_node(SPHERE, &sphere3, "sphere 2 couleurs");
+	node = init_node(SPHERE, &sphere3, "sphere 2 couleurs", 2);
+	node_add(&(scene.objects), node);
+	node = init_node(SPHERE, &sphere4, "sphere 3 couleurs", 3);
+	node_add(&(scene.objects), node);
+//	node = init_node(CYLINDER, &cylinder, "cylinder", 4);
 //	node_add(&(scene.objects), node);
-//	node = init_node(SPHERE, &sphere4, "sphere 3 couleurs");
+//	node = init_node(CONE, &cone, "cone", 5);
 //	node_add(&(scene.objects), node);
-//	node = init_node(CYLINDER, &cylinder, "cylinder");
-//	node_add(&(scene.objects), node);
-//	node = init_node(CONE, &cone, "cone");
-//	node_add(&(scene.objects), node);
-	node = init_node(PLANE, &ground, "ground");
+	node = init_node(PLANE, &ground, "ground", 6);
 	node_add(&(scene.objects), node);
 
-//	node = init_node(LIGHT, &light, "light 1");
-//	node_add(&(scene.lights), node);
-	node = init_node(LIGHT, &light2, "light 2");
+	node = init_node(LIGHT, &light, "light 1", 1);
 	node_add(&(scene.lights), node);
-//	node = init_node(LIGHT, &light3, "light 3");
+	node = init_node(LIGHT, &light2, "light 2", 2);
+	node_add(&(scene.lights), node);
+//	node = init_node(LIGHT, &light3, "light 3", 3);
 //	node_add(&(scene.lights), node);
-//	node = init_node(LIGHT, &light4, "light 4");
-//	node_add(&(scene.lights), node);
+	node = init_node(LIGHT, &light4, "light 4", 4);
+	node_add(&(scene.lights), node);
 
 	x = -1;
 	while (++x < WIDTH)

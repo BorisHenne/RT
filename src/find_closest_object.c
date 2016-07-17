@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/16 09:15:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/17 00:46:17 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_coord		find_closest_object(t_node *nodes, t_ray ray)
 	t_coord		tmp_content;
 	t_coord		closest_hit;
 
+	closest_hit.id = 0;
 	closest_hit.t = 10;
 	closest_hit.color.r = 0;
 	closest_hit.color.g = 0;
@@ -43,6 +44,7 @@ t_coord		find_closest_object(t_node *nodes, t_ray ray)
 			if ((closest_hit.bool == 0 || tmp_content.t <= closest_hit.t) && tmp_content.t > 0)
 			{
 				closest_hit = tmp_content;
+				closest_hit.id = tmp->id;
 			}
 		}
 		tmp = tmp->next;
