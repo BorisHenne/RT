@@ -91,11 +91,25 @@ int		draw_scene(t_env *env)
 
 	t_cylinder	cylinder;
 	cylinder.radius = 0.3;
-	cylinder.pos = init_vector(1.0, 0.0, 0.0);
-	cylinder.length = 5.0;
+	cylinder.r = 0.1;
+	cylinder.h = 0.1;
+	cylinder.pos = init_vector(0.0, 0.0, 0.0);
+	cylinder.dir = init_vector(1.0, 0.0, 1.0);
+	cylinder.length = 3.5;
 	cylinder.color.r = 255;
-	cylinder.color.g = 255;
-	cylinder.color.b = 255;
+	cylinder.color.g = 70;
+	cylinder.color.b = 120;
+
+	t_cylinder	cylinder2;
+	cylinder2.radius = 0.3;
+	cylinder2.r = 0.5;
+	cylinder2.h = 0.1;
+	cylinder2.pos = init_vector(1.0, 0.0, 1.0);
+	cylinder2.dir = init_vector(0.0, 1.0, 0.0);
+	cylinder2.length = 3.5;
+	cylinder2.color.r = 120;
+	cylinder2.color.g = 70;
+	cylinder2.color.b = 255;
 
 	t_cone		cone;
 	cone.ang = deg_to_rad(25);
@@ -161,8 +175,10 @@ int		draw_scene(t_env *env)
 	node_add(&(scene.objects), node);
 	node = init_node(SPHERE, &sphere4, "sphere 3 couleurs", 3);
 	node_add(&(scene.objects), node);
-//	node = init_node(CYLINDER, &cylinder, "cylinder", 4);
-//	node_add(&(scene.objects), node);
+	node = init_node(CYLINDER, &cylinder, "cylinder 1", 4);
+	node_add(&(scene.objects), node);
+	node = init_node(CYLINDER, &cylinder2, "cylinder 2", 5);
+	node_add(&(scene.objects), node);
 //	node = init_node(CONE, &cone, "cone", 5);
 //	node_add(&(scene.objects), node);
 	node = init_node(PLANE, &ground, "ground", 6);

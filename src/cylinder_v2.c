@@ -18,7 +18,7 @@ double	find_cylinder_det(double a, double b, double c)
 	return (b * b - 4 * a * c);
 }
 
-double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2)
+double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2, t_coord *hit)
 {
 	t_vec	inter;
 	t_vec	proj;
@@ -43,8 +43,13 @@ double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t
 	tmp = get_length(proj);
 	if (tmp > cylinder.length)
 		return (0.0);
-	else
-		return (time);
+	(*hit).point_norm = inter;
+	proj = vec_add(proj, cylinder.pos);
+	(*hit).point_norm = vec_sub(proj, hit->point_norm);
+	(*hit).point_norm = normalize(hit->point_norm);
+	//(*hit).point_norm = scalar_product(hit->point_norm, -1);
+
+	return (time);
 }
 
 t_coord	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
@@ -82,9 +87,9 @@ t_coord	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 	{
 		t1 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
 		t1 /= (double)PRECISION;
-		t2 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
+		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
 		t2 /= (double)PRECISION;
-		time = find_cylinder_limit(ray, cylinder, t1, aa, ab, ab2);
+		time = find_cylinder_limit(ray, cylinder, t1, aa, ab, ab2, &hit);
 		if (time > 0.0f)
 		{
 			hit.bool = 1;
@@ -95,7 +100,7 @@ t_coord	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 		}
 		else
 		{
-			time = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2);
+			time = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2, &hit);
 			if (time > 0.0f)
 			{
 				hit.bool = 1;

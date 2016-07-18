@@ -24,6 +24,7 @@ typedef struct	s_cylinder
 	t_vec		dir;
 	double		length;
 	double		r;
+	double		h;
 	t_color		color;
 
 }				t_cylinder;
