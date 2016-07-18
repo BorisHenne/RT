@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/14 01:40:45 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/17 22:34:55 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,17 @@ void		write_vector(t_vec v, char *name)
 	printf("\t\t- %s:\t%f %f %f\n", name, v.x, v.y, v.z);
 }
 
-void		write_camera(t_cam *c)
+void		print_camera(t_cam *c)
 {
 	write_vector(c->ray.pos, "pos");
-	write_vector(c->ver, "up");
+	write_vector(c->ray.dir, "dir");
+	write_vector(c->look_at, "look_at");
+	write_vector(c->hor, "hor");
+	write_vector(c->ver, "ver");
+	write_vector(c->init, "init");
+	printf("\t\t- w: %f\n", c->w);
+	printf("\t\t- h: %f\n", c->h);
+	printf("\t\t- d: %f\n", c->d);
 }
 
 t_scene		init_scene(int w, int h)
@@ -42,7 +49,19 @@ t_scene		init_scene(int w, int h)
 // paye ta fonction poto !
 void		add_camera(t_scene *s, t_cam *cam)
 {
-	s->cam = cam;
+	t_cam	*new_cam;
+
+	new_cam = (t_cam *)malloc(sizeof(t_cam));
+	new_cam->ray.pos = cam->ray.pos;
+	new_cam->ray.dir = cam->ray.dir;
+	new_cam->look_at = cam->look_at;
+	new_cam->hor = cam->hor;
+	new_cam->ver = cam->ver;
+	new_cam->init = cam->init;
+	new_cam->w = cam->w;
+	new_cam->h = cam->h;
+	new_cam->d = cam->d;
+	s->cam = new_cam;
 }
 
 void		write_scene(t_scene s)
@@ -57,7 +76,7 @@ void		write_scene(t_scene s)
 	}
 	else
 	{
-		write_camera(s.cam);
+		print_camera(s.cam);
 	}
 	printf("\tNODES:\n ");
 	if (s.objects == NULL)
