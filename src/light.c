@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/19 02:04:08 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/17 07:22:01 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,6 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 		n_lights += 1;
 		if (test_ombre)
 			tmp_color = apply_shadow(tmp_color, test_ombre, n_lights);
-//	printf("coucou2\n");
 		tmp_light = tmp_light->next;
 	}
 	curr_pixel.color = tmp_color;
