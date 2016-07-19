@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/17 22:35:57 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/19 07:07:39 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,14 @@ int		draw_scene(t_env *env, t_scene scene)
 
 	t_coord		drawn_pixel;
 
-	printf("draw_scene : \n");
-	print_camera(scene.cam);
 	x = -1;
 	while (++x < WIDTH)
 	{
 		y = -1;
 		while (++y < HEIGHT)
 		{
-			scene.cam->ray.dir = calc_vec_dir(x, y, *(scene.cam), scene.cam->look_at);
-			drawn_pixel = find_closest_object(scene.objects, scene.cam->ray);
+			scene.cam.ray.dir = calc_vec_dir(x, y, scene.cam, scene.cam.look_at);
+			drawn_pixel = find_closest_object(scene.objects, scene.cam.ray);
 			if (drawn_pixel.bool == 1)
 			{
 				drawn_pixel = apply_light(scene, drawn_pixel, scene.cam.ray);
