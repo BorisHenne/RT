@@ -6,12 +6,52 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/18 01:43:38 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/19 02:04:08 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
+
+t_color		specular_light(t_coord *curr_px, t_vec obj_pos, t_vec light_pos, t_coord tmp_content, t_ray cam_ray, t_color color)
+{
+	t_ray	light_ray;
+	double	l_n_angle;
+	double	c_n_angle;
+	t_color	tmp_color;
+
+	tmp_color.r = color.r;
+	tmp_color.g = color.g;
+	tmp_color.b = color.b;
+	(void)tmp_content;
+	light_ray.pos = light_pos;
+	light_ray.dir = vec_sub(obj_pos, light_pos);
+	l_n_angle = dot_product(light_ray.dir, curr_px->point_norm) / (get_length(light_ray.dir) * get_length(curr_px->point_norm));
+	c_n_angle = dot_product(cam_ray.dir, curr_px->point_norm) / (get_length(cam_ray.dir) * get_length(curr_px->point_norm));
+	if (l_n_angle < -c_n_angle)
+	{
+		c_n_angle = acos(c_n_angle);
+		c_n_angle = (int)(c_n_angle * PRECISION);
+		c_n_angle /= (double)PRECISION;
+	//	c_n_angle = ((c_n_angle / M_PI));
+//		l_n_angle = acos(l_n_angle);
+//		l_n_angle = (int)(l_n_angle * PRECISION);
+//		l_n_angle /= (double)PRECISION;
+//		l_n_angle = ((l_n_angle / M_PI));
+		tmp_color.r = (curr_px->color.r * c_n_angle > 255) ? 255 : curr_px->color.r * c_n_angle;
+		tmp_color.g = (curr_px->color.g * c_n_angle > 255) ? 255 : curr_px->color.g * c_n_angle;
+		tmp_color.b = (curr_px->color.b * c_n_angle > 255) ? 255 : curr_px->color.b * c_n_angle;
+ 		printf("reflect : %f, c_n : %f\n", l_n_angle, c_n_angle);
+	}
+//	angle = acos(angle);
+//	angle = (int)(angle * PRECISION);
+//	angle /= (double)PRECISION;
+//	angle = (1 - (angle / M_PI));
+//	tmp_color.r = curr_px->color.r * angle;
+//	tmp_color.g = curr_px->color.g * angle;
+//	tmp_color.b = curr_px->color.b * angle;
+	return (tmp_color);
+}
 
 t_color		diffuse_light(t_coord *curr_px, t_vec obj_pos, t_vec light_pos, t_coord tmp_content)
 {
@@ -102,8 +142,6 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 		tmp_content.bool = 0;
 		while (tmp_object)
 		{
-			if (curr_pixel.id != 0 && tmp_object->id != curr_pixel.id)
-			{
 				if (tmp_object->type == SPHERE)
 					tmp_content = is_sphere_hit(light_ray, *(t_sphere *)tmp_object->data);
 				else if (tmp_object->type == CYLINDER)
@@ -117,17 +155,16 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 					test_ombre += 1;
 					break ;
 				}
-			}
 			tmp_object = tmp_object->next;
 		}
-		if (test_ombre == 0)
-		{
-			test = diffuse_light(&curr_pixel, obj_pos, ((t_light *)(tmp_light->data))->pos, tmp_content);
-			tmp_color = add_color(test, tmp_color, curr_pixel.color);
-		}
+		test = diffuse_light(&curr_pixel, obj_pos, ((t_light *)(tmp_light->data))->pos, tmp_content);
+		tmp_color = add_color(test, tmp_color, curr_pixel.color);
+//		test = specular_light(&curr_pixel, obj_pos, ((t_light *)(tmp_light->data))->pos, tmp_content, cam_ray, tmp_color);
+//		tmp_color = add_color(test, tmp_color, curr_pixel.color);
 		n_lights += 1;
 		if (test_ombre)
 			tmp_color = apply_shadow(tmp_color, test_ombre, n_lights);
+//	printf("coucou2\n");
 		tmp_light = tmp_light->next;
 	}
 	curr_pixel.color = tmp_color;

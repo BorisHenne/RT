@@ -6,18 +6,22 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:20:20 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/15 08:04:01 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/19 05:18:02 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
 
-t_cam		init_camera(t_vec pos)
+t_cam		init_camera(t_vec pos, t_vec look)
 {
 	t_cam	cam;
 
 	cam.ray.pos = pos;
+	cam.ray.dir.x = 13;
+	cam.ray.dir.y = 13;
+	cam.ray.dir.z = 13;
+	cam.look_at = look;
 	cam.d = 1.0f;
 	cam.h = 0.28f;
 	cam.w = 0.5f;

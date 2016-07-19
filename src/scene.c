@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/14 01:40:45 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/19 03:30:28 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ void		write_vector(t_vec v, char *name)
 	printf("\t\t- %s:\t%f %f %f\n", name, v.x, v.y, v.z);
 }
 
-void		write_camera(t_cam *c)
+void		print_camera(t_cam *c)
 {
 	write_vector(c->ray.pos, "pos");
-	write_vector(c->ver, "up");
+	write_vector(c->ray.dir, "dir");
+	write_vector(c->look_at, "look_at");
+	printf("\t\t- w: %f\n", c->w);
+	printf("\t\t- h: %f\n", c->h);
+	printf("\t\t- d: %f\n", c->d);
 }
 
 t_scene		init_scene(int w, int h)
@@ -32,7 +36,7 @@ t_scene		init_scene(int w, int h)
 
 	s.w = w;
 	s.h = h;
-	s.cam = NULL;
+//	s.cam = NULL;
 	s.objects = NULL;
 	s.lights = NULL;
 	return (s);
@@ -40,8 +44,17 @@ t_scene		init_scene(int w, int h)
 
 
 // paye ta fonction poto !
-void		add_camera(t_scene *s, t_cam *cam)
+void		add_camera(t_scene *s, t_cam cam)
 {
+//	t_cam	new_cam;
+//
+////	new_cam = (t_cam *)malloc(sizeof(t_cam));
+//	new_cam.ray.pos = cam.ray.pos;
+//	new_cam.ray.dir = cam.ray.dir;
+//	new_cam.look_at = cam.look_at;
+//	new_cam.w = cam.w;
+//	new_cam.h = cam.h;
+//	new_cam.d = cam.d;
 	s->cam = cam;
 }
 
@@ -51,14 +64,14 @@ void		write_scene(t_scene s)
 
 	printf("SCENE [%dx%d]\n", s.w, s.h);
 	printf("\tCAMERA:\n");
-	if (s.cam == NULL)
-	{ 
-		printf("\t\t- NULL\n");
-	}
-	else
-	{
-		write_camera(s.cam);
-	}
+//	if (s.cam == NULL)
+//	{ 
+//		printf("\t\t- NULL\n");
+//	}
+//	else
+//	{
+		print_camera(&(s.cam));
+//	}
 	printf("\tNODES:\n ");
 	if (s.objects == NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/17 00:20:25 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/19 06:49:09 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ typedef struct		s_node
 
 t_node	*init_node(int type, void *data, char *name, int id);
 void	node_add(t_node **node, t_node *new);
+void		free_node_list(t_node **node_list);
 
 #endif

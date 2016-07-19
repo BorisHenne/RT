@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/14 05:22:21 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/17 22:06:49 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ typedef struct		s_env
 }					t_env;
 
 int					key_hook(int keycode, t_env *e);
-int					draw_scene(t_env *env);
+int					draw_scene(t_env *env, t_scene scene);
+double				deg_to_rad(double angle);
 #endif
