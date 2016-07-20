@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:25:00 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/14 03:35:47 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/20 03:15:14 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct	s_cone
 	t_vec		dir;
 	double		len;
 	double		ang;
+	double		r;
 	t_color		color;
 }				t_cone;
 

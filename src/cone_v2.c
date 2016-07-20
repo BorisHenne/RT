@@ -22,21 +22,7 @@ double		find_cone_det(double a, double b, double c)
 		return (b * b - 4 * a * c);
 }
 
-double		find_closest_hit(double a, double b, double det)
-{
-	double	t1;
-	double	t2;
-
-	t1 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
-	t1 /= (double)PRECISION;
-
-	t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
-	t2 /= (double)PRECISION;
-	//return (t1 > t2 ? t2 : t1);
-	return (t1);
-}
-
-double		find_cone_limit(t_ray ray, t_cone cone, double t, t_vec aa, t_vec ab, double ab2)
+double		find_cone_limit(t_ray ray, t_cone cone, double t, t_vec aa, t_vec ab, double ab2, t_coord *hit)
 {
 	t_vec	inter;
 	t_vec	proj;
@@ -61,15 +47,19 @@ double		find_cone_limit(t_ray ray, t_cone cone, double t, t_vec aa, t_vec ab, do
 	tmp = get_length(proj);
 	if (tmp > cone.len)
 		return (0.0f);
-	else
-		return (time);
+	//(*hit).point_norm = inter;
+	(*hit).point_norm = vec_sub(cone.pos, inter);
+	proj = scalar_product(normalize(proj), get_length(hit->point_norm) / cos(cone.r));
+	(*hit).point_norm = normalize(vec_sub(proj, hit->point_norm));
+
+	//(*hit).point_norm = scalar_product(hit->point_norm, -1);
+	return (time);
 }
 
 #include <stdio.h>
 t_coord		is_cone_hit(t_ray ray, t_cone cone)
 {
 	t_coord	hit;
-	//
 	t_vec	aa;
 	t_vec	ab;
 	t_vec	oxb;
@@ -82,13 +72,14 @@ t_coord		is_cone_hit(t_ray ray, t_cone cone)
 	double	c;
 	double	ab2;
 	//
-	double	r;
-	//
 	double	det;
 	//
-	double	time;
+	double	time1;
 	//
-	double t1, t2;
+	double	time2;
+	//
+	double t1;
+	double t2;
 
 
 	hit.bool = 0;
@@ -97,10 +88,10 @@ t_coord		is_cone_hit(t_ray ray, t_cone cone)
 	hit.color.b = 0;
 	hit.t = 0;
 
-	r = 3.0f;
 	//
 	aa = vec_add(cone.pos, cone.dir);
-	ab = cone.dir;//vec_sub(cone.pos, aa);
+	ab = vec_sub(cone.pos, aa);
+	//ab = cone.dir;
 	v = vec_sub(aa, ray.pos);
 	oxb = cross_product(v, ab);
 	v = cross_product(ray.dir, ab);
@@ -110,46 +101,53 @@ t_coord		is_cone_hit(t_ray ray, t_cone cone)
 	x = dot_product(ray.dir, cone.dir);
 	y = dot_product(delta, cone.dir);
 	//
-	a = c2(r) * dot_product(v, v) - s2(r) * x * x;
-	b = 2 * c2(r) * dot_product(v, oxb) - 2 * s2(r) * x * y;
-	c = c2(r) * dot_product(oxb, oxb) - s2(r) * y * y;
+	a = c2(cone.r) * dot_product(v, v) - s2(cone.r) * x * x;
+	b = 2 * c2(cone.r) * dot_product(v, oxb) - 2 * s2(cone.r) * x * y;
+	c = c2(cone.r) * dot_product(oxb, oxb) - s2(cone.r) * y * y;
+	
 	det = find_cone_det(a, b, c);
 	if (det < 0)
-	{
 		hit.bool = 0;
-	}
 	else
 	{
 		t1 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
 		t1 /= (double)PRECISION;
 		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
 		t2 /= (double)PRECISION;
-		time = find_cone_limit(ray, cone, t1, aa, ab, ab2);
-		/*
-		time = find_closest_hit(a, b, det);
-		time = (-b - sqrt(det))/ (2 * a);
-		*/
-		if (time > 0.0f)
+		time1 = find_cone_limit(ray, cone, t1, aa, ab, ab2, &hit);
+		if (time1 > 0.0f)
 		{
 			hit.bool = 1;
-			hit.t = time;
+			hit.t = time1;
 			hit.color.r = cone.color.r;
 			hit.color.g = cone.color.g;
 			hit.color.b = cone.color.b;
 		}
 		else
 		{
-			time = find_cone_limit(ray, cone, t2, aa, ab, ab2);
-			if (time > 0.0f)
+			time2 = find_cone_limit(ray, cone, t2, aa, ab, ab2, &hit);
+			if (time2 > 0.0f && time2 > time1)
 			{
+				hit.point_norm = scalar_product(hit.point_norm, -1);
 				hit.bool = 1;
-				hit.t = time;
-				hit.color.r = cone.color.r + 25;
-				hit.color.g = cone.color.g + 25;
-				hit.color.b = cone.color.b + 25;
+				hit.t = time2;
+				hit.color.r = cone.color.r;
+				hit.color.g = cone.color.g;
+				hit.color.b = cone.color.b;
+			}
+			else
+			{
+				time1 = find_cone_limit(ray, cone, t2, aa, ab, ab2, &hit);
+				if (time1 > 0.0f)
+				{
+					hit.bool = 1;
+					hit.t = time1;
+					hit.color.r = cone.color.r;
+					hit.color.g = cone.color.g;
+					hit.color.b = cone.color.b;
+				}
 			}
 		}
 	}
-//	printf("hit.t = %f\n", hit.t);
 	return (hit);
 }

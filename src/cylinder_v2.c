@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/16 05:42:45 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/20 02:54:08 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ t_coord	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 	//
 	double	a, b, c;
 	double	det, t1, t2;
-	double	time;
+	//double	time;
+	double	time1, time2;
 
 	hit.bool = 0;
 	hit.color.r = 0;
@@ -89,21 +90,22 @@ t_coord	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 		t1 /= (double)PRECISION;
 		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
 		t2 /= (double)PRECISION;
-		time = find_cylinder_limit(ray, cylinder, t1, aa, ab, ab2, &hit);
-		if (time > 0.0f)
+		time1 = find_cylinder_limit(ray, cylinder, t1, aa, ab, ab2, &hit);
+		if (time1 > 0.0f)
 		{
 			hit.bool = 1;
-			hit.t = time;
+			hit.t = time1;
 			hit.color.r = cylinder.color.r;
 			hit.color.g = cylinder.color.g;
 			hit.color.b = cylinder.color.b;
 		}
 		else
 		{
-			time = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2, &hit);
-			if (time > 0.0f)
+			time2 = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2, &hit);
+			if (time2 > 0.0f)
 			{
 				hit.bool = 1;
+				hit.t = time2;
 				hit.color.r = cylinder.color.r;
 				hit.color.g = cylinder.color.g;
 				hit.color.b = cylinder.color.b;
