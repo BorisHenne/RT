@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/19 04:47:56 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/20 04:27:54 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,37 +31,22 @@ void		check_pixel(t_color *color)
 		color->b = 255;
 }
 
-t_color		diffuse_light(t_coord *curr_px, t_vec obj_pos, t_light *light, t_color color1)
+t_color		diffuse_light(t_coord *curr_px, t_ray light_ray, t_light *light, t_color color1)
 {
-	t_ray	light_ray;
 	double	angle;
 	t_color	tmp_color;
-
-	light_ray.pos = light->pos;
 	t_color light_color;
-	light_ray.dir = vec_sub(obj_pos, light->pos);
-	angle = dot_product(normalize(light_ray.dir), normalize(curr_px->point_norm));
-	angle = (angle * 0.9) + 0.1;
 
-	light_color.r = curr_px->color.r * angle;
-	light_color.g = curr_px->color.g * angle;
-	light_color.b = curr_px->color.b * angle;
+	angle = dot_product(normalize(light_ray.dir), normalize(curr_px->point_norm));
+
+	light_color.r = curr_px->color.r * angle * light->color.r;
+	light_color.g = curr_px->color.g * angle * light->color.g;
+	light_color.b = curr_px->color.b * angle * light->color.b;
 
 	tmp_color.r = (color1.r + light_color.r);
 	tmp_color.g = (color1.g + light_color.g);
 	tmp_color.b = (color1.b + light_color.b);
 	return (tmp_color);
-}
-
-t_color		add_color(t_color a, t_color b, t_color ref)
-{
-	t_color res;
-	if (b.r == ref.r && b.g == ref.g && b.b == ref.b)
-		return a;
-	res.r = (a.r + b.r) /2;
-	res.g = (a.g + b.g) /2;
-	res.b = (a.b + b.b) /2;
-	return res;
 }
 
 t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
@@ -106,53 +91,21 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 			tmp_object = tmp_object->next;
 		}
 		if (shadow == 0)
-		{
-			tmp_color = diffuse_light(&curr_pixel, obj_pos, ((t_light *)(tmp_light->data)), tmp_color);
-		}
+			tmp_color = diffuse_light(&curr_pixel, light_ray, ((t_light *)(tmp_light->data)), tmp_color);
 		else
 		{
-			t_color light_color;
+/*			t_color light_color;
 			light_color.r = curr_pixel.color.r * 0.1;
 			light_color.g = curr_pixel.color.g * 0.1;
 			light_color.b = curr_pixel.color.b * 0.1;
 
 			tmp_color.r = (tmp_color.r + light_color.r);
 			tmp_color.g = (tmp_color.g + light_color.g);
-			tmp_color.b = (tmp_color.b + light_color.b);
+			tmp_color.b = (tmp_color.b + light_color.b);*/
 		}
+		check_pixel(&tmp_color);
 		tmp_light = tmp_light->next;
 	}
 	curr_pixel.color = tmp_color;
-	check_pixel(&curr_pixel.color);
 	return (curr_pixel);
 }
-
-
-
-/*
-   t_color		apply_shadow(t_color ref, int n_shadows, int n_lights)
-   {
-   t_color		shadow;
-   t_color		res;
-
-   shadow.r = 0;
-   shadow.g = 0;
-   shadow.b = 0;
-   if (n_shadows == 0 || n_lights == 0)
-   return (ref);
-   res = ref;
-   shadow.r = ref.r / n_lights;
-   shadow.g = ref.g / n_lights;
-   shadow.b = ref.b / n_lights;
-//	printf("r : %d, g : %d, g : %d\n", shadow.r, shadow.g, shadow.b);
-//shadow.r = 50;
-//  shadow.g = 50;
-//  shadow.b = 50;
-
-res.r = (res.r - shadow.r >= 0) ? res.r - shadow.r : 0;
-res.g = (res.g - shadow.g >= 0) ? res.g - shadow.g : 0;
-res.b = (res.b - shadow.b >= 0) ? res.b - shadow.b : 0;
-return (res);
-}
-
-*/

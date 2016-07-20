@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/17 00:21:52 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/20 04:23:16 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 typedef struct		s_color
 {
-	int				r;
-	int				g;
-	int				b;
+	double			r;
+	double			g;
+	double			b;
 }					t_color;
 
 typedef struct s_coord
