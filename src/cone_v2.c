@@ -47,7 +47,7 @@ double		find_cone_limit(t_ray ray, t_cone cone, double t, t_vec aa, t_vec ab, do
 	tmp = get_length(proj);
 	if (tmp > cone.len)
 		return (0.0f);
-	//(*hit).point_norm = inter;
+	(*hit).point_norm = inter;
 	(*hit).point_norm = vec_sub(cone.pos, inter);
 	proj = scalar_product(normalize(proj), get_length(hit->point_norm) / cos(cone.r));
 	(*hit).point_norm = normalize(vec_sub(proj, hit->point_norm));
@@ -126,7 +126,7 @@ t_coord		is_cone_hit(t_ray ray, t_cone cone)
 		else
 		{
 			time2 = find_cone_limit(ray, cone, t2, aa, ab, ab2, &hit);
-			if (time2 > 0.0f && time2 > time1)
+			if (time2 > 0.0f)
 			{
 				hit.point_norm = scalar_product(hit.point_norm, -1);
 				hit.bool = 1;
@@ -137,7 +137,7 @@ t_coord		is_cone_hit(t_ray ray, t_cone cone)
 			}
 			else
 			{
-				time1 = find_cone_limit(ray, cone, t2, aa, ab, ab2, &hit);
+				time1 = find_cone_limit(ray, cone, t1, aa, ab, ab2, &hit);
 				if (time1 > 0.0f)
 				{
 					hit.bool = 1;
@@ -149,5 +149,6 @@ t_coord		is_cone_hit(t_ray ray, t_cone cone)
 			}
 		}
 	}
+	//hit.point_norm = vec_sub(cone.pos, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
 	return (hit);
 }

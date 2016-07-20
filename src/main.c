@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/20 04:40:17 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/20 09:06:32 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -53,33 +53,35 @@ t_scene		init_all(void)
 	sphere3->color.g = 0.1;
 	sphere3->color.b = 0.1;
 
-/*	t_sphere	*sphere4;
+	t_sphere	*sphere4;
 	sphere4 = (t_sphere *)malloc(sizeof(t_sphere));
 	sphere4->radius = 0.2;
-	sphere4->center.x = -0.2;
+	sphere4->center.x = -2.2;
 	sphere4->center.y = 0.8;
 	sphere4->center.z = -0.4;
-	sphere4->color.r = 255;
-	sphere4->color.g = 78;
-	sphere4->color.b = 123;
+	sphere4->color.r = 1;
+	sphere4->color.g = 0.4;
+	sphere4->color.b = 0.7;
 
 	t_cylinder	*cylinder;
 	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
-	cylinder->radius = 0.3;
-	cylinder->pos = init_vector(1.0, 0.0, 0.0);
-	cylinder->length = 5.0;
-	cylinder->color.r = 255;
-	cylinder->color.g = 255;
-	cylinder->color.b = 255;
+	cylinder->r = 0.4;
+	cylinder->pos = init_vector(1.0, 0.0, 4.0);
+	cylinder->dir = init_vector(-1.0, .0, 1.0);
+	cylinder->length = 4.0;
+	cylinder->color.r = 0.3;
+	cylinder->color.g = 1;
+	cylinder->color.b = 0;
 
 	t_cone		*cone;
 	cone = (t_cone *)malloc(sizeof(t_cone));
-	cone->ang = deg_to_rad(25);
-	cone->pos = init_vector(0.0, -1.0, 1.0);
-	cone->len = 0.8;
-	cone->color.r = 173;
+	cone->pos = init_vector(-2.0, 0.0, 1.0);
+	cone->dir = init_vector(0.3, 1.0, .0);
+	cone->len = 1;
+	cone->r = 0.5;
+	cone->color.r = 1;
 	cone->color.g = 0;
-	cone->color.b = 123;*/
+	cone->color.b = 0.8;
 
 	t_plane	   *ground;
 	ground = (t_plane *)malloc(sizeof(t_plane));
@@ -93,7 +95,7 @@ t_scene		init_all(void)
 	ground->color.g = 1;
 	ground->color.b = 1;
 
-	t_light		*light;
+/*	t_light		*light;
 	light = (t_light *)malloc(sizeof(t_light));
 	light->pos.x = 2.0;
 	light->pos.y = -2.0;
@@ -101,33 +103,33 @@ t_scene		init_all(void)
 	light->color.r = 255;
 	light->color.g = 255;
 	light->color.b = 255;
-
+*/
 	t_light		*light2;
 	light2 = (t_light *)malloc(sizeof(t_light));
-	light2->pos.x = -2.0;
+	light2->pos.x = 1.0;
 	light2->pos.y = -2.;
-	light2->pos.z = 2.0;
+	light2->pos.z = 0.0;
 	light2->color.r = 255;
 	light2->color.g = 255;
 	light2->color.b = 255;
 
 	t_light		*light3;
 	light3 = (t_light *)malloc(sizeof(t_light));
-	light3->pos.x = -2.0;
-	light3->pos.y = -2.0;
-	light3->pos.z = -2.0;
-	light3->color.r = 100;
-	light3->color.g = 100;
-	light3->color.b = 100;
+	light3->pos.x = -1;
+	light3->pos.y = .0;
+	light3->pos.z = -0.2;
+	light3->color.r = 255;
+	light3->color.g = 255;
+	light3->color.b = 255;
 
-	t_light		*light4;
+/*	t_light		*light4;
 	light4 = (t_light *)malloc(sizeof(t_light));
 	light4->pos.x = 2.0;
 	light4->pos.y = -2.0;
 	light4->pos.z = -2.0;
 	light4->color.r = 100;
 	light4->color.g = 100;
-	light4->color.b = 100;
+	light4->color.b = 100;*/
 
 
 	t_node		*node;
@@ -140,19 +142,19 @@ t_scene		init_all(void)
 	node_add(&(scene.objects), node);
 	node = init_node(SPHERE, sphere3, "sphere 2 couleurs", 2);
 	node_add(&(scene.objects), node);
-/*	node = init_node(SPHERE, sphere4, "sphere 3 couleurs", 3);
+	node = init_node(SPHERE, sphere4, "sphere 3 couleurs", 3);
 	node_add(&(scene.objects), node);
 	node = init_node(CYLINDER, cylinder, "cylinder", 4);
 	node_add(&(scene.objects), node);
 	node = init_node(CONE, cone, "cone", 5);
-	node_add(&(scene.objects), node);*/
+	node_add(&(scene.objects), node);
 	node = init_node(PLANE, ground, "ground", 6);
 	node_add(&(scene.objects), node);
 
-	node = init_node(LIGHT, light, "light 1", 1);
+//	node = init_node(LIGHT, light, "light 1", 1);
 //	node_add(&(scene.lights), node);
-//	node = init_node(LIGHT, light2, "light 2", 2);
-//	node_add(&(scene.lights), node);
+	node = init_node(LIGHT, light2, "light 2", 2);
+	node_add(&(scene.lights), node);
 	node = init_node(LIGHT, light3, "light 3", 3);
 	node_add(&(scene.lights), node);
 //	node = init_node(LIGHT, light4, "light 4", 4);
