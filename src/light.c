@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/20 04:27:54 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/20 05:59:55 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,28 @@ void		check_pixel(t_color *color)
 		color->b = 255;
 }
 
-t_color		diffuse_light(t_coord *curr_px, t_ray light_ray, t_light *light, t_color color1)
+t_color		diffuse_light(t_coord *curr_px, t_ray light_ray, t_light *light)
 {
 	double	angle;
 	t_color	tmp_color;
-	t_color light_color;
 
 	angle = dot_product(normalize(light_ray.dir), normalize(curr_px->point_norm));
 
-	light_color.r = curr_px->color.r * angle * light->color.r;
-	light_color.g = curr_px->color.g * angle * light->color.g;
-	light_color.b = curr_px->color.b * angle * light->color.b;
+	tmp_color.r = curr_px->color.r * angle * light->color.r;
+	tmp_color.g = curr_px->color.g * angle * light->color.g;
+	tmp_color.b = curr_px->color.b * angle * light->color.b;
 
-	tmp_color.r = (color1.r + light_color.r);
-	tmp_color.g = (color1.g + light_color.g);
-	tmp_color.b = (color1.b + light_color.b);
 	return (tmp_color);
+}
+
+t_color		add_color(t_color a, t_color b)
+{
+	t_color res;
+
+	res.r = a.r + b.r;
+	res.g = a.g + b.g;
+	res.b = a.b + b.b;
+	return res;
 }
 
 t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
@@ -91,7 +97,7 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 			tmp_object = tmp_object->next;
 		}
 		if (shadow == 0)
-			tmp_color = diffuse_light(&curr_pixel, light_ray, ((t_light *)(tmp_light->data)), tmp_color);
+			tmp_color = add_color(tmp_color, diffuse_light(&curr_pixel, light_ray, ((t_light *)(tmp_light->data))));
 		else
 		{
 /*			t_color light_color;
