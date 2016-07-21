@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/21 02:03:43 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/21 02:11:33 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_color		specular_light(t_hit *curr_px, t_ray light_ray, t_light *light, t_ray c
 	t_color	tmp_color;
 	double	spec;
 
-	reflection = vec_sub(scalar_product(normalize(curr_px->point_norm), dot_product(normalize(light_ray.dir), normalize(curr_px->point_norm)) * 2), normalize(light_ray.dir));
+	reflection = vec_sub(scalar_product(normalize(curr_px->point_norm), dot_product(normalize(light_ray.dir), normalize(curr_px->point_norm)) * curr_px->reflection), normalize(light_ray.dir));
 	spec = pow(dot_product(normalize(cam_ray.dir), normalize(reflection)), 50);
 	tmp_color.r = spec * light->color.r;
 	tmp_color.g = spec * light->color.g;

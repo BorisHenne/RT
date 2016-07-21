@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/21 01:38:42 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/21 02:16:17 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -42,6 +42,7 @@ t_scene		init_all(void)
 	sphere2->color.r = 1;
 	sphere2->color.g = 1;
 	sphere2->color.b = 0.1;
+	sphere2->reflection = 50;
 
 	t_sphere	*sphere3;
 	sphere3 = (t_sphere *)malloc(sizeof(t_sphere));
@@ -52,6 +53,7 @@ t_scene		init_all(void)
 	sphere3->color.r = 1;
 	sphere3->color.g = 0.1;
 	sphere3->color.b = 0.1;
+	sphere3->reflection = 20;
 
 	t_sphere	*sphere4;
 	sphere4 = (t_sphere *)malloc(sizeof(t_sphere));
@@ -62,6 +64,7 @@ t_scene		init_all(void)
 	sphere4->color.r = 1;
 	sphere4->color.g = 0.4;
 	sphere4->color.b = 0.7;
+	sphere4->reflection = 100;
 
 	t_cylinder	*cylinder;
 	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
@@ -72,6 +75,7 @@ t_scene		init_all(void)
 	cylinder->color.r = 1.0;
 	cylinder->color.g = 0.5;
 	cylinder->color.b = 0.2;
+	cylinder->reflection = 10;
 
 	t_cone		*cone;
 	cone = (t_cone *)malloc(sizeof(t_cone));
@@ -82,6 +86,7 @@ t_scene		init_all(void)
 	cone->color.r = 1;
 	cone->color.g = 0;
 	cone->color.b = 0.8;
+	cone->reflection = 100;
 
 	t_plane	   *ground;
 	ground = (t_plane *)malloc(sizeof(t_plane));
@@ -94,6 +99,7 @@ t_scene		init_all(void)
 	ground->color.r = 1;
 	ground->color.g = 1;
 	ground->color.b = 1;
+	ground->reflection = 0;
 
 /*	t_light		*light;
 	light = (t_light *)malloc(sizeof(t_light));
@@ -110,17 +116,17 @@ t_scene		init_all(void)
 	light2->pos.y = 0.0;
 	light2->pos.z = -5.0;
 	light2->color.r = 255;
-	light2->color.g = 0;
-	light2->color.b = 0;
+	light2->color.g = 255;
+	light2->color.b = 255;
 
 	t_light		*light3;
 	light3 = (t_light *)malloc(sizeof(t_light));
 	light3->pos.x = -1.0;
 	light3->pos.y = 0.0;
 	light3->pos.z = -0.2;
-	light3->color.r = 0;
+	light3->color.r = 255;
 	light3->color.g = 255;
-	light3->color.b = 0;
+	light3->color.b = 255;
 
 /*	t_light		*light4;
 	light4 = (t_light *)malloc(sizeof(t_light));

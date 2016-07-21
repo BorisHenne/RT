@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/21 02:02:35 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/21 02:07:56 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_hit
 	t_color		color;
 	int			bool;
 	t_vec		point_norm; // a calculer pour la brillance
+	int			reflection;
 }				t_hit;
 
 /*
