@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:30:13 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/21 02:07:39 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/21 06:02:13 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct	s_cylinder
 	double		r;
 	double		h;
 	t_color		color;
-	int			reflection;
+	int			specular;
 
 }				t_cylinder;
 

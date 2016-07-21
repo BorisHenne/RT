@@ -148,6 +148,7 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 				}
 			}
 		}
+		hit.specular = cone.specular;
 	}
 	//hit.point_norm = vec_sub(cone.pos, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
 	return (hit);
