@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/17 00:22:54 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/21 02:03:55 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ double find_plane_hit(t_ray ray, t_plane *plan)
 		return((dot_product(plan->normal, vec_sub(ray.pos, plan->pos))) / tmp_magic);
 }
 
-t_coord	is_plane_hit(t_ray ray, t_plane plan)
+t_hit	is_plane_hit(t_ray ray, t_plane plan)
 {
-	t_coord hit;
+	t_hit hit;
 	double res;
 
 	hit.bool = 0;

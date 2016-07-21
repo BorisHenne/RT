@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:30:13 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/16 05:42:46 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/21 02:01:16 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ typedef struct	s_cylinder
 
 }				t_cylinder;
 
-t_coord is_cylinder_hit(t_ray ray, t_cylinder cylinder);
+t_hit is_cylinder_hit(t_ray ray, t_cylinder cylinder);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/20 09:06:35 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/07/21 02:03:19 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ double	find_cylinder_det(double a, double b, double c)
 	return (b * b - 4 * a * c);
 }
 
-double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2, t_coord *hit)
+double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2, t_hit *hit)
 {
 	t_vec	inter;
 	t_vec	proj;
@@ -51,9 +51,9 @@ double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t
 	return (time);
 }
 
-t_coord	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
+t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 {
-	t_coord	hit;
+	t_hit	hit;
 	t_vec	aa;
 	t_vec	ab;
 	t_vec	oxb;

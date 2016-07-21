@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/19 06:11:05 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/21 02:04:04 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ double	find_sphere_closest_hit(double a, double b, double det)
 		return (t1 < t2 ? t1 : t2);
 }
 
-t_coord	is_sphere_hit(t_ray ray, t_sphere sphere)
+t_hit	is_sphere_hit(t_ray ray, t_sphere sphere)
 {
-	t_coord hit;
+	t_hit hit;
 	double det;
 	double a;
 	double b;

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/20 05:59:55 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 02:03:43 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		check_pixel(t_color *color)
 		color->b = 255;
 }
 
-t_color		diffuse_light(t_coord *curr_px, t_ray light_ray, t_light *light)
+t_color		diffuse_light(t_hit *curr_px, t_ray light_ray, t_light *light)
 {
 	double	angle;
 	t_color	tmp_color;
@@ -55,9 +55,23 @@ t_color		add_color(t_color a, t_color b)
 	return res;
 }
 
-t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
+t_color		specular_light(t_hit *curr_px, t_ray light_ray, t_light *light, t_ray cam_ray)
 {
-	t_coord		tmp_content;
+	t_vec	reflection;
+	t_color	tmp_color;
+	double	spec;
+
+	reflection = vec_sub(scalar_product(normalize(curr_px->point_norm), dot_product(normalize(light_ray.dir), normalize(curr_px->point_norm)) * 2), normalize(light_ray.dir));
+	spec = pow(dot_product(normalize(cam_ray.dir), normalize(reflection)), 50);
+	tmp_color.r = spec * light->color.r;
+	tmp_color.g = spec * light->color.g;
+	tmp_color.b = spec * light->color.b;
+	return (tmp_color);
+}
+
+t_hit		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
+{
+	t_hit		tmp_content;
 	t_node		*tmp_light;
 	t_node		*tmp_object;
 	t_ray		light_ray;
@@ -109,6 +123,7 @@ t_coord		apply_light(t_scene scene, t_coord curr_pixel, t_ray cam_ray)
 			tmp_color.g = (tmp_color.g + light_color.g);
 			tmp_color.b = (tmp_color.b + light_color.b);*/
 		}
+		tmp_color = add_color(tmp_color, (specular_light(&curr_pixel, light_ray, ((t_light *)(tmp_light->data)), cam_ray)));
 		check_pixel(&tmp_color);
 		tmp_light = tmp_light->next;
 	}

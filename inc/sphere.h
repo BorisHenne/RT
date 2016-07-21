@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:13:12 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/19 05:58:56 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/21 01:59:51 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ typedef struct	s_coord
 	double	t;
 	t_color	color;
 	int	bool;
-}		t_coord;
+}		t_hit;
 */
 
 double		find_sphere_det(t_ray ray, t_sphere sphere, double *a, double *b);
 double		find_sphere_closest_hit(double a, double b, double det);
-t_coord		is_sphere_hit(t_ray ray, t_sphere sphere);
+t_hit		is_sphere_hit(t_ray ray, t_sphere sphere);
 
 #endif

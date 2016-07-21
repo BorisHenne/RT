@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/19 07:07:39 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/21 02:03:26 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		draw_scene(t_env *env, t_scene scene)
 	int		x;
 	int		y;
 
-	t_coord		drawn_pixel;
+	t_hit		drawn_pixel;
 
 	x = -1;
 	while (++x < WIDTH)

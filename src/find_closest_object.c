@@ -6,18 +6,18 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/19 03:39:31 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/21 02:03:34 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
 #include <stdio.h>
-t_coord		find_closest_object(t_node *nodes, t_ray ray)
+t_hit		find_closest_object(t_node *nodes, t_ray ray)
 {
 	t_node		*tmp;
-	t_coord		tmp_content;
-	t_coord		closest_hit;
+	t_hit		tmp_content;
+	t_hit		closest_hit;
 
 	closest_hit.id = 0;
 	closest_hit.t = 10;

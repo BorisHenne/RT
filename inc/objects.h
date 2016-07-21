@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/20 04:23:16 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 02:02:35 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ typedef struct		s_color
 	double			b;
 }					t_color;
 
-typedef struct s_coord
+typedef struct s_hit
 {
 	int			id;
 	double 		t;
 	t_color		color;
 	int			bool;
 	t_vec		point_norm; // a calculer pour la brillance
-}				t_coord;
+}				t_hit;
 
 /*
  * Sphere

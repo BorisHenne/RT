@@ -22,7 +22,7 @@ double		find_cone_det(double a, double b, double c)
 		return (b * b - 4 * a * c);
 }
 
-double		find_cone_limit(t_ray ray, t_cone cone, double t, t_vec aa, t_vec ab, double ab2, t_coord *hit)
+double		find_cone_limit(t_ray ray, t_cone cone, double t, t_vec aa, t_vec ab, double ab2, t_hit *hit)
 {
 	t_vec	inter;
 	t_vec	proj;
@@ -57,9 +57,9 @@ double		find_cone_limit(t_ray ray, t_cone cone, double t, t_vec aa, t_vec ab, do
 }
 
 #include <stdio.h>
-t_coord		is_cone_hit(t_ray ray, t_cone cone)
+t_hit		is_cone_hit(t_ray ray, t_cone cone)
 {
-	t_coord	hit;
+	t_hit	hit;
 	t_vec	aa;
 	t_vec	ab;
 	t_vec	oxb;
