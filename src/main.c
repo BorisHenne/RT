@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/21 06:01:13 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 07:27:48 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -43,6 +43,7 @@ t_scene		init_all(void)
 	sphere2->color.g = 0.1;
 	sphere2->color.b = 1;
 	sphere2->specular = 51;
+	sphere2->reflection = 0;
 
 	t_sphere	*sphere3;
 	sphere3 = (t_sphere *)malloc(sizeof(t_sphere));
@@ -54,6 +55,7 @@ t_scene		init_all(void)
 	sphere3->color.g = 1;
 	sphere3->color.b = 0.1;
 	sphere3->specular = 21;
+	sphere3->reflection = 0.2;
 
 	t_sphere	*sphere4;
 	sphere4 = (t_sphere *)malloc(sizeof(t_sphere));
@@ -65,6 +67,7 @@ t_scene		init_all(void)
 	sphere4->color.g = 0.4;
 	sphere4->color.b = 0.7;
 	sphere4->specular = 101;
+	sphere4->reflection = 1;
 
 	t_cylinder	*cylinder;
 	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
@@ -76,6 +79,7 @@ t_scene		init_all(void)
 	cylinder->color.g = 0.5;
 	cylinder->color.b = 0.2;
 	cylinder->specular = 11;
+	cylinder->reflection = 0.3;
 
 	t_cone		*cone;
 	cone = (t_cone *)malloc(sizeof(t_cone));
@@ -87,6 +91,7 @@ t_scene		init_all(void)
 	cone->color.g = 0;
 	cone->color.b = 0.8;
 	cone->specular = 11;
+	cone->reflection = 0.15;
 
 	t_plane	   *ground;
 	ground = (t_plane *)malloc(sizeof(t_plane));
@@ -100,12 +105,13 @@ t_scene		init_all(void)
 	ground->color.g = 1;
 	ground->color.b = 1;
 	ground->specular = 101;
+	ground->reflection = 1;
 
 	t_light		*light;
 	light = (t_light *)malloc(sizeof(t_light));
 	light->pos.x = 2.0;
 	light->pos.y = -2.0;
-	light->pos.z = 2.0;
+	light->pos.z = 0.0;
 	light->color.r = 255;
 	light->color.g = 255;
 	light->color.b = 255;

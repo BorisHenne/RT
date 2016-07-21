@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:25:00 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/21 06:02:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 06:57:31 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_cone
 	double		r;
 	t_color		color;
 	int			specular;
+	double		reflection;
 }				t_cone;
 
 t_hit		is_cone_hit(t_ray ray, t_cone cone);

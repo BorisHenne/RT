@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/21 05:47:08 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 06:55:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ typedef struct		s_env
 int					key_hook(int keycode, t_env *e);
 int					draw_scene(t_env *env, t_scene scene);
 double				deg_to_rad(double angle);
+
 t_color				add_color(t_color a, t_color b);
 void				check_color(t_color *color);
+t_color				mult_color(t_color ref, double coef);
+t_color				init_color(int r, int g, int b);
 #endif

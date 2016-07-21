@@ -6,24 +6,11 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/21 05:55:16 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 07:37:10 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-
-t_color		init_color(int r, int g, int b)
-{
-	t_color res;
-
-	res.r = r < 0 ? 0 : r;
-	res.r = r > 255 ? 255 : r;
-	res.g = g < 0 ? 0 : g;
-	res.g = g > 255 ? 255 : g;
-	res.b = b < 0 ? 0 : b;
-	res.b = b > 255 ? 255 : b;
-	return (res);
-}
 
 double		deg_to_rad(double angle)
 {
@@ -61,7 +48,7 @@ int		draw_scene(t_env *env, t_scene scene)
 	int		r;
 	t_ray	start;
 	t_color final_color;
-	float	reflet;
+	double	reflet;
 	t_hit	drawn_pixel;
 
 	x = -1;
@@ -70,23 +57,25 @@ int		draw_scene(t_env *env, t_scene scene)
 		y = -1;
 		while (++y < HEIGHT)
 		{
-			final_color = init_color(0,0,0);
+			final_color = init_color(0, 0, 0);
 			r = 0;
 			start.pos = scene.cam.ray.pos;
 			start.dir = calc_vec_dir(x, y, scene.cam, scene.cam.look_at);
 			while (r < 2)
 			{
+				reflet = pow(drawn_pixel.reflection, r);
 				drawn_pixel = find_closest_object(scene.objects, start);
 				if (drawn_pixel.bool == 1)
+				{
 					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
+					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
+				}
 				else
 					break;
-
 				start.pos = vec_add(start.pos, scalar_product(start.dir, drawn_pixel.t)); 
 				reflet = dot_product(start.dir, drawn_pixel.point_norm) * 2.0;
 				start.dir = vec_sub(scalar_product(drawn_pixel.point_norm, reflet), start.dir);
 				final_color = add_color(final_color, drawn_pixel.color);
-				check_color(&final_color);
 				r++;
 			}
 			put_pixel_on_image(env->img, x, y, final_color);

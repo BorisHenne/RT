@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/16 05:26:46 by sduprey          ###   ########.fr        #
+#    Updated: 2016/07/21 06:56:13 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC =	main.c \
 		vector.c \
 		vector_math.c \
 		cone_v2.c \
+		color.c \
 
 SRCDIR = src/
 

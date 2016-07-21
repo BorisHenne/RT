@@ -6,30 +6,12 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/21 05:59:26 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 06:56:01 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
-
-void		check_color(t_color *color)
-{
-	if (color->r < 0)
-		color->r = 0;
-	else if (color->r > 255)
-		color->r = 255;
-
-	if (color->g < 0)
-		color->g = 0;
-	else if (color->g > 255)
-		color->g = 255;
-
-	if (color->b < 0)
-		color->b = 0;
-	else if (color->b > 255)
-		color->b = 255;
-}
 
 t_color		diffuse_light(t_hit curr_px, t_ray light_ray, t_light *light)
 {
@@ -43,16 +25,6 @@ t_color		diffuse_light(t_hit curr_px, t_ray light_ray, t_light *light)
 	tmp_color.b = curr_px.color.b * angle * light->color.b;
 
 	return (tmp_color);
-}
-
-t_color		add_color(t_color a, t_color b)
-{
-	t_color res;
-
-	res.r = a.r + b.r;
-	res.g = a.g + b.g;
-	res.b = a.b + b.b;
-	return res;
 }
 
 t_color		specular_light(t_hit curr_px, t_vec reflection, t_light *light, t_ray cam_ray)
@@ -114,7 +86,6 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 
 		reflection = vec_sub(scalar_product(curr_pixel.point_norm, dot_product(light_ray.dir, curr_pixel.point_norm) * 2), light_ray.dir);
 		tmp_color = add_color(tmp_color, (specular_light(curr_pixel, reflection, ((t_light *)(tmp_light->data)), cam_ray)));
-		check_color(&tmp_color);
 		tmp_light = tmp_light->next;
 	}
 	curr_pixel.color = tmp_color;

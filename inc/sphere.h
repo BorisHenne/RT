@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:13:12 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/21 06:02:03 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 06:57:15 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct	s_sphere
 	t_vec		center;
 	t_color		color;
 	int			specular;
+	double		reflection;
 }				t_sphere;
 /*
 typedef struct	s_coord

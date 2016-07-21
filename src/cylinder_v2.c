@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/21 06:06:01 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 06:59:19 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 			hit.color.r = cylinder.color.r;
 			hit.color.g = cylinder.color.g;
 			hit.color.b = cylinder.color.b;
-			hit.specular = cylinder.specular;
 		}
 		else
 		{
@@ -109,9 +108,10 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 				hit.color.r = cylinder.color.r;
 				hit.color.g = cylinder.color.g;
 				hit.color.b = cylinder.color.b;
-				hit.specular = cylinder.specular;
 			}
 		}
+		hit.specular = cylinder.specular;
+		hit.reflection = cylinder.reflection;
 	}
 	//hit.point_norm = vec_sub(cylinder.pos, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
 	return (hit);

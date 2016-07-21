@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/21 06:06:14 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/21 06:58:51 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_hit	is_plane_hit(t_ray ray, t_plane plan)
 		hit.point_norm.x = -plan.normal.x;
 		hit.point_norm.y = -plan.normal.y;
 		hit.point_norm.z = -plan.normal.z;
+		hit.reflection = plan.reflection;
 		hit.specular = plan.specular;
 	}
 	return (hit);
