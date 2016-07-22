@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 04:58:48 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/22 06:38:40 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/23 01:04:46 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ t_hit	apply_opacity(t_ray start, t_scene scene, t_hit drawn_pixel, double reflet
 	t_color	tmp_color;
 
 	is_in_object = 0;
-	tmp_color = mult_color(drawn_pixel.color, drawn_pixel.opacity);
-//	tmp_color = drawn_pixel.color;
+//	tmp_color = mult_color(drawn_pixel.color, drawn_pixel.opacity);
+	tmp_color = drawn_pixel.color;
 	refract_indice = 1.0;
 	while (drawn_pixel.opacity < 1.0)
 	{
@@ -54,7 +54,7 @@ t_hit	apply_opacity(t_ray start, t_scene scene, t_hit drawn_pixel, double reflet
 		drawn_pixel = find_closest_object(scene.objects, start);
 		if (drawn_pixel.bool == 1)
 		{
-			drawn_pixel.color = add_color(tmp_color, mult_color(apply_light(scene, drawn_pixel, start), drawn_pixel.opacity));
+			drawn_pixel.color = add_color(tmp_color, apply_light(scene, drawn_pixel, start));
 			
 			drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
 			if (is_in_object % 2 == 0)
@@ -69,7 +69,10 @@ t_hit	apply_opacity(t_ray start, t_scene scene, t_hit drawn_pixel, double reflet
 			is_in_object++;
 		}
 		else
+		{
+			drawn_pixel.color = tmp_color;
 			break;
+		}
 	}
 	return (drawn_pixel);
 
