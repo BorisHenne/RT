@@ -1,114 +1,122 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
+/*   cylinder_v2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/10 03:09:27 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/14 06:07:22 by tlepeche         ###   ########.fr       */
+/*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
+/*   Updated: 2016/07/22 01:33:33 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <cylinder.h>
-#include <stdio.h>
 
-double	find_cylinder_det(t_ray ray, t_cylinder cylinder, double *a, double *b)
+double	find_cylinder_det(double a, double b, double c)
 {
-	(void)b;
-	(void)a;
-	double c;
-	t_vec tmp;
-
-	tmp = vec_sub(cylinder.pos, ray.pos);
-
-	*a = pow(ray.dir.x, 2) + pow(ray.dir.y, 2);
-
-	*b = 2.0 * (ray.dir.x * tmp.x + ray.dir.y * tmp.y);
-
-	c = pow(tmp.x, 2) + pow(tmp.y, 2) - pow(cylinder.radius, 2);
-	return (pow(*b, 2) - (4 * (*a) * c));
-
+	return (b * b - 4 * a * c);
 }
 
-
-double	find_cylinder_heigth(t_ray ray, t_cylinder cylinder, double t1, double t2)
+double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2, t_hit *hit)
 {
-	double hit_z;
-	double max_heigth;
+	t_vec	inter;
+	t_vec	proj;
+	double	time;
+	double	tmp;
 
-	hit_z = ray.pos.z + t1 * ray.dir.z;
-
-	max_heigth = cylinder.pos.z + cylinder.length;
-	t1 = (int)(t1 * PRECISION);
-	t1 /= (double)PRECISION;
-
-	if (cylinder.pos.z <= hit_z && hit_z <= max_heigth && t1 != 0.0)
-		return t1;
-	else
-	{
-		hit_z = ray.pos.z + t2 * ray.dir.z;
-
-		max_heigth = cylinder.pos.z + cylinder.length;
-		if (cylinder.pos.z <= hit_z && hit_z <= max_heigth)
-			return t2;
-		else
-			return 0.0;
-	}
+	time = t;
+	if (time < 0)
+		return (0.0f);
+	inter = scalar_product(ray.dir, time);
+	inter = vec_add(inter, ray.pos);
+	proj = vec_sub(aa, inter);
+	tmp = dot_product(ab, proj) / ab2;
+	ab = scalar_product(ab, tmp);
+	ab = vec_add(ab, aa);
+	//
+	proj.x = ab.x;
+	proj.y = ab.y;
+	proj.z = ab.z;
+	//
+	proj = vec_sub(cylinder.pos, proj);
+	tmp = get_length(proj);
+	if (tmp > cylinder.length / 2)
+		return (0.0);
+	(*hit).point_norm = inter;
+	proj = vec_add(proj, cylinder.pos);
+	(*hit).point_norm = vec_sub(proj, hit->point_norm);
+	(*hit).point_norm = normalize(hit->point_norm);
+	//(*hit).point_norm = scalar_product(hit->point_norm, -1);
+	return (time);
 }
 
-double	find_cylinder_closest_hit(t_ray ray, t_cylinder cylinder, double a, double b, double det)
+t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 {
-	double t1;
-	double t2;
-
-	t1 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
-	t1 /= (double)PRECISION;
-
-	t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
-	t2/= (double)PRECISION;
-
-	return (find_cylinder_heigth(ray, cylinder, t1, t2));
-}
-
-t_coord	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
-{
-	t_coord hit;
-	double det;
-	double a;
-	double b;
+	t_hit	hit;
+	t_vec	aa;
+	t_vec	ab;
+	t_vec	oxb;
+	t_vec	v;
+	double	ab2;
+	//
+	double	a, b, c;
+	double	det, t1, t2;
+	//double	time;
+	double	time1, time2;
 
 	hit.bool = 0;
-	hit.t = 0;
 	hit.color.r = 0;
 	hit.color.g = 0;
 	hit.color.b = 0;
 
-	/* calcul determinant */
-	if (cylinder.radius > 0 && cylinder.length != 0)
+	aa = vec_add(cylinder.pos, cylinder.dir);
+	ab = vec_sub(cylinder.pos, aa);
+	v = vec_sub(aa, ray.pos);
+	oxb = cross_product(v, ab);
+	v = cross_product(ray.dir, ab);
+	ab2 = dot_product(ab, ab);
+	a = dot_product(v, v);
+	b = 2.0 * dot_product(v, oxb);
+	c = dot_product(oxb, oxb) - (cylinder.r * cylinder.r  * ab2);
+
+	det = find_cylinder_det(a, b, c);
+	if (det < 0)
+		hit.bool = 0;
+	else
 	{
-		det = find_cylinder_det(ray, cylinder, &a, &b);
-		if (det == 0)
+		t1 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
+		t1 /= (double)PRECISION;
+		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
+		t2 /= (double)PRECISION;
+		time1 = find_cylinder_limit(ray, cylinder, t1, aa, ab, ab2, &hit);
+		if (time1 > 0.0f)
 		{
-			// une solution unique 
 			hit.bool = 1;
-			hit.t = (-b / (2 * a));
-			hit.color = cylinder.color;
+			hit.t = time1;
+			hit.color.r = cylinder.color.r;
+			hit.color.g = cylinder.color.g;
+			hit.color.b = cylinder.color.b;
+			hit.opacity = cylinder.opacity;
+			hit.ref_index = cylinder.ref_index;
 		}
-		else if (det > 0)
+		else
 		{
-			// deux solutions 
-			if ((hit.t = find_cylinder_closest_hit(ray, cylinder, a, b, det)) != 0.0)
+			time2 = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2, &hit);
+			if (time2 > 0.0f)
 			{
 				hit.bool = 1;
-				hit.color = cylinder.color;
-			}
-			else
-			{
-				hit.bool = 0;
+				hit.t = time2;
+				hit.color.r = cylinder.color.r;
+				hit.color.g = cylinder.color.g;
+				hit.color.b = cylinder.color.b;
+				hit.opacity = cylinder.opacity;
+				hit.ref_index = cylinder.ref_index;
 			}
 		}
+		hit.specular = cylinder.specular;
+		hit.reflection = cylinder.reflection;
 	}
-	return hit;
+	//hit.point_norm = vec_sub(cylinder.pos, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
+	return (hit);
 }
