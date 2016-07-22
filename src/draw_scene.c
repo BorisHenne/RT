@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/21 07:37:10 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/22 06:50:35 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int         put_pixel_on_image(void *img, int x, int y, t_color color)
 	return (0);
 }
 
-#include <stdio.h>
 
+#include <stdio.h>
 int		draw_scene(t_env *env, t_scene scene)
 {
 	int		x;
@@ -69,6 +69,7 @@ int		draw_scene(t_env *env, t_scene scene)
 				{
 					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
 					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
+					drawn_pixel = apply_opacity(start, scene, drawn_pixel, reflet);
 				}
 				else
 					break;

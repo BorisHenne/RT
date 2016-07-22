@@ -122,6 +122,8 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 			hit.color.r = cone.color.r;
 			hit.color.g = cone.color.g;
 			hit.color.b = cone.color.b;
+			hit.opacity = cone.opacity;
+			hit.ref_index = cone.ref_index;
 		}
 		else
 		{
@@ -134,6 +136,8 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 				hit.color.r = cone.color.r;
 				hit.color.g = cone.color.g;
 				hit.color.b = cone.color.b;
+				hit.opacity = cone.opacity;
+				hit.ref_index = cone.ref_index;
 			}
 			else
 			{
@@ -145,6 +149,8 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 					hit.color.r = cone.color.r;
 					hit.color.g = cone.color.g;
 					hit.color.b = cone.color.b;
+					hit.opacity = cone.opacity;
+					hit.ref_index = cone.ref_index;
 				}
 			}
 		}

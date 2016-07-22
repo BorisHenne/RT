@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:24:52 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/21 02:13:36 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/22 01:32:26 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ t_coord		is_cone_hit(t_ray ray, t_cone cone)
 		hit.t = (-b / (2 * a));
 		hit.color = cone.color;
 		hit.relection = cone.reflection;
+		hit.opacity = cone.opacity;
+		hit.ref_index = cone.ref_index;
 		//printf("test %f\n", det);
 	}
 	else if (det > 0)
@@ -102,6 +104,8 @@ t_coord		is_cone_hit(t_ray ray, t_cone cone)
 			hit.bool = 1;
 			hit.color = cone.color;
 			hit.relection = cone.reflection;
+			hit.opacity = cone.opacity;
+			hit.ref_index = cone.ref_index;
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/21 06:56:13 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/07/22 05:01:02 by nbelouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC =	main.c \
 		light.c \
 		node.c \
 		plane.c \
+		refraction.c \
 		scene.c \
 		sphere.c \
 		vector.c \

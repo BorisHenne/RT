@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/21 06:59:19 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/22 01:33:33 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 			hit.color.r = cylinder.color.r;
 			hit.color.g = cylinder.color.g;
 			hit.color.b = cylinder.color.b;
+			hit.opacity = cylinder.opacity;
+			hit.ref_index = cylinder.ref_index;
 		}
 		else
 		{
@@ -108,6 +110,8 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 				hit.color.r = cylinder.color.r;
 				hit.color.g = cylinder.color.g;
 				hit.color.b = cylinder.color.b;
+				hit.opacity = cylinder.opacity;
+				hit.ref_index = cylinder.ref_index;
 			}
 		}
 		hit.specular = cylinder.specular;

@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plane.h                                            :+:      :+:    :+:   */
+/*   refraction.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/13 03:17:42 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/22 01:28:24 by nbelouni         ###   ########.fr       */
+/*   Created: 2016/07/22 04:59:45 by nbelouni          #+#    #+#             */
+/*   Updated: 2016/07/22 05:17:31 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLANE_H
-# define PLANE_H
+#ifndef REFRACTION_H
+# define REFRACTION_H
 
-typedef struct		s_plane
-{
-	t_vec			pos;
-	t_vec			normal;
-	t_color			color;					
-	int				specular;
-	double			reflection;
-	double			opacity;
-	double			ref_index;
-}					t_plane;
-
-t_hit				is_plane_hit(t_ray ray, t_plane plan);
+t_ray	find_refract_vect(t_ray start_ray, t_hit drawn_pixel, double c_r, double next_r);
+t_hit	apply_opacity(t_ray start, t_scene scene, t_hit drawn_pixe, double reflet);
 
 #endif

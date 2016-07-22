@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/21 06:56:58 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/22 01:23:42 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ typedef struct s_hit
 	t_vec		point_norm; // a calculer pour la brillance
 	int			specular;
 	double		reflection;
+	double		opacity;	//0 a 1
+	double		ref_index; //indice de refraction
+
 }				t_hit;
 
 /*

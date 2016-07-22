@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/21 06:55:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/22 05:01:56 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <light.h>
 # include <plane.h>
 # include <ray.h>
+# include <refraction.h>
 # include <scene.h>
 # include <sphere.h>
 # include <vector.h>
@@ -54,4 +55,7 @@ t_color				add_color(t_color a, t_color b);
 void				check_color(t_color *color);
 t_color				mult_color(t_color ref, double coef);
 t_color				init_color(int r, int g, int b);
+
+void		write_vector(t_vec v, char *name);
+
 #endif
