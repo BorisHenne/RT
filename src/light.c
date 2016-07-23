@@ -6,12 +6,27 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/23 01:26:58 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/23 04:29:53 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
+
+t_color		diffuse_shadow(t_hit curr_px, t_ray light_ray, t_light *light, t_hit tmp_content)
+{
+	double	angle;
+	double	coef;
+	t_color	tmp_color;
+
+	angle = fabs(dot_product(light_ray.dir, curr_px.point_norm));
+	coef = 1 - tmp_content.opacity;
+	tmp_color.r = curr_px.color.r * angle * light->color.r * coef;
+	tmp_color.g = curr_px.color.g * angle * light->color.g * coef;
+	tmp_color.b = curr_px.color.b * angle * light->color.b * coef;
+
+	return (tmp_color);
+}
 
 t_color		diffuse_light(t_hit curr_px, t_ray light_ray, t_light *light)
 {
@@ -38,20 +53,20 @@ t_color		specular_light(t_hit curr_px, t_vec reflection, t_light *light, t_ray c
 {
 	t_color	tmp_color;
 	double	spec;
-	double coefalacon;
+	double coef;
 
 	if (curr_px.opacity == 1)
-		spec = pow(dot_product(normalize(cam_ray.dir), normalize(reflection)), curr_px.specular+1);
+		spec = pow(dot_product(normalize(cam_ray.dir), normalize(reflection)), curr_px.specular + 1);
 	else
 		spec = pow(dot_product(normalize(cam_ray.dir), normalize(reflection)), curr_px.specular);
 
 	if (spec < 0)
-		coefalacon = fabs(spec) * curr_px.opacity;
+		coef = fabs(spec) * curr_px.opacity;
 	else
-		coefalacon = 1;
-	tmp_color.r = spec * light->color.r * coefalacon;
-	tmp_color.g = spec * light->color.g * coefalacon;
-	tmp_color.b = spec * light->color.b * coefalacon;
+		coef = 1;
+	tmp_color.r = spec * light->color.r * coef;
+	tmp_color.g = spec * light->color.g * coef;
+	tmp_color.b = spec * light->color.b * coef;
 	return (tmp_color);
 }
 
@@ -66,6 +81,7 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 	t_vec		tmp_light_ray;
 	int			shadow;
 	t_vec		reflection;
+	t_hit		closest_hit;
 
 	tmp_color.r = tmp_color.g = tmp_color.b = 0;
 	tmp_light = scene.lights;
@@ -80,6 +96,7 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 		tmp_object = scene.objects;
 		tmp_content.t = 0;
 		tmp_content.bool = 0;
+		closest_hit = tmp_content;
 		while (tmp_object)
 		{
 			if (tmp_object->type == SPHERE)
@@ -93,12 +110,15 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 			if (tmp_content.bool == 1 && tmp_content.t > 0.0 && tmp_content.t <= light_ray.length)
 			{
 				shadow = 1;
-				break ;
+				if (closest_hit.bool == 0 || tmp_content.opacity >= closest_hit.opacity)
+					closest_hit = tmp_content;
 			}
 			tmp_object = tmp_object->next;
 		}
 		if (shadow == 0 || curr_pixel.opacity < 1)
 			tmp_color = add_color(tmp_color, diffuse_light(curr_pixel, light_ray, ((t_light *)(tmp_light->data))));
+		else if (closest_hit.opacity < 1 && shadow == 1)
+			tmp_color = add_color(tmp_color, diffuse_shadow(curr_pixel, light_ray, ((t_light *)(tmp_light->data)), closest_hit));
 
 		reflection = vec_sub(scalar_product(curr_pixel.point_norm, dot_product(light_ray.dir, curr_pixel.point_norm) * 2), light_ray.dir);
 		tmp_color = add_color(tmp_color, (specular_light(curr_pixel, reflection, ((t_light *)(tmp_light->data)), cam_ray)));
