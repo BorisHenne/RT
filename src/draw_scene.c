@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/22 06:51:17 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/23 15:06:05 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int		draw_scene(t_env *env, t_scene scene)
 			final_color = init_color(0, 0, 0);
 			r = 0;
 			start.pos = scene.cam.ray.pos;
-			start.dir = calc_vec_dir(x, y, scene.cam, scene.cam.look_at);
-			while (r < 2)
+			start.dir = normalize(calc_vec_dir(x, y, scene.cam, scene.cam.look_at));
+			while (r < 1)
 			{
 				reflet = pow(drawn_pixel.reflection, r);
 				drawn_pixel = find_closest_object(scene.objects, start);
@@ -69,7 +69,7 @@ int		draw_scene(t_env *env, t_scene scene)
 				{
 					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
 					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
-					drawn_pixel = apply_opacity(start, scene, drawn_pixel, reflet);
+				drawn_pixel = apply_opacity(start, scene, drawn_pixel, reflet);
 				}
 				else
 					break;
