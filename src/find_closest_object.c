@@ -6,20 +6,20 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/23 02:45:48 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/25 14:14:13 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
 #include <stdio.h>
+
 t_hit		find_closest_object(t_node *nodes, t_ray ray)
 {
 	t_node		*tmp;
 	t_hit		tmp_content;
 	t_hit		closest_hit;
 
-	closest_hit.id = 0;
 	closest_hit.t = 10;
 	closest_hit.color.r = 0;
 	closest_hit.color.g = 0;

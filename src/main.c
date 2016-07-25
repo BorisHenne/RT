@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/25 11:33:44 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/25 17:18:58 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -42,46 +42,54 @@ t_scene		init_all(void)
 	sphere2->color.b = 0.5;
 	sphere2->specular = 90;
 	sphere2->reflection = 0;
-	sphere2->opacity = 1;
-	sphere2->ref_index = 0;
+	sphere2->opacity = 0.5;
+	sphere2->ref_index = 1.5;
+	sphere2->texture = NONE;
+	sphere2->is_negativ = 0;
 
 	t_sphere	*sphere3;
 	sphere3 = (t_sphere *)malloc(sizeof(t_sphere));
 	sphere3->radius = 0.3;
-	sphere3->center = init_vector(0.8, 0.0, 0.0);
+	sphere3->center = init_vector(1.0, 0., 0.0);
 	sphere3->color.r = 1;
-	sphere3->color.g = 0;
+	sphere3->color.g = 1;
 	sphere3->color.b = 0.4;
 	sphere3->specular = 50;
 	sphere3->reflection = 0;
-	sphere3->opacity = 0.3;
-	sphere3->ref_index = 1.5;
+	sphere3->opacity = 0.9;
+	sphere3->ref_index = 2.5;
+	sphere3->texture = NONE;
+	sphere3->is_negativ = 0;
 
 	t_sphere	*sphere4;
 	sphere4 = (t_sphere *)malloc(sizeof(t_sphere));
 	sphere4->radius = 0.3;
-	sphere4->center = init_vector(-0.8, 0.0, 0.0);
+	sphere4->center = init_vector(-1.0, 0.0, 0.0);
 	sphere4->color.r = 1;
 	sphere4->color.g = 0.4;
 	sphere4->color.b = 0.4;
 	sphere4->specular = 50;
 	sphere4->reflection = 0;
 	sphere4->opacity = 0.5;
-	sphere4->ref_index = 1.8;
+	sphere4->ref_index = 3.5;
+	sphere4->texture = NONE;
+	sphere4->is_negativ = 0;
 
 	t_cylinder	*cylinder;
 	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
-	cylinder->r = 0.2;
-	cylinder->pos = init_vector(0.0, 0.0, -1.0);
-	cylinder->dir = init_vector(-1.0, 0.4, 0);
+	cylinder->radius = 0.2;
+	cylinder->pos = init_vector(0.0, 0.0, 3.0);
+	cylinder->dir = init_vector(1.0, 0.0, 0);
 	cylinder->length = 4.0;
 	cylinder->color.r = 0.1;
 	cylinder->color.g = 0.92;
 	cylinder->color.b = 0.92;
 	cylinder->specular = 35;
 	cylinder->reflection = 0;
-	cylinder->opacity = 0.5;
+	cylinder->opacity = 1;
 	cylinder->ref_index = 1;
+	cylinder->texture = NONE;
+	cylinder->is_negativ = 0;
 //
 //	t_cone		*cone;
 //	cone = (t_cone *)malloc(sizeof(t_cone));
@@ -96,31 +104,37 @@ t_scene		init_all(void)
 //	cone->reflection = 0.5;
 //	cone->reflection = 0.5;
 //	cone->opacity = 1;
+//	cone->texture = NONE;
+//	cone->is_negativ = 0;
 //
-//	t_cone		*cone2;
-//	cone2 = (t_cone *)malloc(sizeof(t_cone));
-//	cone2->pos = init_vector(-0.5, 0.0, 0.0);
-//	cone2->dir = init_vector(1.0, 0.0, 0.0);
-//	cone2->len = 1;
-//	cone2->r = 0.5;
-//	cone2->color.r = 1;
-//	cone2->color.g = 0.8;
-//	cone2->color.b = 0.2;
-//	cone2->specular = 5;
-//	cone2->reflection = 0.5;
-//	cone2->opacity = 1;
-//
+	t_cone		*cone2;
+	cone2 = (t_cone *)malloc(sizeof(t_cone));
+	cone2->pos = init_vector(0.0, 0.0, 1.0);
+	cone2->dir = init_vector(1.0, 0.4, 0.0);
+	cone2->len = 1;
+	cone2->r = 0.5;
+	cone2->color.r = 1;
+	cone2->color.g = 0.8;
+	cone2->color.b = 0.2;
+	cone2->specular = 5;
+	cone2->reflection = 0.5;
+	cone2->opacity = 1;
+	cone2->texture = NONE;
+	cone2->is_negativ = 0;
+
 	t_plane	   *ground;
 	ground = (t_plane *)malloc(sizeof(t_plane));
-	ground->pos = init_vector(0.0, 0.7, 0.0);
+	ground->pos = init_vector(0.0, 1.0, 0.0);
 	ground->normal = init_vector(0.0, 1.2, 0.0);
-	ground->color.r = 0.5;
-	ground->color.g = 0.5;
-	ground->color.b = 0.5;
+	ground->color.r = 0.1;
+	ground->color.g = 0.1;
+	ground->color.b = 0.1;
 	ground->specular = 101;
 	ground->reflection = 0;
 	ground->opacity = 1;
 	ground->ref_index = 1.0;
+	ground->texture = NONE;
+	ground->is_negativ = 0;
 
 	t_plane	   *ceil;
 	ceil = (t_plane *)malloc(sizeof(t_plane));
@@ -130,38 +144,40 @@ t_scene		init_all(void)
 	ceil->color.g = 0;
 	ceil->color.b = 0;
 	ceil->specular = 101;
-	ceil->reflection = 0;
+	ceil->reflection = 1;
 	ceil->opacity = 1;
 	ceil->ref_index = 1.0;
+	ceil->texture = NONE;
+	ceil->is_negativ = 0;
 
 	t_light		*light;
 	light = (t_light *)malloc(sizeof(t_light));
 	light->type = DIRECT;
-	light->pos = init_vector(5.0, -5.0, -5.0);
+	light->pos = init_vector(0.0, -5.0, 0.0);
 	light->color = init_color(0, 222, 255);
 	light->look_at = init_vector(0, 0, 0);
 	light->angle = deg_to_rad(15);
 
 	t_light		*light2;
 	light2 = (t_light *)malloc(sizeof(t_light));
-	light2->type = DIFFUSE;
-	light2->pos = init_vector(-5.0, -5.0, -5.0);
-	light2->color = init_color(255, 0, 0);
+	light2->type = PARALLEL;
+	light2->pos = init_vector(0.0, 1.0, 0.0);
+	light2->color = init_color(255, 255, 255);
 	light2->look_at = init_vector(0, 0, 0);
 	light2->angle = deg_to_rad(0);
 
 	t_light		*light3;
 	light3 = (t_light *)malloc(sizeof(t_light));
-	light3->type = PARALLEL;
-	light3->pos = init_vector(-1.0, 1.0, 0.0);
-	light3->color = init_color(12, 255, 86);
+	light3->type = DIFFUSE;
+	light3->pos = init_vector(-5.0, -5.0, 0.0);
+	light3->color = init_color(255, 188, 34);
 	light3->look_at = init_vector(0, 0, 0);
 	light3->angle = deg_to_rad(0);
 
 	t_light		*light4;
 	light4 = (t_light *)malloc(sizeof(t_light));
 	light4->type = DIFFUSE;
-	light4->pos = init_vector(0.0, -1.0, 0.0);
+	light4->pos = init_vector(5.0, -5.0, 0.0);
 	light4->color = init_color(255, 255, 255);
 	light4->look_at = init_vector(0, 0, 0);
 	light4->angle = deg_to_rad(180);
@@ -170,15 +186,16 @@ t_scene		init_all(void)
 	t_node		*node;
 	t_scene		scene;
 
+//	scene = init_scene(WIDTH, HEIGHT, CARTOON);
 	scene = init_scene(WIDTH, HEIGHT, REALISTIC);
 	add_camera(&scene, cam);
 
-//	node = init_node(SPHERE, sphere2, "sphere2", 1);
-//	node_add(&(scene.objects), node);
-//	node = init_node(SPHERE, sphere3, "sphere 2 couleurs", 2);
-//	node_add(&(scene.objects), node);
-//	node = init_node(SPHERE, sphere4, "sphere 3 couleurs", 3);
-//	node_add(&(scene.objects), node);
+	node = init_node(SPHERE, sphere2, "sphere2", 1);
+	node_add(&(scene.objects), node);
+	node = init_node(SPHERE, sphere3, "sphere 2 couleurs", 2);
+	node_add(&(scene.objects), node);
+	node = init_node(SPHERE, sphere4, "sphere 3 couleurs", 3);
+	node_add(&(scene.objects), node);
 	node = init_node(CYLINDER, cylinder, "cylinder", 4);
 	node_add(&(scene.objects), node);
 //	node = init_node(CONE, cone, "cone", 5);
@@ -192,12 +209,12 @@ t_scene		init_all(void)
 
 	node = init_node(LIGHT, light, "light 1", 1);
 	node_add(&(scene.lights), node);
-	node = init_node(LIGHT, light2, "light 2", 2);
-	node_add(&(scene.lights), node);
+//	node = init_node(LIGHT, light2, "light 2", 2);
+//	node_add(&(scene.lights), node);
 	node = init_node(LIGHT, light3, "light 3", 3);
 	node_add(&(scene.lights), node);
-//	node = init_node(LIGHT, light4, "light 4", 4);
-//	node_add(&(scene.lights), node);
+	node = init_node(LIGHT, light4, "light 4", 4);
+	node_add(&(scene.lights), node);
 
 	return (scene);
 }

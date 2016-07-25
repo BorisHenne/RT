@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:25:00 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/24 00:45:08 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/25 16:02:28 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_cone
 	double		opacity;
 	double		ref_index;
 	int			is_negativ;
+	int			texture;
 }				t_cone;
 
 t_hit		is_cone_hit(t_ray ray, t_cone cone);

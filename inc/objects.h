@@ -6,13 +6,16 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/24 00:45:01 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/25 16:10:49 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _OBJECTS_H
 # define _OBJECTS_H
 # include <vector.h>
+
+# define NONE		0
+# define MARBLE		1
 
 typedef struct		s_color
 {
@@ -23,8 +26,10 @@ typedef struct		s_color
 
 typedef struct s_hit
 {
-	int			id;
+	int			type;
 	double 		t;
+	double 		t_max;
+	double		radius;
 	t_color		color;
 	int			bool;
 	t_vec		point_norm; // a calculer pour la brillance
@@ -33,6 +38,7 @@ typedef struct s_hit
 	double		opacity;	//0 a 1
 	double		ref_index; //indice de refraction
 	int			is_negativ; //1 si negatif, 0 sinon
+	int			texture;
 }				t_hit;
 
 /*

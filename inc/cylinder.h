@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:30:13 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/24 00:45:14 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/25 16:02:04 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct	s_cylinder
 	t_vec		pos;
 	t_vec		dir;
 	double		length;
-	double		r;
+//	double		r;
 	double		h;
 	t_color		color;
 	int			specular;
@@ -31,6 +31,7 @@ typedef struct	s_cylinder
 	double		opacity;
 	double		ref_index;
 	int			is_negativ;
+	int			texture;
 }				t_cylinder;
 
 t_hit is_cylinder_hit(t_ray ray, t_cylinder cylinder);

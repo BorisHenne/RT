@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/25 11:28:27 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/25 16:43:27 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 		{
 //			printf("light parallel\n");
 			light_ray.dir = normalize(scalar_product(((t_light *)(tmp_light->data))->pos, -1));
-			light_ray.length = 10;
+			light_ray.length = 100;
 		}
 		else
 		{

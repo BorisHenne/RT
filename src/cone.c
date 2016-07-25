@@ -154,8 +154,12 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 				}
 			}
 		}
+		hit.type = CONE;
+		hit.radius = 0;
 		hit.specular = cone.specular;
 		hit.reflection = cone.reflection;
+		hit.texture = cone.texture;
+		hit.is_negativ = cone.is_negativ;
 	}
 	//hit.point_norm = vec_sub(cone.pos, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
 	return (hit);

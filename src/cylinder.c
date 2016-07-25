@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/22 01:33:33 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/25 16:04:06 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ double	find_cylinder_det(double a, double b, double c)
 	return (b * b - 4 * a * c);
 }
 
-double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2, t_hit *hit)
+double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2, t_vec *normale)
 {
 	t_vec	inter;
 	t_vec	proj;
@@ -43,10 +43,10 @@ double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t
 	tmp = get_length(proj);
 	if (tmp > cylinder.length / 2)
 		return (0.0);
-	(*hit).point_norm = inter;
+	*normale = inter;
 	proj = vec_add(proj, cylinder.pos);
-	(*hit).point_norm = vec_sub(proj, hit->point_norm);
-	(*hit).point_norm = normalize(hit->point_norm);
+	*normale = vec_sub(proj, *normale);
+	*normale = normalize(*normale);
 	//(*hit).point_norm = scalar_product(hit->point_norm, -1);
 	return (time);
 }
@@ -64,6 +64,8 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 	double	det, t1, t2;
 	//double	time;
 	double	time1, time2;
+	t_vec	norm1;
+	t_vec	norm2;
 
 	hit.bool = 0;
 	hit.color.r = 0;
@@ -78,7 +80,7 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 	ab2 = dot_product(ab, ab);
 	a = dot_product(v, v);
 	b = 2.0 * dot_product(v, oxb);
-	c = dot_product(oxb, oxb) - (cylinder.r * cylinder.r  * ab2);
+	c = dot_product(oxb, oxb) - (cylinder.radius * cylinder.radius  * ab2);
 
 	det = find_cylinder_det(a, b, c);
 	if (det < 0)
@@ -89,33 +91,37 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 		t1 /= (double)PRECISION;
 		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
 		t2 /= (double)PRECISION;
-		time1 = find_cylinder_limit(ray, cylinder, t1, aa, ab, ab2, &hit);
+		time1 = find_cylinder_limit(ray, cylinder, t1, aa, ab, ab2, &norm1);
+		time2 = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2, &norm2);
 		if (time1 > 0.0f)
 		{
 			hit.bool = 1;
 			hit.t = time1;
-			hit.color.r = cylinder.color.r;
-			hit.color.g = cylinder.color.g;
-			hit.color.b = cylinder.color.b;
-			hit.opacity = cylinder.opacity;
-			hit.ref_index = cylinder.ref_index;
+			hit.t_max = time2;
+			hit.point_norm = norm1;
 		}
 		else
 		{
-			time2 = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2, &hit);
+//			time2 = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2, &hit);
 			if (time2 > 0.0f)
 			{
 				hit.bool = 1;
 				hit.t = time2;
-				hit.color.r = cylinder.color.r;
-				hit.color.g = cylinder.color.g;
-				hit.color.b = cylinder.color.b;
-				hit.opacity = cylinder.opacity;
-				hit.ref_index = cylinder.ref_index;
+				hit.t_max = time1;
+				hit.point_norm = norm2;
 			}
 		}
+		hit.type = CYLINDER;
+		hit.radius = cylinder.radius;
+		hit.color.r = cylinder.color.r;
+		hit.color.g = cylinder.color.g;
+		hit.color.b = cylinder.color.b;
+		hit.opacity = cylinder.opacity;
+		hit.ref_index = cylinder.ref_index;
 		hit.specular = cylinder.specular;
 		hit.reflection = cylinder.reflection;
+		hit.texture = cylinder.texture;
+		hit.is_negativ = cylinder.is_negativ;
 	}
 	//hit.point_norm = vec_sub(cylinder.pos, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
 	return (hit);

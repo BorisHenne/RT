@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:13:12 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/24 00:44:55 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/25 16:01:46 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_sphere
 	double		opacity;
 	double		ref_index;
 	int			is_negativ;
+	int			texture;
 }				t_sphere;
 /*
 typedef struct	s_coord
@@ -37,7 +38,7 @@ typedef struct	s_coord
 */
 
 double		find_sphere_det(t_ray ray, t_sphere sphere, double *a, double *b);
-double		find_sphere_closest_hit(double a, double b, double det);
+void		find_sphere_closest_hit(double a, double b, double det, t_hit *hit);
 t_hit		is_sphere_hit(t_ray ray, t_sphere sphere);
 
 #endif

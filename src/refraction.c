@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 04:58:48 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/24 13:27:37 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/25 16:51:13 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ t_ray	find_refract_vect(t_ray start_ray, t_hit drawn_pixel, double c_r, double n
 	t_ray	res;	
 	double new_ref_index;
 
+	(void)is_in_object;
 	res = start_ray;
 	res.pos = vec_add(start_ray.pos, scalar_product(start_ray.dir, drawn_pixel.t));
 	nr = c_r / next_r;
-	if (is_in_object % 2 == 1)
+	if (drawn_pixel.t_max <= drawn_pixel.t)
 	{
 		drawn_pixel.point_norm = (scalar_product(drawn_pixel.point_norm, -1.0));
 	}
@@ -60,9 +61,9 @@ t_color		apply_refraction(t_ray start, t_scene scene, t_hit drawn_pixel, double 
 	{
 		start = find_refract_vect(start, drawn_pixel, refract_indice, drawn_pixel.ref_index, is_in_object);
 		drawn_pixel = find_closest_object(scene.objects, start);
-		if (is_in_object % 2 == 1)
+		if (drawn_pixel.t_max > drawn_pixel.t)
 		{
-//			drawn_pixel.opacity = 1 - opacity;
+			drawn_pixel.opacity = 1 - opacity;
 			if (drawn_pixel.bool == 1)
 			{
 				//drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
@@ -73,7 +74,7 @@ t_color		apply_refraction(t_ray start, t_scene scene, t_hit drawn_pixel, double 
 				break;
 			}
 		}
-		if (is_in_object % 2 == 0)
+		if (drawn_pixel.t_max <= drawn_pixel.t)
 		{
 			refract_indice = 1.0;
 		}

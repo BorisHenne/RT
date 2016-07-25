@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/25 10:54:57 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/25 16:10:15 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,22 @@ t_color	cartoon(t_color color)
 	return (color);
 }
 
+int		is_black_edge(t_hit *hit)
+{
+	double	dist_min_max;
+	double	edge_scale;
+
+	if (hit->radius > 0.0)
+		edge_scale = hit->radius / 2;
+	else
+		edge_scale = 0;
+
+	dist_min_max = hit->t_max - hit->t;
+	if (dist_min_max < edge_scale && dist_min_max > 0.0)
+		return (1);
+	return (0);
+}
+
 #include <stdio.h>
 int		draw_scene(t_env *env, t_scene scene)
 {
@@ -185,9 +201,14 @@ int		draw_scene(t_env *env, t_scene scene)
 				drawn_pixel = find_closest_object(scene.objects, start);
 				if (drawn_pixel.bool == 1)
 				{
-					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
-					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
-					drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(start, scene, drawn_pixel, reflet));
+					if (scene.is_real == CARTOON && is_black_edge(&drawn_pixel))
+						drawn_pixel.color = init_color(0, 0, 0);
+					else
+					{
+						drawn_pixel.color = apply_light(scene, drawn_pixel, start);
+						drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
+						drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(start, scene, drawn_pixel, reflet));
+					}
 				}
 				else
 					break;
@@ -203,7 +224,7 @@ int		draw_scene(t_env *env, t_scene scene)
 				}
 				r++;
 			}
-			if (drawn_pixel.reflection == 1)
+			if (drawn_pixel.texture != NONE)
 			{
 				double test = apply_marble_noise(x, y, 90, tab_noise);
 				final_color = mult_color(final_color, test / 255);

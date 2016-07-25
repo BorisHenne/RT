@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/24 00:45:48 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/25 16:03:23 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ double	find_sphere_det(t_ray ray, t_sphere sphere, double *a, double *b)
 	return (pow(*b, 2) - (4 * (*a) * c));
 }
 
-double	find_sphere_closest_hit(double a, double b, double det)
+void	find_sphere_closest_hit(double a, double b, double det, t_hit *hit)
 {
 	double t1;
 	double t2;
@@ -38,15 +38,35 @@ double	find_sphere_closest_hit(double a, double b, double det)
 	t2 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
 	t2 /= (double)PRECISION;
 
-
-	if (t1 <= 0.0 && t2 <= 0.0)
+/*	if (t1 <= 0.0 && t2 <= 0.0)
 		return -1.0;
 	if (t1 <= 0.0)
 		return (t2);
 	else if (t2 <= 0.0)
 		return (t1);
 	else
-		return (t1 < t2 ? t1 : t2);
+		return (t1 < t2 ? t1 : t2);*/
+
+	if (t1 <= 0.0 && t2 <= 0.0)
+	{
+		hit->t = 0.0;
+		hit->t_max =0.0;
+	}
+	if (t1 <= 0.0)
+	{
+		hit->t = t1;
+		hit->t_max = t1;
+	}
+	else if (t2 <= 0.0)
+	{
+		hit->t = t2;
+		hit->t_max = t2;
+	}
+	else
+	{
+		hit->t = t1 < t2 ? t1 : t2;
+		hit->t_max = t1 < t2 ? t2 : t1;
+	}
 }
 
 t_hit	is_sphere_hit(t_ray ray, t_sphere sphere)
@@ -68,7 +88,9 @@ t_hit	is_sphere_hit(t_ray ray, t_sphere sphere)
 		if (det == 0)
 		{
 			/* une solution unique */
+//			hit.t = (-b / (2 * a));
 			hit.t = (-b / (2 * a));
+			hit.t_max = (-b / (2 * a));
 			hit.bool = hit.t > 0.0 ? 1 : 0;
 			hit.color = sphere.color;
 
@@ -76,10 +98,12 @@ t_hit	is_sphere_hit(t_ray ray, t_sphere sphere)
 		else if (det > 0)
 		{
 			/* deux solutions */
-			hit.t = find_sphere_closest_hit(a, b, det);
+			find_sphere_closest_hit(a, b, det, &hit);
 			hit.bool = hit.t > 0.00 ? 1 : 0;
 			hit.opacity = sphere.opacity;
 		}
+		hit.type = SPHERE;
+		hit.radius = sphere.radius;
 		hit.color = sphere.color;
 		hit.point_norm = normalize(vec_sub(sphere.center, vec_add(ray.pos, scalar_product(ray.dir, hit.t))));
 		hit.specular = sphere.specular;
@@ -87,6 +111,7 @@ t_hit	is_sphere_hit(t_ray ray, t_sphere sphere)
 		hit.opacity = sphere.opacity;
 		hit.ref_index = sphere.ref_index;
 		hit.is_negativ = sphere.is_negativ;
+		hit.texture = sphere.texture;
 	}
 	return (hit);
 }
