@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/17 22:34:55 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/24 18:53:27 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ void		print_camera(t_cam *c)
 	printf("\t\t- d: %f\n", c->d);
 }
 
-t_scene		init_scene(int w, int h)
+t_scene		init_scene(int w, int h, int is_real)
 {
 	t_scene	s;
 
+	s.is_real = is_real;
 	s.w = w;
 	s.h = h;
 //	s.cam = NULL;

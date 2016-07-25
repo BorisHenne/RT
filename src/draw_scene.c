@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/24 05:36:17 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/25 10:54:57 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,33 @@ int         put_pixel_on_image(void *img, int x, int y, t_color color)
 	return (0);
 }
 
+double	define_color(double color)
+{
+	if (color < 62)
+		color = 0;
+	if (color <= 124 && color > 62)
+		color = 62;
+	if (color <= 186 && color > 124)
+		color = 124;
+	else if (color > 186)
+		color = 255;
+	return (color);
+}
+
+//
+//	Pour les contours noirs, checker dist entre 2 pt du meme object 
+//	-> si 0 ou < 0.2 == noir
+//
+//	on se branle du plan pour l'instant
+//
+
+t_color	cartoon(t_color color)
+{
+	color.r = define_color(color.r);
+	color.g = define_color(color.g);
+	color.b = define_color(color.b);
+	return (color);
+}
 
 #include <stdio.h>
 int		draw_scene(t_env *env, t_scene scene)
@@ -160,7 +187,7 @@ int		draw_scene(t_env *env, t_scene scene)
 				{
 					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
 					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
-					drawn_pixel = apply_opacity(start, scene, drawn_pixel, reflet);
+					drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(start, scene, drawn_pixel, reflet));
 				}
 				else
 					break;
@@ -168,6 +195,12 @@ int		draw_scene(t_env *env, t_scene scene)
 				reflet = dot_product(start.dir, drawn_pixel.point_norm) * 2.0;
 				start.dir = vec_sub(scalar_product(drawn_pixel.point_norm, reflet), start.dir);
 				final_color = add_color(final_color, drawn_pixel.color);
+				if (scene.is_real == CARTOON)
+				{
+				//	printf("CARTOON\n");
+					final_color = cartoon(final_color);
+//					printf("r = %f, g = %f, b = %f\n", final_color.r, final_color.g, final_color.b);
+				}
 				r++;
 			}
 			if (drawn_pixel.reflection == 1)
@@ -183,6 +216,7 @@ int		draw_scene(t_env *env, t_scene scene)
 
 			put_pixel_on_image(env->img, x, y, final_color);
 		}
+
 	}
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (0);
