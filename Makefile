@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/23 00:06:13 by sduprey          ###   ########.fr        #
+#    Updated: 2016/07/25 10:02:49 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC =	main.c \
 		vector_math.c \
 		cone.c \
 		color.c \
+		perlin.c \
 
 SRCDIR = src/
 
@@ -41,11 +42,9 @@ INC = -I ./inc -I libft -I mlx
 
 LIB = -L libft -lft -L mlx -lmlx
 
-FLAGS = -Wall -Werror -Wextra
-
 RM = rm -rf
 
-C_FLAGS= -Wall -Werror -Wextra
+C_FLAGS= -Wall -Werror -Wextra -o3
 
 MLX_FLAGS = -L/usr/local/lib -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
 

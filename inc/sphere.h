@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:13:12 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/22 01:27:22 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/24 00:44:55 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_sphere
 	double		reflection;
 	double		opacity;
 	double		ref_index;
+	int			is_negativ;
 }				t_sphere;
 /*
 typedef struct	s_coord

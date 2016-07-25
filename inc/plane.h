@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 03:17:42 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/22 01:28:24 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/24 00:45:23 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct		s_plane
 	double			reflection;
 	double			opacity;
 	double			ref_index;
+	int				is_negativ;
 }					t_plane;
 
 t_hit				is_plane_hit(t_ray ray, t_plane plan);

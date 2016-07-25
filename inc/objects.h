@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/22 01:23:42 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/24 00:45:01 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_hit
 	double		reflection;
 	double		opacity;	//0 a 1
 	double		ref_index; //indice de refraction
-
+	int			is_negativ; //1 si negatif, 0 sinon
 }				t_hit;
 
 /*

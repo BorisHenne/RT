@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/22 05:01:56 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/24 05:11:57 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void				check_color(t_color *color);
 t_color				mult_color(t_color ref, double coef);
 t_color				init_color(int r, int g, int b);
 
-void		write_vector(t_vec v, char *name);
+t_color				sub_color(t_color a, t_color b);
+void				write_vector(t_vec v, char *name);
+double				apply_marble_noise(int x, int y, double res, double **tab_noise);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/22 04:31:06 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/24 00:49:02 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_hit	is_plane_hit(t_ray ray, t_plane plan)
 		hit.specular = plan.specular;
 		hit.opacity = plan.opacity;
 		hit.ref_index = plan.ref_index;
+		hit.is_negativ = plan.is_negativ;
 	}
 	return (hit);
 }

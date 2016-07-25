@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/23 15:06:08 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/24 02:12:46 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ t_color		diffuse_light(t_hit curr_px, t_ray light_ray, t_light *light)
 	t_color	tmp_color;
 
 	angle = dot_product(light_ray.dir, curr_px.point_norm);
+	angle /= get_length(light_ray.dir);
+	angle /= get_length(curr_px.point_norm);
+	tmp_color = init_color(0, 0, 0);
+
 	coef = curr_px.opacity;
 	if (angle < 0)
 	{
@@ -45,7 +49,6 @@ t_color		diffuse_light(t_hit curr_px, t_ray light_ray, t_light *light)
 	tmp_color.r = curr_px.color.r * angle * light->color.r * coef;
 	tmp_color.g = curr_px.color.g * angle * light->color.g * coef;
 	tmp_color.b = curr_px.color.b * angle * light->color.b * coef;
-
 	return (tmp_color);
 }
 
@@ -83,6 +86,9 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 	t_vec		reflection;
 	t_hit		closest_hit;
 
+	t_vec		light_look;
+	double		angle2;
+
 	tmp_color.r = tmp_color.g = tmp_color.b = 0;
 	tmp_light = scene.lights;
 	obj_pos = vec_add(cam_ray.pos, scalar_product(cam_ray.dir, curr_pixel.t));
@@ -115,13 +121,21 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 			}
 			tmp_object = tmp_object->next;
 		}
-		if (shadow == 0 || curr_pixel.opacity < 1)
-			tmp_color = add_color(tmp_color, diffuse_light(curr_pixel, light_ray, ((t_light *)(tmp_light->data))));
-		else if (closest_hit.opacity < 1 && shadow == 1)
-			tmp_color = add_color(tmp_color, diffuse_shadow(curr_pixel, light_ray, ((t_light *)(tmp_light->data)), closest_hit));
 
-		reflection = vec_sub(scalar_product(curr_pixel.point_norm, dot_product(light_ray.dir, curr_pixel.point_norm) * 2), light_ray.dir);
-		tmp_color = add_color(tmp_color, (specular_light(curr_pixel, reflection, ((t_light *)(tmp_light->data)), cam_ray)));
+		light_look = vec_sub(((t_light *)(tmp_light->data))->look_at, ((t_light *)(tmp_light->data))->pos);
+		angle2 = dot_product(light_ray.dir, light_look);
+		angle2 /= get_length(light_ray.dir);
+		angle2 /= get_length(light_look);
+		if (acos(angle2) < ((t_light *)(tmp_light->data))->angle)
+		{
+			if (shadow == 0 || curr_pixel.opacity < 1)
+				tmp_color = add_color(tmp_color, diffuse_light(curr_pixel, light_ray, ((t_light *)(tmp_light->data))));
+			else if (closest_hit.opacity < 1 && shadow == 1)
+				tmp_color = add_color(tmp_color, diffuse_shadow(curr_pixel, light_ray, ((t_light *)(tmp_light->data)), closest_hit));
+
+			reflection = vec_sub(scalar_product(curr_pixel.point_norm, dot_product(light_ray.dir, curr_pixel.point_norm) * 2), light_ray.dir);
+			tmp_color = add_color(tmp_color, (specular_light(curr_pixel, reflection, ((t_light *)(tmp_light->data)), cam_ray)));
+		}
 		tmp_light = tmp_light->next;
 	}
 	curr_pixel.color = tmp_color;

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 06:54:08 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/21 06:54:41 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/24 00:43:54 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ void		check_color(t_color *color)
 		color->b = 0;
 	else if (color->b > 255)
 		color->b = 255;
+}
+
+t_color		sub_color(t_color a, t_color b)
+{
+		t_color res;
+
+	res.r = a.r - b.r;
+	res.g = a.g - b.g;
+	res.b = a.b - b.b;
+	check_color(&res);
+	return res;
 }
 
 t_color		add_color(t_color a, t_color b)
