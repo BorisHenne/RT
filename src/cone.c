@@ -76,7 +76,8 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 	//
 	double	time1;
 	//
-	double	time2;
+	double t;
+//	double	time2;
 	//
 	double t1;
 	double t2;
@@ -91,7 +92,6 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 	//
 	aa = vec_add(cone.pos, cone.dir);
 	ab = vec_sub(cone.pos, aa);
-	//ab = cone.dir;
 	v = vec_sub(aa, ray.pos);
 	oxb = cross_product(v, ab);
 	v = cross_product(ray.dir, ab);
@@ -114,8 +114,12 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 		t1 /= (double)PRECISION;
 		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
 		t2 /= (double)PRECISION;
-		time1 = find_cone_limit(ray, cone, t1, aa, ab, ab2, &hit);
-		if (time1 > 0.0f)
+
+		t = t1 < t2 ? t1 : t2;
+
+		time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
+
+		if (time1 > 0.0)
 		{
 			hit.bool = 1;
 			hit.t = time1;
@@ -127,31 +131,18 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 		}
 		else
 		{
-			time2 = find_cone_limit(ray, cone, t2, aa, ab, ab2, &hit);
-			if (time2 > 0.0f)
+			t = (t == t1)? t2 : t1;
+			time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
+			if (time1 > 0.0)
 			{
-				hit.point_norm = scalar_product(hit.point_norm, -1);
+	//			hit.point_norm = scalar_product(hit.point_norm, -1);
 				hit.bool = 1;
-				hit.t = time2;
+				hit.t = time1;
 				hit.color.r = cone.color.r;
 				hit.color.g = cone.color.g;
 				hit.color.b = cone.color.b;
 				hit.opacity = cone.opacity;
 				hit.ref_index = cone.ref_index;
-			}
-			else
-			{
-				time1 = find_cone_limit(ray, cone, t1, aa, ab, ab2, &hit);
-				if (time1 > 0.0f)
-				{
-					hit.bool = 1;
-					hit.t = time1;
-					hit.color.r = cone.color.r;
-					hit.color.g = cone.color.g;
-					hit.color.b = cone.color.b;
-					hit.opacity = cone.opacity;
-					hit.ref_index = cone.ref_index;
-				}
 			}
 		}
 		hit.type = CONE;
@@ -161,6 +152,14 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 		hit.texture = cone.texture;
 		hit.is_negativ = cone.is_negativ;
 	}
+/*	if (hit.bool == 1)
+	{
+	t_vec verif = vec_add(ray.pos, scalar_product(ray.dir, hit.t));
+	write_vector(ray.dir, "ray_dir");
+	write_vector(verif, "pts inter");
+	write_vector(hit.point_norm, "normal");
+	}
+	printf("\n");*/
 	//hit.point_norm = vec_sub(cone.pos, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
 	return (hit);
 }
