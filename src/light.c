@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/25 16:43:27 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/05 01:16:30 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,10 @@ t_color		diffuse_light(t_hit curr_px, t_ray light_ray, t_light *light)
 	double	coef;
 	t_color	tmp_color;
 
-//	write_vector(curr_px.point_norm, "c_p.pn");
 	angle = dot_product(light_ray.dir, curr_px.point_norm);
-//	printf("dot_product  : %f\n", angle);
 	angle /= get_length(light_ray.dir);
-//	printf("get_lenght(light_ray.dir) : %f\n", angle);
 	angle /= get_length(curr_px.point_norm);
-//	printf("get_length(curr_px.point_norm) : %f\n", angle);
 	tmp_color = init_color(0, 0, 0);
-
 
 	coef = curr_px.opacity;
 	if (angle < 0)
@@ -103,13 +98,13 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 		shadow = 0;
 		if (((t_light *)(tmp_light->data))->type == PARALLEL)
 		{
-//			printf("light parallel\n");
+			//			printf("light parallel\n");
 			light_ray.dir = normalize(scalar_product(((t_light *)(tmp_light->data))->pos, -1));
 			light_ray.length = 100;
 		}
 		else
 		{
-//			printf("light diffue || direct\n");
+			//			printf("light diffue || direct\n");
 			tmp_light_ray = vec_sub(light_ray.pos, ((t_light *)(tmp_light->data))->pos);
 			light_ray.length = get_length(tmp_light_ray);
 			light_ray.dir = normalize(tmp_light_ray);
@@ -149,21 +144,18 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 		{
 			angle2 = 1;
 		}
+
 		if (((t_light *)(tmp_light->data))->type != DIRECT || acos(angle2) < ((t_light *)(tmp_light->data))->angle)
 		{
 			if (shadow == 0 || curr_pixel.opacity < 1)
 			{
-//				printf("praise the sun\n");
 				tmp_color = add_color(tmp_color, diffuse_light(curr_pixel, light_ray, ((t_light *)(tmp_light->data))));
 			}
 			else if (closest_hit.opacity < 1 && shadow == 1)
 				tmp_color = add_color(tmp_color, diffuse_shadow(curr_pixel, light_ray, ((t_light *)(tmp_light->data)), closest_hit));
-//			else
-//				printf("ombre\n");
-
+			
 			reflection = vec_sub(scalar_product(curr_pixel.point_norm, dot_product(light_ray.dir, curr_pixel.point_norm) * 2), light_ray.dir);
 			tmp_color = add_color(tmp_color, (specular_light(curr_pixel, reflection, ((t_light *)(tmp_light->data)), cam_ray)));
-//			printf("r : %f, g : %f, b : %f\n", tmp_color.r,  tmp_color.g, tmp_color.b);
 		}
 		tmp_light = tmp_light->next;
 	}

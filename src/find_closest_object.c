@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/25 14:14:13 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/05 03:31:13 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ t_hit		find_closest_object(t_node *nodes, t_ray ray)
 	t_hit		tmp_content;
 	t_hit		closest_hit;
 
-	closest_hit.t = 10;
+	closest_hit.t = 1000000;
+	closest_hit.t_max = 1000000;
 	closest_hit.color.r = 0;
 	closest_hit.color.g = 0;
 	closest_hit.color.b = 0;
 	closest_hit.bool = 0;
+	closest_hit.opacity = 1;
 	tmp = nodes;
 //	printf("nouvelle boucle      ");
 	while (tmp)

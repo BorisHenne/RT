@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/25 16:04:06 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/05 01:55:11 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t
 	proj.y = ab.y;
 	proj.z = ab.z;
 	//
-	proj = vec_sub(cylinder.pos, proj);
-	tmp = get_length(proj);
+	tmp = get_length(vec_sub(cylinder.pos, proj));
 	if (tmp > cylinder.length / 2)
 		return (0.0);
 	*normale = inter;
-	proj = vec_add(proj, cylinder.pos);
 	*normale = vec_sub(proj, *normale);
 	*normale = normalize(*normale);
 	//(*hit).point_norm = scalar_product(hit->point_norm, -1);
@@ -71,6 +69,7 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 	hit.color.r = 0;
 	hit.color.g = 0;
 	hit.color.b = 0;
+	hit.t_max = 0;
 
 	aa = vec_add(cylinder.pos, cylinder.dir);
 	ab = vec_sub(cylinder.pos, aa);

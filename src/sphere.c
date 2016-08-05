@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/25 16:03:23 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/04 06:53:15 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ void	find_sphere_closest_hit(double a, double b, double det, t_hit *hit)
 	if (t1 <= 0.0 && t2 <= 0.0)
 	{
 		hit->t = 0.0;
-		hit->t_max =0.0;
+		hit->t_max = 0.0;
 	}
 	if (t1 <= 0.0)
 	{
-		hit->t = t1;
+		hit->t = t2;
 		hit->t_max = t1;
 	}
 	else if (t2 <= 0.0)
 	{
-		hit->t = t2;
+		hit->t = t1;
 		hit->t_max = t2;
 	}
 	else

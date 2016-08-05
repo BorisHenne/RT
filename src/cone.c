@@ -77,7 +77,7 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 	double	time1;
 	//
 	double t;
-//	double	time2;
+	double	t_max;
 	//
 	double t1;
 	double t2;
@@ -88,6 +88,7 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 	hit.color.g = 0;
 	hit.color.b = 0;
 	hit.t = 0;
+	hit.t_max = 0;
 
 	//
 	aa = vec_add(cone.pos, cone.dir);
@@ -115,7 +116,9 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
 		t2 /= (double)PRECISION;
 
+
 		t = t1 < t2 ? t1 : t2;
+		t_max = t1 < t2 ? t1 : t2;
 
 		time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
 
@@ -123,6 +126,7 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 		{
 			hit.bool = 1;
 			hit.t = time1;
+			hit.t_max = t_max;
 			hit.color.r = cone.color.r;
 			hit.color.g = cone.color.g;
 			hit.color.b = cone.color.b;
@@ -132,12 +136,15 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 		else
 		{
 			t = (t == t1)? t2 : t1;
+			t_max = (t == t1)? t2 : t1;
+
 			time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
 			if (time1 > 0.0)
 			{
 	//			hit.point_norm = scalar_product(hit.point_norm, -1);
 				hit.bool = 1;
 				hit.t = time1;
+				hit.t_max = t_max;
 				hit.color.r = cone.color.r;
 				hit.color.g = cone.color.g;
 				hit.color.b = cone.color.b;

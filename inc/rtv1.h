@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/24 05:11:57 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/04 04:56:55 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,10 @@ t_color				init_color(int r, int g, int b);
 t_color				sub_color(t_color a, t_color b);
 void				write_vector(t_vec v, char *name);
 double				apply_marble_noise(int x, int y, double res, double **tab_noise);
+double				apply_wood_noise(int x, int y, double res, double **tab_noise);
+
+t_color				color_render(t_scene scene, t_ray start, double noise);
+
+
 
 #endif
