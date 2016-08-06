@@ -6,11 +6,12 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/05 02:32:08 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/06 01:45:23 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
 double		deg_to_rad(double angle)
 {
 	double res;
@@ -112,8 +113,15 @@ t_color color_render(t_scene scene, t_ray start, double noise)
 					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
 					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
 					drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(start, scene, drawn_pixel, reflet, noise));
-					if (drawn_pixel.texture != NONE)
-						drawn_pixel.color = mult_color(drawn_pixel.color, noise / 255);
+					if (drawn_pixel.texture == 1)
+						drawn_pixel.color = mult_color(drawn_pixel.color,
+											noise / 255);
+					if (drawn_pixel.texture == 2)
+					{
+						t_vec tmp = vec_add(start.pos,
+									scalar_product(start.dir, drawn_pixel.t));
+						drawn_pixel.color = checkerboard(drawn_pixel.color, tmp);
+					}	
 				}
 			}
 			else

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/24 03:33:26 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/24 05:29:07 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/06 01:24:41 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ double	apply_marble_noise(int x, int y, double res, double **tab_noise)
 
 	return (sin_val);
 }
-

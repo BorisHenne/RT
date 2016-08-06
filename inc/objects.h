@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/07/25 16:10:49 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/06 01:40:11 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,4 @@ typedef struct s_hit
 	int			is_negativ; //1 si negatif, 0 sinon
 	int			texture;
 }				t_hit;
-
-/*
- * Sphere
- */
-/*typedef struct		s_sphere
-{
-	double			radius;
-	t_vec			center; 
-	t_color			color;
-}					t_sphere;
-*/
-/*
- * Plane
- */
-/*typedef struct		s_plane
-{
-	t_vec			pos;
-	t_vec			normal;
-	t_color			color;					
-}					t_plane;
-*/
 #endif
