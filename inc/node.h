@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/25 12:34:48 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/06 03:54:17 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define CYLINDER	3
 # define PLANE		4
 # define CONE		5
+# define ELIPS		6
 
 typedef struct		s_node
 {
@@ -31,6 +32,6 @@ typedef struct		s_node
 
 t_node	*init_node(int type, void *data, char *name, int id);
 void	node_add(t_node **node, t_node *new);
-void		free_node_list(t_node **node_list);
+void	free_node_list(t_node **node_list);
 
 #endif

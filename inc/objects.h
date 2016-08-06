@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/06 01:40:11 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/08/06 04:46:09 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # define NONE		0
 # define MARBLE		1
+# define CHECKER	2
 
 typedef struct		s_color
 {

@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/08/06 01:39:43 by bhenne           ###   ########.fr        #
+#    Updated: 2016/08/06 04:44:44 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC =	main.c \
 		color.c \
 		perlin.c \
 		checker.c \
+		elipsoid.c \
 
 SRCDIR = src/
 

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/05 04:17:27 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/06 07:24:29 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -22,27 +22,44 @@ void		write_scene(t_scene s);
 t_scene		init_all(void)
 {
 	t_vec ori;
-	ori.x = 0.0;
-	ori.y = .0;
-	ori.z = -10.0;
+	ori.x = 0;
+	ori.y = -20;
+	ori.z = -20;
 	t_vec look;
-	look.x = deg_to_rad(0);
+	look.x = deg_to_rad(-45);
 	look.y = deg_to_rad(0);
 	look.z = deg_to_rad(0);
 	t_cam cam;
 
 	cam = init_camera(ori, look);
 
+	t_elips	*elips;
+	elips = (t_elips *)malloc(sizeof(t_elips));
+	elips->center = init_vector(1, 0.5, 4);
+	elips->radius = 0.3;
+	elips->quad.A = 0.3;
+	elips->quad.B = 1;
+	elips->quad.C = 1;
+	elips->color.r = 1;
+	elips->color.g = 1;
+	elips->color.b = 0;
+	elips->specular = 90;
+	elips->reflection = 0;
+	elips->opacity = 1;
+	elips->ref_index = 1;
+	elips->texture = NONE;
+	elips->is_negativ = 0;
+
 	t_sphere	*sphere2;
 	sphere2 = (t_sphere *)malloc(sizeof(t_sphere));
 	sphere2->radius = 0.3;
 	sphere2->center = init_vector(-0.3, .5, 2.0);
-	sphere2->color.r = 0.8;
+	sphere2->color.r = 0.1;
 	sphere2->color.g = 0.1;
 	sphere2->color.b = 0.1;
 	sphere2->specular = 90;
-	sphere2->reflection = 0;
-	sphere2->opacity = 0.9;
+	sphere2->reflection = 1;
+	sphere2->opacity = 1;
 	sphere2->ref_index = 1;
 	sphere2->texture = NONE;
 	sphere2->is_negativ = 0;
@@ -58,16 +75,16 @@ t_scene		init_all(void)
 	sphere3->reflection = 0;
 	sphere3->opacity = 1;
 	sphere3->ref_index = 1;
-	sphere3->texture = NONE;
+	sphere3->texture = MARBLE;
 	sphere3->is_negativ = 0;
 
 	t_sphere	*sphere4;
 	sphere4 = (t_sphere *)malloc(sizeof(t_sphere));
 	sphere4->radius = 0.3;
 	sphere4->center = init_vector(-1, 0.5, 6.0);
-	sphere4->color.r = 1;
-	sphere4->color.g = 0.4;
-	sphere4->color.b = 0.4;
+	sphere4->color.r = 0.1;
+	sphere4->color.g = 0.2;
+	sphere4->color.b = 1;
 	sphere4->specular = 50;
 	sphere4->reflection = 0;
 	sphere4->opacity = 1;
@@ -90,7 +107,7 @@ t_scene		init_all(void)
 	cylinder->reflection = 0;
 	cylinder->opacity = 0.4;
 	cylinder->ref_index = 1;
-	cylinder->texture = NONE;
+	cylinder->texture = MARBLE;
 	cylinder->is_negativ = 0;
 
 	t_cone	*cone;
@@ -107,7 +124,7 @@ t_scene		init_all(void)
 	cone->specular = 50;
 	cone->reflection = 0;
 	cone->opacity = 0.6;
-	cone->ref_index = 1;
+	cone->ref_index = 1.33;
 	cone->texture = NONE;
 	cone->is_negativ = 0;
 
@@ -122,17 +139,24 @@ t_scene		init_all(void)
 	ground->reflection = 1;
 	ground->opacity = 1;
 	ground->ref_index = 1.0;
-	ground->texture = NONE;
+	ground->texture = CHECKER;
 	ground->is_negativ = 0;
 
 	t_light		*light;
 	light = (t_light *)malloc(sizeof(t_light));
 	light->type = DIRECT;
-	light->pos = init_vector(0., -5, 2.);
-	//light->pos = init_vector(0.6, -1.4, -1.6);
+	light->pos = init_vector(0., -5, -4.);
 	light->color = init_color(255, 255, 255);
 	light->look_at = init_vector(0, 0, 0);
 	light->angle = deg_to_rad(360);
+
+	t_light		*light2;
+	light2 = (t_light *)malloc(sizeof(t_light));
+	light2->type = DIRECT;
+	light2->pos = init_vector(0.6, -1.4, -1.6);
+	light2->color = init_color(0, 0, 255);
+	light2->look_at = init_vector(0, 0, 0);
+	light2->angle = deg_to_rad(30);
 
 	t_node		*node;
 	t_scene		scene;
@@ -141,6 +165,8 @@ t_scene		init_all(void)
 	scene = init_scene(WIDTH, HEIGHT, REALISTIC);
 	add_camera(&scene, cam);
 
+	node = init_node(ELIPS, elips, "elipsoid", 8);
+	node_add(&(scene.objects), node);
 	node = init_node(SPHERE, sphere2, "sphere2", 1);
 	node_add(&(scene.objects), node);
 	node = init_node(SPHERE, sphere3, "sphere 2 couleurs", 2);
@@ -160,8 +186,8 @@ t_scene		init_all(void)
 
 	node = init_node(LIGHT, light, "light 1", 1);
 	node_add(&(scene.lights), node);
-//	node = init_node(LIGHT, light2, "light 2", 2);
-//	node_add(&(scene.lights), node);
+	node = init_node(LIGHT, light2, "light 2", 2);
+	node_add(&(scene.lights), node);
 //	node = init_node(LIGHT, light3, "light 3", 3);
 //	node_add(&(scene.lights), node);
 //	node = init_node(LIGHT, light4, "light 4", 4);

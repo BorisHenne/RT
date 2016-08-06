@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/06 01:47:18 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/08/06 04:45:06 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include <scene.h>
 # include <sphere.h>
 # include <vector.h>
+# include <elipsoid.h>
+# include <quad.h>
 
 # define ESCAPE	53
 # define WIDTH 1920
