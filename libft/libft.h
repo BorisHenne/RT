@@ -6,7 +6,7 @@
 /*   By: tlepeche <tlepeche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 12:33:20 by tlepeche          #+#    #+#             */
-/*   Updated: 2015/05/10 00:41:25 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/07/27 22:24:53 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# define BUFF_SIZE	34
 
 size_t				ft_strlen(const char *str);
 void				ft_putchar(char c);
@@ -32,6 +33,7 @@ void				ft_putnbr_fd(int n, int fd);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(char *str);
+float				ft_atof(char *str);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);
@@ -78,7 +80,7 @@ char				*ft_strnchr(const char *s, int c, int i);
 int					how_many(char *str, char c);
 void				free_tab(char **tab);
 void				ft_printtab(char **tab);
-
+int					get_next_line(int fd, char **line);
 typedef struct		s_list
 {
 	void			*content;

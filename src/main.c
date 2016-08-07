@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/06 07:24:29 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/07 02:12:33 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -94,12 +94,10 @@ t_scene		init_all(void)
 
 	t_cylinder	*cylinder;
 	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
-	cylinder->radius = 0.3;
-	//cylinder->pos = init_vector(0.2, 0, 2.0);
-	//cylinder->dir = init_vector(0.8, 0.5, -0.3);
-	cylinder->pos = init_vector(2, 0, 2.0);
-	cylinder->dir = init_vector(0.1, 0.5, -0.3);
-	cylinder->length = 2;
+	cylinder->radius = 0.2;
+	cylinder->pos = init_vector(0.0, 0.0, 3.0);
+	cylinder->dir = init_vector(1.0, 0.0, 0.4);
+	cylinder->length = 4.0;
 	cylinder->color.r = 0.1;
 	cylinder->color.g = 1;
 	cylinder->color.b = 0.1;
@@ -130,13 +128,13 @@ t_scene		init_all(void)
 
 	t_plane	   *ground;
 	ground = (t_plane *)malloc(sizeof(t_plane));
-	ground->pos = init_vector(-1.0, 1.0, 0.0);
-	ground->normal = init_vector(0., 1.2, 0.0);
-	ground->color.r = 0.3;
-	ground->color.g = 0.3;
-	ground->color.b = 0.3;
-	ground->specular = 100;
-	ground->reflection = 1;
+	ground->pos = init_vector(0.0, 1.0, 0.0);
+	ground->normal = init_vector(0.0, 1.2, 0.0);
+	ground->color.r = 0.8;
+	ground->color.g = 0.8;
+	ground->color.b = 0.8;
+	ground->specular = 101;
+	ground->reflection = 0;
 	ground->opacity = 1;
 	ground->ref_index = 1.0;
 	ground->texture = CHECKER;
@@ -157,6 +155,23 @@ t_scene		init_all(void)
 	light2->color = init_color(0, 0, 255);
 	light2->look_at = init_vector(0, 0, 0);
 	light2->angle = deg_to_rad(30);
+
+	t_light		*light3;
+	light3 = (t_light *)malloc(sizeof(t_light));
+	light3->type = DIFFUSE;
+	light3->pos = init_vector(-5.0, -5.0, 0.0);
+	light3->color = init_color(255, 188, 34);
+	light3->look_at = init_vector(0, 0, 0);
+	light3->angle = deg_to_rad(0);
+
+	t_light		*light4;
+	light4 = (t_light *)malloc(sizeof(t_light));
+	light4->type = DIFFUSE;
+	light4->pos = init_vector(5.0, -5.0, 0.0);
+	light4->color = init_color(255, 50, 40);
+	light4->look_at = init_vector(0, 0, 0);
+	light4->angle = deg_to_rad(180);
+
 
 	t_node		*node;
 	t_scene		scene;
@@ -198,22 +213,23 @@ t_scene		init_all(void)
 
 int	main(int ac, char** av)
 {
-	t_env	e;
-	t_scene	scene;
-	e.mlx = mlx_init();
-	if (e.mlx != NULL)
-	{
-		e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "RTv1");
-		if (!(e.img = mlx_new_image(e.mlx, WIDTH, HEIGHT)))
-			return (0);
-		scene = init_all();
-		draw_scene(&e, scene);
-		mlx_hook(e.win, 2, 3, key_hook, &e);
-//		mlx_expose_hook(e.win, expose_hook, &e);
-		mlx_loop(e.mlx);
-	}
-	free_node_list(&(scene.objects));
-	free_node_list(&(scene.lights));
+//	t_env	e;
+//	t_scene	scene;
+//	e.mlx = mlx_init();
+//	if (e.mlx != NULL)
+//	{
+//		e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "RTv1");
+//		if (!(e.img = mlx_new_image(e.mlx, WIDTH, HEIGHT)))
+//			return (0);
+		parse(av[1]);
+//		scene = init_all();
+//		draw_scene(&e, scene);
+//		mlx_hook(e.win, 2, 3, key_hook, &e);
+////		mlx_expose_hook(e.win, expose_hook, &e);
+//		mlx_loop(e.mlx);
+//	}
+//	free_node_list(&(scene.objects));
+//	free_node_list(&(scene.lights));
 	(void)ac;
 	(void)av;
 	return (0);

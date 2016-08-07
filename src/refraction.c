@@ -54,6 +54,7 @@ t_color		apply_refraction(t_ray start, t_scene scene, t_hit drawn_pixel, double 
 		//start = find_refract_vect(start, drawn_pixel, refract_indice, drawn_pixel.ref_index, is_in_object);
 		start = find_refract_vect(start, drawn_pixel, refract_indice, is_in_object);
 		drawn_pixel = find_closest_object(scene.objects, start);
+//		printf("type : %d, t_max : %f, t : %f\n", drawn_pixel.type, drawn_pixel.t_max, drawn_pixel.t);
 		if (drawn_pixel.t_max > drawn_pixel.t)
 		{
 			if (drawn_pixel.bool == 1)

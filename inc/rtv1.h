@@ -25,6 +25,7 @@
 # include <node.h>
 # include <find_closest_object.h>
 # include <light.h>
+# include <parse.h>
 # include <plane.h>
 # include <ray.h>
 # include <refraction.h>
@@ -63,6 +64,7 @@ void				write_vector(t_vec v, char *name);
 double				apply_marble_noise(int x, int y, double res, double **tab_noise);
 double				apply_wood_noise(int x, int y, double res, double **tab_noise);
 t_color				checkerboard(t_color color, t_vec vec);
+int					is_black_edge(t_hit *hit);
 
 t_color				color_render(t_scene scene, t_ray start, double noise);
 #endif

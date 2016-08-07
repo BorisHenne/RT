@@ -30,7 +30,9 @@ typedef struct s_hit
 	int			type;
 	double 		t;
 	double 		t_max;
+	double		dist_from_center;
 	double		radius;
+	double		length;
 	t_color		color;
 	int			bool;
 	t_vec		point_norm; // a calculer pour la brillance
@@ -41,4 +43,5 @@ typedef struct s_hit
 	int			is_negativ; //1 si negatif, 0 sinon
 	int			texture;
 }				t_hit;
+
 #endif

@@ -18,7 +18,7 @@ double	find_cylinder_det(double a, double b, double c)
 	return (b * b - 4 * a * c);
 }
 
-double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2, t_vec *normale)
+double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2, t_vec *normale, double *dist_form_center)
 {
 	t_vec	inter;
 	t_vec	proj;
@@ -39,7 +39,9 @@ double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t
 	proj.y = ab.y;
 	proj.z = ab.z;
 	//
-	tmp = get_length(vec_sub(cylinder.pos, proj));
+	proj = vec_sub(cylinder.pos, proj);
+	tmp = get_length(proj);
+	*dist_form_center = (tmp > cylinder.length / 2) ? 0 : tmp;
 	if (tmp > cylinder.length / 2)
 		return (0.0);
 	*normale = inter;
@@ -64,6 +66,8 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 	double	time1, time2;
 	t_vec	norm1;
 	t_vec	norm2;
+	double	dist_form_center1;
+	double	dist_form_center2;
 
 	hit.bool = 0;
 	hit.color.r = 0;
@@ -90,13 +94,14 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 		t1 /= (double)PRECISION;
 		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
 		t2 /= (double)PRECISION;
-		time1 = find_cylinder_limit(ray, cylinder, t1, aa, ab, ab2, &norm1);
-		time2 = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2, &norm2);
+		time1 = find_cylinder_limit(ray, cylinder, t1, aa, ab, ab2, &norm1, &dist_form_center1);
+		time2 = find_cylinder_limit(ray, cylinder, t2, aa, ab, ab2, &norm2, &dist_form_center2);
 		if (time1 > 0.0f)
 		{
 			hit.bool = 1;
 			hit.t = time1;
 			hit.t_max = time2;
+			hit.dist_from_center = dist_form_center1;
 			hit.point_norm = norm1;
 		}
 		else
@@ -107,11 +112,13 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 				hit.bool = 1;
 				hit.t = time2;
 				hit.t_max = time1;
+				hit.dist_from_center = dist_form_center2;
 				hit.point_norm = norm2;
 			}
 		}
 		hit.type = CYLINDER;
 		hit.radius = cylinder.radius;
+		hit.length = cylinder.length;
 		hit.color.r = cylinder.color.r;
 		hit.color.g = cylinder.color.g;
 		hit.color.b = cylinder.color.b;

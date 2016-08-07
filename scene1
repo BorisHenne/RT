@@ -1,0 +1,77 @@
+{
+	scene :
+	{
+		{
+			options: 
+			{
+				{cartoon : n}
+				{negatif : n}
+				{noir et blanc : y}
+				{filtre couleur : n}
+			 }
+		}
+	}
+
+	camera :
+	{
+		{pos : 0.0, 0.0, -10.0}
+		{look_at : 0, 0, 0}
+	}
+
+	objects :
+	{
+#		COMMENT	
+		{
+			{type : sphere / cylindre / cone / plan}
+			{pos : 0.0, 0.0, -10.0}
+			{dir : 0.0, 0.0, -10.0}
+			{len : 0.0, 0.0, -10.0}
+			{radius : 0.0, 0.0, -10.0}
+			{color : 0.0, 0.0, -10.0}
+			{
+				options: 
+				{
+					{cartoon : n}
+					{negatif : n}
+					{noir et blanc : y}
+					{filtre couleur : n}
+				 }
+			}
+		}
+		{
+			{type : sphere / cylindre / cone / plan}
+			{pos : 0.0, 0.0, -10.0}
+			{dir : 0.0, 0.0, -10.0}
+			{len : 0.0, 0.0, -10.0}
+			{radius : 0.0, 0.0, -10.0}
+			{color : 0.0, 0.0, -10.0}
+			{
+				options: 
+				{
+					{cartoon : n}
+					{negatif : n}
+					{noir et blanc : y}
+					{filtre couleur : n}
+				 }
+			}
+		}
+	}
+
+	light:
+	{
+		{
+			{type : diffuse / parallele / directe}
+			{pos : 0.0, 0.0, -10.0}
+			{color : 0.0, 0.0, -10.0}
+			{dir : 0.0, 0.0, -10.0}
+			{angle : 0}
+		}
+		{
+			{type : diffuse / parallele / directe}
+			{pos : 0.0, 0.0, -10.0}
+			{color : 0.0, 0.0, -10.0}
+			{dir : 0.0, 0.0, -10.0}
+			{angle : 0}
+		}
+	}
+}

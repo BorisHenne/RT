@@ -26,6 +26,8 @@ t_hit		find_closest_object(t_node *nodes, t_ray ray)
 	closest_hit.color.g = 0;
 	closest_hit.color.b = 0;
 	closest_hit.bool = 0;
+	closest_hit.dist_from_center = -1.0;
+	closest_hit.length = -1.0;
 	closest_hit.opacity = 1;
 	tmp = nodes;
 //	printf("nouvelle boucle      ");

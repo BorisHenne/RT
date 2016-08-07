@@ -6,16 +6,12 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:50:11 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/19 06:49:22 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/07/27 14:53:15 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
-
-#define CAMERA		1
-#define SPHERE		2
-#define CYLINDER	3
 
 t_node		*init_node(int type, void *data, char *name, int id)
 {

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/06 07:03:41 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/07 02:11:26 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ int		is_black_edge(t_hit *hit)
 	dist_min_max = hit->t_max - hit->t;
 	if (dist_min_max < edge_scale && dist_min_max > 0.0)
 		return (1);
+	if (hit->length > 0  && hit->dist_from_center > 0.01 && hit->dist_from_center > (hit->length / 2 - hit->length / 1000 ))
+	{
+		//printf("dfc: %f, length : %f\n", hit->dist_from_center, hit->length);
+		return (1);
+	}
 	return (0);
 }
 

@@ -13,12 +13,17 @@
 #ifndef _NODE_H
 # define _NODE_H
 
-# define LIGHT		0
-# define CAMERA		1
-# define SPHERE		2
-# define CYLINDER	3
-# define PLANE		4
-# define CONE		5
+# define NONE		0
+
+# define SCENE		1
+# define LIGHT		2
+# define OBJECT		3
+# define CAMERA		4
+
+# define SPHERE		5
+# define CYLINDER	6
+# define PLANE		7
+# define CONE		8
 # define ELIPS		6
 
 typedef struct		s_node

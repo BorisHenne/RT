@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/08/06 04:44:44 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/07/28 16:50:57 by nbelouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC =	main.c \
 		find_closest_object.c \
 		light.c \
 		node.c \
+		parse.c \
 		plane.c \
 		refraction.c \
 		scene.c \
