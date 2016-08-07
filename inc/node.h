@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/06 03:54:17 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/07 03:57:50 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define CYLINDER	6
 # define PLANE		7
 # define CONE		8
-# define ELIPS		6
+# define ELIPS		9
 
 typedef struct		s_node
 {

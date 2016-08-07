@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/05 01:16:30 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/07 02:50:26 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 				tmp_content = is_plane_hit(light_ray, *(t_plane *)tmp_object->data);
 			else if (tmp_object->type == CONE)
 				tmp_content = is_cone_hit(light_ray, *(t_cone *)tmp_object->data);
+			else if (tmp_object->type == ELIPS)
+				tmp_content = is_elips_hit(light_ray, *(t_elips *)tmp_object->data);
 			if (tmp_content.bool == 1 && tmp_content.t > 0.0 && tmp_content.t <= light_ray.length)
 			{
 				shadow = 1;
@@ -153,9 +155,9 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 			}
 			else if (closest_hit.opacity < 1 && shadow == 1)
 				tmp_color = add_color(tmp_color, diffuse_shadow(curr_pixel, light_ray, ((t_light *)(tmp_light->data)), closest_hit));
-			
 			reflection = vec_sub(scalar_product(curr_pixel.point_norm, dot_product(light_ray.dir, curr_pixel.point_norm) * 2), light_ray.dir);
-			tmp_color = add_color(tmp_color, (specular_light(curr_pixel, reflection, ((t_light *)(tmp_light->data)), cam_ray)));
+			if (shadow == 0 || closest_hit.opacity < 1)
+				tmp_color = add_color(tmp_color, (specular_light(curr_pixel, reflection, ((t_light *)(tmp_light->data)), cam_ray)));
 		}
 		tmp_light = tmp_light->next;
 	}

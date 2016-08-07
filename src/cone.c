@@ -107,9 +107,7 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 	c = c2(cone.r) * dot_product(oxb, oxb) - s2(cone.r) * y * y;
 	
 	det = find_cone_det(a, b, c);
-	if (det < 0)
-		hit.bool = 0;
-	else
+	if (det >= 0)
 	{
 		t1 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
 		t1 /= (double)PRECISION;
@@ -118,7 +116,7 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 
 
 		t = t1 < t2 ? t1 : t2;
-		t_max = t1 < t2 ? t1 : t2;
+		t_max = t1 < t2 ? t2 : t1;
 
 		time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
 
@@ -136,7 +134,7 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 		else
 		{
 			t = (t == t1)? t2 : t1;
-			t_max = (t == t1)? t2 : t1;
+			t_max = (t == t1)? t1 : t2;
 
 			time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
 			if (time1 > 0.0)
@@ -159,14 +157,5 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 		hit.texture = cone.texture;
 		hit.is_negativ = cone.is_negativ;
 	}
-/*	if (hit.bool == 1)
-	{
-	t_vec verif = vec_add(ray.pos, scalar_product(ray.dir, hit.t));
-	write_vector(ray.dir, "ray_dir");
-	write_vector(verif, "pts inter");
-	write_vector(hit.point_norm, "normal");
-	}
-	printf("\n");*/
-	//hit.point_norm = vec_sub(cone.pos, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
 	return (hit);
 }

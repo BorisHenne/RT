@@ -6,30 +6,40 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:52:42 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/06 07:51:17 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/07 01:40:03 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
+void	find_normal(t_ray ray, t_elips elips, t_hit *hit)
+{
+	hit->point_norm = vec_add(ray.pos, scalar_product(ray.dir, hit->t));
+	hit->point_norm = vec_sub(elips.center, hit->point_norm);
+	hit->point_norm.x *= 2.0 * (elips.quad.A * elips.quad.A);
+	hit->point_norm.y *= 2.0 * (elips.quad.B * elips.quad.B);
+	hit->point_norm.z *= 2.0 * (elips.quad.C * elips.quad.C);
+	hit->point_norm = normalize(hit->point_norm);
+}
 
 double	find_elips_det(t_ray ray, t_elips elips, double *a, double *b)
 {
 	double c;
 	t_vec tmp;
 
-	*a = pow(ray.dir.x, 2);
-	*a += pow(ray.dir.y, 2);
-	*a += pow(ray.dir.z, 2);
+	*a = pow(ray.dir.x, 2) * pow(elips.quad.A, 2);
+	*a += pow(ray.dir.y, 2) * pow(elips.quad.B, 2);
+	*a += pow(ray.dir.z, 2) * pow(elips.quad.C, 2);
 
 	tmp = vec_sub(elips.center, ray.pos);
-	*b = tmp.x * ray.dir.x;  
-	*b += tmp.y * ray.dir.y; 
-	*b += tmp.z * ray.dir.z; 
+	*b = tmp.x * ray.dir.x * pow(elips.quad.A, 2);  
+	*b += tmp.y * ray.dir.y * pow(elips.quad.B, 2);
+	*b += tmp.z * ray.dir.z * pow(elips.quad.C, 2);
 	*b *= 2.0;
 
-	c = tmp.x * tmp.x; 
-	c += tmp.y * tmp.y;
-	c += tmp.z * tmp.z;
+	c = tmp.x * tmp.x * pow(elips.quad.A, 2);
+	c += tmp.y * tmp.y * pow(elips.quad.B, 2);
+	c += tmp.z * tmp.z * pow(elips.quad.C, 2);
 	c -= pow(elips.radius, 2);
 
 	return (pow(*b, 2) - (4 * (*a) * c));
@@ -82,15 +92,6 @@ t_hit	is_elips_hit(t_ray ray, t_elips elips)
 	hit.color.b = 0;
 	/* calcul determinant */
 	
-		ray.dir.x *= elips.quad.A;
-		ray.dir.y *= elips.quad.B;
-		ray.dir.z *= elips.quad.C;
-
-		ray.pos.x *= elips.quad.A;
-		ray.pos.y *= elips.quad.B;
-		ray.pos.z *= elips.quad.C;
-
-
 	if (elips.radius > 0.0)
 	{
 		det = find_elips_det(ray, elips, &a, &b);
@@ -110,20 +111,12 @@ t_hit	is_elips_hit(t_ray ray, t_elips elips)
 			hit.bool = hit.t > 0.00 ? 1 : 0;
 			hit.opacity = elips.opacity;
 		}
+
+		find_normal(ray, elips, &hit);
+
 		hit.type = ELIPS;
 		hit.radius = elips.radius;
 		hit.color = elips.color;
-
-		ray.dir.x *= elips.quad.A;
-		ray.dir.y *= elips.quad.B;
-		ray.dir.z *= elips.quad.C;
-
-		ray.pos.x *= elips.quad.A;
-		ray.pos.y *= elips.quad.B;
-		ray.pos.z *= elips.quad.C;
-
-
-		hit.point_norm = normalize(vec_sub(elips.center, vec_add(ray.pos, scalar_product(ray.dir, hit.t))));
 		hit.specular = elips.specular;
 		hit.reflection = elips.reflection;
 		hit.opacity = elips.opacity;
