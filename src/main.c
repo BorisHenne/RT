@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/11 01:08:15 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/12 22:59:46 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -220,7 +220,10 @@ int	main(int ac, char** av)
 
 	scene = NULL;
 	if (ac != 2)
+	{
+		ft_putendl("No file");
 		return (0);
+	}
 	e.mlx = mlx_init();
 	if (e.mlx != NULL)
 	{

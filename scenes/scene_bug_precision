@@ -57,8 +57,8 @@
 					options:
 					{
 						{specular: 98}
-						{opacity:0.7}
-						{ref_index:2.5}
+						{opacity:1}
+#						{ref_index:2.5}
 					}
 				}
 			}
@@ -80,20 +80,20 @@
 #				}
 #			}
 #		}
-#		{
-#			plane:
-#			{
-#				{pos : 0, 0, 10}
-#				{normal: 0, 0, 1.2}
-#				{color: 0.1, 0.1, 0.1}
-#				{
-#					options:
-#					{
-#						{specular: 30}
-#					}
-#				}
-#			}
-#		}
+		{
+			plane:
+			{
+				{pos : 0, 0, 10}
+				{normal: 0, 0, 1.2}
+				{color: 0.1, 0.1, 0.1}
+				{
+					options:
+					{
+						{specular: 30}
+					}
+				}
+			}
+		}
 		{
 			plane:
 			{
