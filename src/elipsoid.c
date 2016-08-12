@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:52:42 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/07 01:40:03 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/12 00:17:11 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_hit	is_elips_hit(t_ray ray, t_elips elips)
 
 		hit.type = ELIPS;
 		hit.radius = elips.radius;
+		hit.length = 0;
 		hit.color = elips.color;
 		hit.specular = elips.specular;
 		hit.reflection = elips.reflection;

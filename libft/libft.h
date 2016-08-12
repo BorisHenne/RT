@@ -6,7 +6,7 @@
 /*   By: tlepeche <tlepeche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 12:33:20 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/27 22:24:53 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/09 00:43:59 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				*ft_strtrim_x(char const *s, char x);
+char				*ft_epur_str(char *s);
+char				*ft_epur_str_c(char *s, char c);
 char				**ft_strsplit(char const *s, char c);
 char				**ft_strsplit_blank(char const *s);
 char				*ft_itoa(int n);

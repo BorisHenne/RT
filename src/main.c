@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/07 02:12:33 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/11 01:08:15 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -19,23 +19,26 @@
 //}
 
 void		write_scene(t_scene s);
-t_scene		init_all(void)
+t_scene		*init_all(void)
 {
 	t_vec ori;
 	ori.x = 0;
-	ori.y = -20;
-	ori.z = -20;
+	ori.y = 0;
+	ori.z = -10;
 	t_vec look;
-	look.x = deg_to_rad(-45);
+	look.x = deg_to_rad(0);
+	printf("look.x : %f\n", look.x);
 	look.y = deg_to_rad(0);
+	printf("look.y : %f\n", look.y);
 	look.z = deg_to_rad(0);
+	printf("look.z : %f\n", look.z);
 	t_cam cam;
 
 	cam = init_camera(ori, look);
 
 	t_elips	*elips;
 	elips = (t_elips *)malloc(sizeof(t_elips));
-	elips->center = init_vector(1, 0.5, 4);
+	elips->center = init_vector(0, 0.0, 0);
 	elips->radius = 0.3;
 	elips->quad.A = 0.3;
 	elips->quad.B = 1;
@@ -147,6 +150,7 @@ t_scene		init_all(void)
 	light->color = init_color(255, 255, 255);
 	light->look_at = init_vector(0, 0, 0);
 	light->angle = deg_to_rad(360);
+	printf("angle : %f\n", light->angle );
 
 	t_light		*light2;
 	light2 = (t_light *)malloc(sizeof(t_light));
@@ -174,63 +178,66 @@ t_scene		init_all(void)
 
 
 	t_node		*node;
-	t_scene		scene;
+	t_scene		*scene;
 
-//	scene = init_scene(WIDTH, HEIGHT, CARTOON);
-	scene = init_scene(WIDTH, HEIGHT, REALISTIC);
-	add_camera(&scene, cam);
+	scene = NULL;
+	scene = init_scene();
+	scene->is_real = REALISTIC;
+//	scene->is_real = CARTOON;
+	add_camera(scene, cam);
 
 	node = init_node(ELIPS, elips, "elipsoid", 8);
-	node_add(&(scene.objects), node);
-	node = init_node(SPHERE, sphere2, "sphere2", 1);
-	node_add(&(scene.objects), node);
-	node = init_node(SPHERE, sphere3, "sphere 2 couleurs", 2);
-	node_add(&(scene.objects), node);
-	node = init_node(SPHERE, sphere4, "sphere 3 couleurs", 3);
-	node_add(&(scene.objects), node);
-	node = init_node(CYLINDER, cylinder, "cylinder", 4);
-	node_add(&(scene.objects), node);
-	node = init_node(CONE, cone, "cone", 5);
-	node_add(&(scene.objects), node);
-//	node = init_node(CONE, cone2, "cone2", 7);
-//	node_add(&(scene.objects), node);
-	node = init_node(PLANE, ground, "ground", 6);
-	node_add(&(scene.objects), node);
-//	node = init_node(PLANE, ceil, "ceil", 7);
-//	node_add(&(scene.objects), node);
+	node_add(&(scene->objects), node);
+//	node = init_node(SPHERE, sphere2, "sphere2", 1);
+//	node_add(&(scene->objects), node);
+//	node = init_node(SPHERE, sphere3, "sphere 2 couleurs", 2);
+//	node_add(&(scene->objects), node);
+//	node = init_node(SPHERE, sphere4, "sphere 3 couleurs", 3);
+//	node_add(&(scene->objects), node);
+//	node = init_node(CYLINDER, cylinder, "cylinder", 4);
+//	node_add(&(scene->objects), node);
+//	node = init_node(CONE, cone, "cone", 5);
+//	node_add(&(scene->objects), node);
+//	node = init_node(PLANE, ground, "ground", 6);
+//	node_add(&(scene->objects), node);
 
 	node = init_node(LIGHT, light, "light 1", 1);
-	node_add(&(scene.lights), node);
-	node = init_node(LIGHT, light2, "light 2", 2);
-	node_add(&(scene.lights), node);
+	node_add(&(scene->lights), node);
+//	node = init_node(LIGHT, light2, "light 2", 2);
+//	node_add(&(scene->lights), node);
 //	node = init_node(LIGHT, light3, "light 3", 3);
-//	node_add(&(scene.lights), node);
+//	node_add(&(scene->lights), node);
 //	node = init_node(LIGHT, light4, "light 4", 4);
-//	node_add(&(scene.lights), node);
+//	node_add(&(scene->lights), node);
 
 	return (scene);
 }
 
 int	main(int ac, char** av)
 {
-//	t_env	e;
-//	t_scene	scene;
-//	e.mlx = mlx_init();
-//	if (e.mlx != NULL)
-//	{
-//		e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "RTv1");
-//		if (!(e.img = mlx_new_image(e.mlx, WIDTH, HEIGHT)))
-//			return (0);
-		parse(av[1]);
+	t_env	e;
+	t_scene	*scene;
+
+	scene = NULL;
+	if (ac != 2)
+		return (0);
+	e.mlx = mlx_init();
+	if (e.mlx != NULL)
+	{
+		e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "RTv1");
+		if (!(e.img = mlx_new_image(e.mlx, WIDTH, HEIGHT)))
+			return (0);
+  		if (!(scene = parse(av[1])))
+			return (0);
 //		scene = init_all();
-//		draw_scene(&e, scene);
-//		mlx_hook(e.win, 2, 3, key_hook, &e);
-////		mlx_expose_hook(e.win, expose_hook, &e);
-//		mlx_loop(e.mlx);
-//	}
-//	free_node_list(&(scene.objects));
-//	free_node_list(&(scene.lights));
-	(void)ac;
+		draw_scene(&e, *scene);
+		mlx_hook(e.win, 2, 3, key_hook, &e);
+//		mlx_expose_hook(e.win, expose_hook, &e);
+		mlx_loop(e.mlx);
+	}
+	free_node_list(&(scene->objects));
+	free_node_list(&(scene->lights));
+	free(scene);
 	(void)av;
 	return (0);
 }

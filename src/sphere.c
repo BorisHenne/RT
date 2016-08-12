@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/04 06:53:15 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/12 00:16:36 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ t_hit	is_sphere_hit(t_ray ray, t_sphere sphere)
 		}
 		hit.type = SPHERE;
 		hit.radius = sphere.radius;
+		hit.length = 0;
 		hit.color = sphere.color;
 		hit.point_norm = normalize(vec_sub(sphere.center, vec_add(ray.pos, scalar_product(ray.dir, hit.t))));
 		hit.specular = sphere.specular;

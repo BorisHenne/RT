@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:25:00 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/25 16:02:28 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/08 01:22:30 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct	s_cone
 	t_vec		pos;
 	t_vec		dir;
 	double		len;
-	double		ang;
+//	double		ang;
 	double		r;
 	t_color		color;
 	int			specular;

@@ -6,7 +6,7 @@
 /*   By: tlepeche <tlepeche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 21:51:51 by tlepeche          #+#    #+#             */
-/*   Updated: 2014/11/12 07:11:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/08 04:28:27 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ char		*ft_strtrim(char const *s)
 	str1 = catend(str1);
 	str2 = (char *)malloc(sizeof(char) * (ft_strlen(str1) + 1));
 	str2 = ft_strcpy(str2, str1);
+	free(str1);
 	return (str2);
 }

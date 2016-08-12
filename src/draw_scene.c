@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/07 03:56:55 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/12 05:46:47 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,19 @@ int         put_pixel_on_image(void *img, int x, int y, t_color color)
 
 double	define_color(double color)
 {
-	if (color < 62)
+	int		color_ref;
+
+	color_ref = 256 / 4;
+	if (color < color_ref)
 		color = 0;
-	if (color <= 124 && color > 62)
-		color = 62;
-	if (color <= 186 && color > 124)
-		color = 124;
-	else if (color > 186)
+	if (color <= color_ref * 2 && color > color_ref)
+		color = 256 / 3;
+	if (color <=color_ref * 3 && color > color_ref * 2)
+		color = 256 / 3 * 2;
+	else if (color > color_ref * 3)
 		color = 255;
 	return (color);
 }
-
-//
-//	Pour les contours noirs, checker dist entre 2 pt du meme object 
-//	-> si 0 ou < 0.2 == noir
-//
-//	on se branle du plan pour l'instant
-//
 
 t_color	cartoon(t_color color)
 {
@@ -67,28 +63,38 @@ t_color	cartoon(t_color color)
 	return (color);
 }
 
+#include <stdio.h>
 int		is_black_edge(t_hit *hit)
 {
 	double	dist_min_max;
 	double	edge_scale;
 
-	if (hit->radius > 0.0)
-		edge_scale = hit->radius / 2;
+	if (hit->type == CONE)
+		edge_scale = (hit->radius * hit->dist_from_center / hit->length) / 2;
 	else
-		edge_scale = 0;
+	{
+		if (hit->radius > 0.0)
+			edge_scale = hit->radius / 2;
+		else
+			edge_scale = 0;
+	}
+
 
 	dist_min_max = hit->t_max - hit->t;
+		
 	if (dist_min_max < edge_scale && dist_min_max > 0.0)
 		return (1);
-	if (hit->length > 0  && hit->dist_from_center > 0.01 && hit->dist_from_center > (hit->length / 2 - hit->length / 1000 ))
+	if (hit->type != PLANE && hit->length > 0)
 	{
-		//printf("dfc: %f, length : %f\n", hit->dist_from_center, hit->length);
-		return (1);
+		if (hit->length >= hit->dist_from_center && hit->length - hit->dist_from_center <= hit->length / 100)
+		{
+//			printf("dfc: %f, length : %f\n",hit->length - hit->dist_from_center,hit->length / 100);
+			return (1);
+		}
 	}
 	return (0);
 }
 
-#include <stdio.h>
 
 
 t_color color_render(t_scene scene, t_ray start, double noise)
@@ -136,9 +142,10 @@ t_color color_render(t_scene scene, t_ray start, double noise)
 		}
 		if (scene.is_real == CARTOON)
 		{
-			//	printf("CARTOON\n");
-			final_color = cartoon(final_color);
+//			printf("CARTOON\n");
+  			final_color = cartoon(final_color);
 		}
+
 		r++;
 	}
 	if (drawn_pixel.is_negativ == 1)
@@ -176,6 +183,7 @@ int		draw_scene(t_env *env, t_scene scene)
 	}
 	////////////////////////////
 
+//	write_scene(scene);
 	x = -1;
 	while (++x < WIDTH)
 	{

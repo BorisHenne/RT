@@ -12,7 +12,7 @@
 
 NAME = libft.a
 
-SRC = ft_putstr.c ft_putendl.c ft_putchar.c ft_putnbr.c get_next_line.c ft_bzero.c ft_memalloc.c ft_realloc.c ft_strcpy.c ft_strdup.c ft_strlen.c ft_memcpy.c ft_strchr.c ft_strstr.c ft_strsplit.c ft_strtrim.c ft_strsub.c ft_strjoin.c ft_atof.c ft_isdigit.c ft_isspace.c free_tab.c
+SRC = ft_putstr.c ft_putendl.c ft_putchar.c ft_putnbr.c get_next_line.c ft_bzero.c ft_memalloc.c ft_realloc.c ft_strcpy.c ft_strdup.c ft_strlen.c ft_memcpy.c ft_strchr.c ft_strstr.c ft_strsplit.c ft_strtrim.c ft_strsub.c ft_strjoin.c ft_atof.c ft_isdigit.c ft_isspace.c free_tab.c ft_epur_str.c ft_epur_str_c.c ft_strcmp.c
 
 NO_COLOR = "\033[0;0m"
 CC_COLOR = "\033[0;33m"

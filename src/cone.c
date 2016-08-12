@@ -47,6 +47,7 @@ double		find_cone_limit(t_ray ray, t_cone cone, double t, t_vec aa, t_vec ab, do
 	tmp = get_length(proj);
 	if (tmp > cone.len)
 		return (0.0f);
+	hit->dist_from_center = tmp;
 	(*hit).point_norm = inter;
 	(*hit).point_norm = vec_sub(cone.pos, inter);
 	proj = scalar_product(normalize(proj), get_length(hit->point_norm) / cos(cone.r));
@@ -151,7 +152,8 @@ t_hit		is_cone_hit(t_ray ray, t_cone cone)
 			}
 		}
 		hit.type = CONE;
-		hit.radius = 0;
+		hit.length = cone.len;
+		hit.radius = cone.r;
 		hit.specular = cone.specular;
 		hit.reflection = cone.reflection;
 		hit.texture = cone.texture;

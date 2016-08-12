@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/07/28 16:50:57 by nbelouni         ###   ########.fr        #
+#    Updated: 2016/08/09 02:57:02 by nbelouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,15 @@ SRC =	main.c \
 		draw_scene.c \
 		events.c \
 		find_closest_object.c \
+		get_file_content.c \
+		get_objects.c \
+		get_scene.c \
 		light.c \
 		node.c \
+		part.c \
 		parse.c \
+		parse_scop.c \
+		parse_tools.c \
 		plane.c \
 		refraction.c \
 		scene.c \

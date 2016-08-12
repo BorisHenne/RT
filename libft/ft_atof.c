@@ -6,7 +6,7 @@
 /*   By: tlepeche <tlepeche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 16:54:54 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/27 22:24:07 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/09 01:58:03 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	convert_result(char *str, int a, int *precision)
 	int		result;
 
 	b = 0;
+	result = 0;
 	while (ft_isdigit(str[a]) == 1 || str[a] == '.')
 	{
 		if (str[a] == '.')
@@ -48,6 +49,7 @@ static int	convert_result(char *str, int a, int *precision)
 	return (result);
 }
 
+#include <stdio.h>
 float		ft_atof(char *str)
 {
 	int		a;

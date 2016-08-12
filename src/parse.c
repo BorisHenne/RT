@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 12:49:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/07 01:48:44 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/12 05:40:36 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,281 +15,259 @@
 
 #include<stdio.h>
 
-char		*get_file_content(char *file_name)
+int			is_valid(char *s)
 {
-	char	*line;
-	int		fd;
-	char	*file_content;
-	char	*tmp;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	line = NULL;
-	file_content = NULL;
-	while (get_next_line(fd, &line))
+	while (*s)
 	{
-		//faire ca bien apres
-		if (!ft_strchr(line, '#'))
+		if (*s != '}')
 		{
-			if (file_content)
-			{
-				tmp = file_content;
-				file_content = ft_strjoin(tmp, line);
-				free(tmp);
-			}
-			else
-				file_content = ft_strdup(line);
+			return (1);
 		}
-		free(line);
+		s++;
 	}
-	if (close(fd) == -1)
-		return (NULL);
-	return (file_content);
+	return (0);
 }
 
-int			find_type(char *s)
-{
-	if (!s)
-		return (NONE);
-	if (ft_strstr(s, "scene"))
-		return (SCENE); 
-	if (ft_strstr(s, "light"))
-		return (LIGHT); 
-	if (ft_strstr(s, "object"))
-		return (OBJECT);
-	if (ft_strstr(s, "camera"))
-		return (CAMERA);
-	return (NONE);
-}
-
-char		*find_scop(char *s, int ref_level, int *max_level)
-{
-	static int	level;
-	char		*ret;
-	int			i;
-
-	i = -1;
-	while (s[++i])
-	{
-		if (s[i] == '{')
-		{
-			level++;
-			*max_level += 1;
-		}
-		else if (s[i] == '}')
-		{
-			level--;
-			if (level == ref_level)
-				break ;
-		}
-	}
-	ret = ft_strsub(s, 0, i + 1);
-	return (ret);
-}
-
-t_part		*create_part(void)
-{
-	t_part *part;
-
-	if (!(part = (t_part *)malloc(sizeof(t_part))))
-		return (NULL);
-	part->type = NONE;
-	part->n_elems = 0;
-	part->elems = NULL;
-//	part->sub_parts = NULL;
-	part->next = NULL;
-	return (part);
-}
-
-t_elem		*create_elem(void)
-{
-	t_elem	*elem;
-
-	if (!(elem = (t_elem *)malloc(sizeof(t_elem))))
-		return (NULL);
-	elem->name = NULL;
-	elem->n_values = 0;
-	elem->values = 0;
-	elem->next = NULL;
-	return (elem);
-}
-
-int			arr_len(char **array)
-{
-	int		i;
-
-	i = 0;
-	while (array && array[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-char		**cpy_carray(char **array)
-{
-	char	**new;
-	int		i;
-
-	i = arr_len(array);
-	if (!(new = (char **)malloc(sizeof(char *) * (i + 1))))
-		return (NULL);
-	i = -1;
-	while (array[++i])
-	{
-		if (!(new[i] = ft_strdup(array[i])))
-			return (NULL);
-	}
-	new[i] = NULL;
-	return (new);
-}
-t_elem		*parse_elem(char *s, t_elem *next)
-{
-	char	**name;
-	char	**values;
-	t_elem	*elem;
-
-	if (!(elem = create_elem()))
-		return (NULL);
-//	ft_putendl("____1");
-	if (!(name = ft_strsplit(s, ':')))
-		return (NULL);
-//	ft_putendl("____2");
-	if (arr_len(name) != 2)
-		return (NULL);
-//	ft_putendl("____3");
-	elem->name = ft_strtrim(name[0]);
-	if (!(values = ft_strsplit(name[1], ',')))
-		return (NULL);
-//	ft_putendl("____4");
-	if ((elem->n_values = arr_len(values)) <= 0)
-		return (NULL);
-//	ft_putendl("____5");
-//	int i = -1;
-//	while (values[++i])
-//		ft_putendl(values[i]);
-	if (!(elem->values = cpy_carray(values)))
-		return (NULL);
-	elem->next = next;
-	free_tab(name);
-	free_tab(values);
-//	ft_putendl("____6");
-	return (elem);
-
-}
-
-t_part		*parse_scop(char *scop, int max_level)
-{
-	t_part	*new_part;
-	char	**array;
-	char	*tmp;
-	int		i;
-
-	(void)max_level;
-	if (!ft_strchr(scop, ':'))
-		return (NULL);
-	if (!(new_part = create_part()))
-		return (NULL);
-	if (!(array = ft_strsplit(scop, '{')))
-		return (NULL);
-	i = -1;
-	while (array[++i])
-	{
-		tmp = ft_strtrim(array[i]);
-		if (ft_strchr(tmp, '}'))
-		{
-			if (!(new_part->elems = parse_elem(tmp, new_part->elems)))
-			{
-				ft_putendl("YOU FAILED");
-				return (NULL);
-			}
-		}
-		else if (ft_strchr(tmp, ':'))
-		{
-//			ft_putendl(tmp);
-			if (new_part->type == NONE)
-				new_part->type = find_type(tmp);
-//			if (part->type != 0)
-//			{
-//				//faux
-//				if (!(part->sub_parts = create_part()))
-//					return (NULL);
-//			}
-		}
-	}
-	return (new_part);
-}
-
-t_part		*parse_content(char *s, t_part * part)
+t_part		*parse_content(char *s, t_part *part)
 {
 	char	*scop;
 	int		i;
-	int		max_level;
 	t_part	*tmp;
 
 	i = 0;
-	max_level = 0;
 	tmp = NULL;
 	while (s && s[i])
 	{
-		scop = find_scop(s + i, 1, &max_level);
-//		ft_putendl("#######################################");
-//		ft_putendl(scop);
-//		ft_putendl("#######################################");
+		scop = find_scop(s + i, 1);
 		i += ft_strlen(scop);
-		tmp = parse_scop(scop, max_level);
-//		s = cut(s);
+		if (is_valid(scop))
+		{
+			if (!(tmp = parse_scop(scop)))
+				return (NULL);
+		}
+		else
+			tmp = NULL;
 		free(scop);
 		if (!part)
-		{
-//			ft_putendl("! part");
 			part = tmp;
-		}
 		else if (tmp)
 		{
-//			ft_putendl("part");
 			tmp->next = part;
 			part = tmp;
-//		ft_putendl("1");
 		}
 	}
 	return (part);
+}
+
+int			is_number(char *s)
+{
+	while (*s)
+	{
+		if (!((*s >= '0' && *s <= '9') || *s == '.' || *s == '+' || *s == '-'))
+		{
+			return (0);
+		}
+		s++;
+	}
+	return (1);
+}
+t_vec		*get_vec(char **values, char *name)
+{
+	t_vec 	*vec;
+	int		n_values;
+
+	if ((n_values = arr_len(values)) != 3)
+	{
+		if (n_values < 3)
+			ft_putstr("missing value in '");
+		else
+			ft_putstr("too many values in '");
+		ft_putstr(name);
+		ft_putendl("'");
+		return (NULL);
+	}
+	if (!is_number(values[0]) || !is_number(values[1]) || !is_number(values[2]))
+	{
+		ft_putstr("value != number in '");
+		ft_putstr(name);
+		ft_putendl("'");
+		return (NULL);
+	}
+	if (!(vec = (t_vec *)malloc(sizeof(t_vec))))
+		return (NULL);
+	vec->x = ft_atof(values[0]);
+	vec->y = ft_atof(values[1]);
+	vec->z = ft_atof(values[2]);
+	return (vec);
+}
+
+t_color		*get_color(char **values, int ref)
+{
+	t_color 	*color;
+	double		color_max;
+	int		n_values;
+
+	color_max = (ref == OBJECT) ? 1.0 : 255.0;
+	if ((n_values = arr_len(values)) != 3)
+	{
+		if (n_values < 3)
+			ft_putendl("missing value in 'color'");
+		else
+			ft_putendl("too many values in 'color'");
+		return (NULL);
+	}
+	if (!is_number(values[0]) || !is_number(values[1]) || !is_number(values[2]))
+	{
+		ft_putstr("value != number in 'color'");
+		return (NULL);
+	}
+	if (!(color = (t_color *)malloc(sizeof(t_color))))
+		return (NULL);
+	color->r = ft_atof(values[0]);
+	color->g = ft_atof(values[1]);
+	color->b = ft_atof(values[2]);
+	if ((color->r < 0 || color->r > color_max)
+	|| (color->g < 0 || color->g > color_max)
+	|| (color->b < 0 || color->b > color_max))
+	{
+		ft_putstr("value < 0 or > ");
+		ft_putnbr(color_max);
+		ft_putendl("'color'");
+		return (NULL);
+	}
+	return (color);
+}
+
+float		get_num(char **values)
+{
+	return (ft_atof(values[0]));
+}
+
+int			get_bool(char **values)
+{
+	if (!ft_strcmp(values[0], "y"))
+		return (1);
+	else if (!ft_strcmp(values[0], "n"))
+		return (0);
+	return (-1);
+}
+
+int			get_enum(char **values)
+{
+	if (!strcmp(values[0], "marble"))
+		return (MARBLE);
+	else if (!strcmp(values[0], "checker"))
+		return (CHECKER);
+	else if (!strcmp(values[0], "none"))
+		return (NONE);
+	return (-1);
+}
+
+t_quad		*get_quad(char **values)
+{
+	t_quad 	*quad;
+	int		n_values;
+
+	if ((n_values = arr_len(values)) != 3)
+	{
+		if (n_values < 3)
+			ft_putendl("missing value in 'quad'");
+		else
+			ft_putendl("too many values in 'quad'");
+		return (NULL);
+	}
+	if (!is_number(values[0]) || !is_number(values[1]) || !is_number(values[2]))
+	{
+		ft_putstr("value != number in 'quad'");
+		return (NULL);
+	}
+	if (!(quad = (t_quad *)malloc(sizeof(t_quad))))
+		return (NULL);
+	quad->A = ft_atof(values[0]);
+	quad->B = ft_atof(values[1]);
+	quad->C = ft_atof(values[2]);
+	return (quad);
+}
+
+t_scene		*config(t_part *part)
+{
+	t_part	*tmp;
+	t_scene	*scene;
+	t_cam	*tmp_cam;
+	int		is_init[4];
+
+	scene = init_scene();
+	is_init[0] = 0;
+	is_init[1] = 0;
+	is_init[2] = 0;
+	is_init[3] = 0;
+	tmp = part;
+	while (tmp)
+	{
+		if (tmp->type == SCENE)
+		{
+			if (is_init[0] > 0)
+				return (NULL);
+			if (!(scene = get_scene(scene, tmp)))
+				return (NULL);
+			is_init[0] = 1;
+		}
+		if (tmp->type == LIGHT)
+		{
+			if (!(scene = get_lights(scene, tmp)))
+				return (NULL);
+			is_init[2] += 1;
+		}
+		if (tmp->type == OBJECT)
+		{
+			if (!(scene = get_objects(scene, tmp)))
+				return (NULL);
+			is_init[3] += 1;
+		}
+		if (tmp->type == CAMERA)
+		{
+			if (is_init[1] > 0)
+				return (NULL);
+			if (!(tmp_cam = get_cam(scene, tmp)))
+				return (NULL);
+			is_init[1] = 1;
+		}
+		tmp = tmp->next;
+	}
+	if (is_init[1] == 0)
+	{
+		ft_putendl("No Camera");
+		return (NULL);
+	}
+	if (is_init[2] == 0)
+	{
+		ft_putendl("No Lights");
+	}
+	if (is_init[3] == 0)
+	{
+		ft_putendl("No Objects");
+	}
+	return (scene);
 }
 
 t_scene		*parse(char *file_name)
 {
-//	ft_putendl("parse");
 	char	*file_content;
 	int		level;
 	t_part	*part;
+	t_scene	*scene;
 
 	level = 0;
 	part = NULL;
 	if (!(file_content = get_file_content(file_name)))
 		return (NULL);
-	part = parse_content(file_content, part);
-	if (part == NULL)
-		ft_putendl("nul");
-	else
-	{
-		t_part *tmp = part;
-		while (tmp)
-		{
-			printf("TYPE : %d\n", tmp->type);
-			t_elem *tmp2 = tmp->elems;
-			while (tmp2)
-			{
-				ft_putendl("_______________________________________");
-					int j = -1;
-					ft_putendl(tmp2->name);
-					while (tmp2->values[++j])
-						ft_putendl(tmp2->values[j]);
-				ft_putendl("_______________________________________");
-				tmp2 = tmp2->next;
-			}
-			tmp = tmp->next;
-		}
-	}
-	return (NULL);
+	if (!(part = parse_content(file_content, part)))
+		return (NULL);
+	if (!(scene = config(part)))
+		return (NULL);
+//	write_scene(*scene);
+	free_part(&part);
+	free(file_content);
+
+	return (scene);
 }

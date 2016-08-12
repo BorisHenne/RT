@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/07 03:57:50 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/08 23:58:27 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define PLANE		7
 # define CONE		8
 # define ELIPS		9
+
+# define INT_MAX	2147483647
+# define INT_MIN	-2147483648
 
 typedef struct		s_node
 {
