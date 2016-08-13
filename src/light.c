@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/07 02:50:26 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/10 02:55:04 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 		{
 			//			printf("light diffue || direct\n");
 			tmp_light_ray = vec_sub(light_ray.pos, ((t_light *)(tmp_light->data))->pos);
+			//tmp_light_ray = vec_sub(((t_light *)(tmp_light->data))->pos, light_ray.pos);
 			light_ray.length = get_length(tmp_light_ray);
 			light_ray.dir = normalize(tmp_light_ray);
 		}

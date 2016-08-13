@@ -38,26 +38,17 @@ void	find_sphere_closest_hit(double a, double b, double det, t_hit *hit)
 	t2 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
 	t2 /= (double)PRECISION;
 
-/*	if (t1 <= 0.0 && t2 <= 0.0)
-		return -1.0;
-	if (t1 <= 0.0)
-		return (t2);
-	else if (t2 <= 0.0)
-		return (t1);
-	else
-		return (t1 < t2 ? t1 : t2);*/
-
 	if (t1 <= 0.0 && t2 <= 0.0)
 	{
 		hit->t = 0.0;
 		hit->t_max = 0.0;
 	}
-	if (t1 <= 0.0)
+	if (t1 < 0.0)
 	{
 		hit->t = t2;
 		hit->t_max = t1;
 	}
-	else if (t2 <= 0.0)
+	else if (t2 < 0.0)
 	{
 		hit->t = t1;
 		hit->t_max = t2;
@@ -88,9 +79,9 @@ t_hit	is_sphere_hit(t_ray ray, t_sphere sphere)
 		if (det == 0)
 		{
 			/* une solution unique */
-//			hit.t = (-b / (2 * a));
 			hit.t = (-b / (2 * a));
-			hit.t_max = (-b / (2 * a));
+//			hit.t_max = (-b / (2 * a));
+			hit.t_max = 42;			
 			hit.bool = hit.t > 0.0 ? 1 : 0;
 			hit.color = sphere.color;
 
@@ -99,7 +90,7 @@ t_hit	is_sphere_hit(t_ray ray, t_sphere sphere)
 		{
 			/* deux solutions */
 			find_sphere_closest_hit(a, b, det, &hit);
-			hit.bool = hit.t > 0.00 ? 1 : 0;
+			hit.bool = hit.t > 0.0 ? 1 : 0;
 			hit.opacity = sphere.opacity;
 		}
 		hit.type = SPHERE;

@@ -55,7 +55,7 @@ RM = rm -rf
 
 C_FLAGS= -Wall -Werror -Wextra -o3
 
-MLX_FLAGS = -L/usr/local/lib -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -L/usr/local/lib -I/usr/local/include -lmlx -framework OpenGL -framework AppKit -fsanitize=address
 
 all: lft $(NAME)
 

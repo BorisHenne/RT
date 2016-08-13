@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 03:17:42 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/07/25 16:02:44 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/08 06:41:08 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ typedef struct		s_plane
 }					t_plane;
 
 t_hit				is_plane_hit(t_ray ray, t_plane plan);
+double				find_plane_hit(t_ray ray, t_plane* plan);
 
 #endif
