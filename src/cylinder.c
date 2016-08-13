@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/13 00:18:00 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/14 00:20:13 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <cylinder.h>
 #include <stdio.h>
 
-t_hit	create_disk(t_ray ray, t_cylinder cylinder, double side)
+t_hit	create_disk(t_ray *ray, t_cylinder *cylinder, double side)
 {
 	t_hit	hit;
 	t_plane	*plane;
@@ -23,8 +23,8 @@ t_hit	create_disk(t_ray ray, t_cylinder cylinder, double side)
 	int		dir;
 	
 	plane = (t_plane *)malloc(sizeof(t_plane));
-	new_dir = scalar_product(cylinder.dir, side);
-	plane->pos = vec_add(cylinder.pos, scalar_product(new_dir, cylinder.length / 2.0));
+	new_dir = scalar_product(cylinder->dir, side);
+	plane->pos = vec_add(cylinder->pos, scalar_product(new_dir, cylinder->length / 2.0));
 	plane->normal = scalar_product(new_dir, -1);
 	hit.t = find_plane_hit(ray, plane);
 	hit.t = (int)(hit.t * PRECISION);
@@ -33,8 +33,8 @@ t_hit	create_disk(t_ray ray, t_cylinder cylinder, double side)
 
 	if (hit.t != 0)
 	{
-		inter = vec_add(ray.pos, scalar_product(ray.dir, hit.t));
-		if (get_length(vec_sub(plane->pos, inter)) < cylinder.radius)
+		inter = vec_add(ray->pos, scalar_product(ray->dir, hit.t));
+		if (get_length(vec_sub(plane->pos, inter)) < cylinder->radius)
 		{
 			hit.bool = 1;
 			dir = new_dir.z < 0 ? 1 : -1;
@@ -45,7 +45,7 @@ t_hit	create_disk(t_ray ray, t_cylinder cylinder, double side)
 	return hit;
 }
 
-double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t_vec ab, double ab2, t_hit *hit)
+double	find_cylinder_limit(t_ray *ray, t_cylinder *cylinder, double t, t_vec aa, t_vec ab, double ab2, t_hit *hit)
 {
 	t_vec	inter;
 	t_vec	proj;
@@ -55,8 +55,8 @@ double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t
 	time = t;
 	if (time < 0)
 		return (0.0f);
-	inter = scalar_product(ray.dir, time);
-	inter = vec_add(inter, ray.pos);
+	inter = scalar_product(ray->dir, time);
+	inter = vec_add(inter, ray->pos);
 	proj = vec_sub(aa, inter);
 	tmp = dot_product(ab, proj) / ab2;
 	ab = scalar_product(ab, tmp);
@@ -66,9 +66,9 @@ double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t
 	proj.y = ab.y;
 	proj.z = ab.z;
 	//
-	tmp = get_length(vec_sub(cylinder.pos, proj));
-	hit->dist_from_center = (tmp > cylinder.length / 2) ? 0 : tmp;
-	if (tmp > cylinder.length / 2)
+	tmp = get_length(vec_sub(cylinder->pos, proj));
+	hit->dist_from_center = (tmp > cylinder->length / 2) ? 0 : tmp;
+	if (tmp > cylinder->length / 2)
 		return (0.0);
 	hit->point_norm = inter;
 	hit->point_norm = vec_sub(proj, hit->point_norm);
@@ -76,7 +76,7 @@ double	find_cylinder_limit(t_ray ray, t_cylinder cylinder, double t, t_vec aa, t
 	return (time);
 }
 
-t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
+t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 {
 	t_hit	hit;
 	t_hit	hit_size;
@@ -97,16 +97,16 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 	hit.color.b = 0;
 	hit.t_max = 0;
 
-	cylinder.dir = normalize(cylinder.dir);
-	aa = vec_add(cylinder.pos, cylinder.dir);
-	ab = vec_sub(cylinder.pos, aa);
-	v = vec_sub(aa, ray.pos);
+	cylinder->dir = normalize(cylinder->dir);
+	aa = vec_add(cylinder->pos, cylinder->dir);
+	ab = vec_sub(cylinder->pos, aa);
+	v = vec_sub(aa, ray->pos);
 	oxb = cross_product(v, ab);
-	v = cross_product(ray.dir, ab);
+	v = cross_product(ray->dir, ab);
 	ab2 = dot_product(ab, ab);
 	a = dot_product(v, v);
 	b = 2.0 * dot_product(v, oxb);
-	c = dot_product(oxb, oxb) - (cylinder.radius * cylinder.radius  * ab2);
+	c = dot_product(oxb, oxb) - (cylinder->radius * cylinder->radius  * ab2);
 	det = b * b - 4 * a * c;
 
 	if (det >= 0)
@@ -195,18 +195,18 @@ t_hit	is_cylinder_hit(t_ray ray, t_cylinder cylinder)
 
 
 		hit.type = CYLINDER;
-		hit.radius = cylinder.radius;
-		hit.length = cylinder.length;
-		hit.color.r = cylinder.color.r;
-		hit.color.g = cylinder.color.g;
-		hit.color.b = cylinder.color.b;
-		hit.opacity = cylinder.opacity;
-		hit.ref_index = cylinder.ref_index;
-		hit.specular = cylinder.specular;
-		hit.reflection = cylinder.reflection;
-		hit.texture = cylinder.texture;
-		hit.is_negativ = cylinder.is_negativ;
+		hit.radius = cylinder->radius;
+		hit.length = cylinder->length;
+		hit.color.r = cylinder->color.r;
+		hit.color.g = cylinder->color.g;
+		hit.color.b = cylinder->color.b;
+		hit.opacity = cylinder->opacity;
+		hit.ref_index = cylinder->ref_index;
+		hit.specular = cylinder->specular;
+		hit.reflection = cylinder->reflection;
+		hit.texture = cylinder->texture;
+		hit.is_negativ = cylinder->is_negativ;
 	}
-	//hit.point_norm = vec_sub(cylinder.pos, vec_add(ray.pos, scalar_product(ray.dir, hit.t)));
+	//hit.point_norm = vec_sub(cylinder->pos, vec_add(ray->pos, scalar_product(ray->dir, hit.t)));
 	return (hit);
 }

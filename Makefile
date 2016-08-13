@@ -6,13 +6,15 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/08/09 02:57:02 by nbelouni         ###   ########.fr        #
+#    Updated: 2016/08/13 02:03:42 by nbelouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = rtv1
 
 SRC =	main.c \
+		aa.c \
+		blur.c \
 		camera.c \
 		cylinder.c \
 		draw_scene.c \
@@ -53,7 +55,7 @@ LIB = -L libft -lft -L mlx -lmlx
 
 RM = rm -rf
 
-C_FLAGS= -Wall -Werror -Wextra -o3
+C_FLAGS= -Wall -Werror -Wextra -o3 -fsanitize=address
 
 MLX_FLAGS = -L/usr/local/lib -I/usr/local/include -lmlx -framework OpenGL -framework AppKit -fsanitize=address
 

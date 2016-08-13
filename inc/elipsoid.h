@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:53:08 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/06 03:53:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/14 00:26:07 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct	s_coord
 }		t_hit;
 */
 
-double		find_elips_det(t_ray ray, t_elips elips, double *a, double *b);
+double		find_elips_det(t_ray *ray, t_elips *elips, double *a, double *b);
 void		find_elips_closest_hit(double a, double b, double det, t_hit *hit);
-t_hit		is_elips_hit(t_ray ray, t_elips elips);
+t_hit		is_elips_hit(t_ray *ray, t_elips *elips);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/12 05:46:47 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/13 23:47:24 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		is_black_edge(t_hit *hit)
 
 
 
-t_color color_render(t_scene scene, t_ray start, double noise)
+t_color color_render(t_scene *scene, t_ray *start, double noise)
 {
 	double	reflet;
 	t_color final_color;
@@ -114,33 +114,34 @@ t_color color_render(t_scene scene, t_ray start, double noise)
 		if (r == 0 || drawn_pixel.reflection != 0)
 		{
 			reflet = pow(drawn_pixel.reflection, r * 3);
-			drawn_pixel = find_closest_object(scene.objects, start);
+			drawn_pixel = find_closest_object(scene->objects, start);
 			if (drawn_pixel.bool == 1)
 			{
-				if (scene.is_real == CARTOON && is_black_edge(&drawn_pixel))
+				if (scene->is_real == CARTOON && is_black_edge(&drawn_pixel))
 					drawn_pixel.color = init_color(0, 0, 0);
 				else
 				{
-					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
+					drawn_pixel.color = apply_light(*scene, drawn_pixel, *start);
 					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
-					drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(start, scene, drawn_pixel, noise));
+					if (drawn_pixel.opacity < 1.0)
+						drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(*start, *scene, drawn_pixel, noise));
 					if (drawn_pixel.texture == MARBLE)
 						drawn_pixel.color = mult_color(drawn_pixel.color, noise / 255);
 					if (drawn_pixel.texture == CHECKER)
 					{
-						t_vec tmp = vec_add(start.pos, scalar_product(start.dir, drawn_pixel.t));
+						t_vec tmp = vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t));
 						drawn_pixel.color = checkerboard(drawn_pixel.color, tmp);
 					}	
 				}
 			}
 			else
 				break;
-			start.pos = vec_add(start.pos, scalar_product(start.dir, drawn_pixel.t)); 
-			reflet = dot_product(start.dir, drawn_pixel.point_norm) * 2.0;
-			start.dir = normalize(vec_sub(scalar_product(drawn_pixel.point_norm, reflet), start.dir));
+			start->pos = vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)); 
+			reflet = dot_product(start->dir, drawn_pixel.point_norm) * 2.0;
+			start->dir = normalize(vec_sub(scalar_product(drawn_pixel.point_norm, reflet), start->dir));
 			final_color = add_color(final_color, drawn_pixel.color);
 		}
-		if (scene.is_real == CARTOON)
+		if (scene->is_real == CARTOON)
 		{
 //			printf("CARTOON\n");
   			final_color = cartoon(final_color);
@@ -158,7 +159,7 @@ t_color color_render(t_scene scene, t_ray start, double noise)
 }
 
 
-int		draw_scene(t_env *env, t_scene scene)
+int		draw_scene(t_env *env, t_scene *scene)
 {
 	int		x;
 	int		y;
@@ -192,16 +193,17 @@ int		draw_scene(t_env *env, t_scene scene)
 		{
 			double noise;
 			noise = apply_marble_noise(x, y, 50, tab_noise);
-			start.pos = scene.cam.ray.pos;
-			start.dir = normalize(calc_vec_dir(x, y, scene.cam, scene.cam.look_at));
+			start.pos = scene->cam.ray.pos;
+			start.dir = normalize(calc_vec_dir(x, y, scene->cam, scene->cam.look_at));
 
-			final_color = color_render(scene, start, noise);
-
+			final_color = color_render(scene, &start, noise);
 
 			put_pixel_on_image(env->img, x, y, final_color);
 		}
 
 	}
+//	if (!(env->img = apply_blur(env, 3)))
+//		return (0);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (0);
 }

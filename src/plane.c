@@ -6,23 +6,23 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/10 00:45:03 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/14 00:21:27 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 # include <Stdio.h>
 
-double find_plane_hit(t_ray ray, t_plane *plan)
+double find_plane_hit(t_ray *ray, t_plane *plane)
 {
 	double	tmp_magic;
-	if((tmp_magic = dot_product(plan->normal, ray.dir)) == 0.0)
+	if((tmp_magic = dot_product(plane->normal, ray->dir)) == 0.0)
 		return(0);
 	else
-		return(-(dot_product(plan->normal, vec_sub(plan->pos, ray.pos))) / tmp_magic);
+		return(-(dot_product(plane->normal, vec_sub(plane->pos, ray->pos))) / tmp_magic);
 }
 
-t_hit	is_plane_hit(t_ray ray, t_plane plan)
+t_hit	is_plane_hit(t_ray *ray, t_plane *plane)
 {
 	t_hit hit;
 	double res;
@@ -33,7 +33,7 @@ t_hit	is_plane_hit(t_ray ray, t_plane plan)
 	hit.color.g = 0;
 	hit.color.b = 0;
 	
-	res = find_plane_hit(ray, &plan);
+	res = find_plane_hit(ray, plane);
 	res = (int)(res * PRECISION);
 	res /= (double)PRECISION;
 	if (res != 0)
@@ -43,16 +43,16 @@ t_hit	is_plane_hit(t_ray ray, t_plane plan)
 		hit.t = res;
 		hit.t_max = hit.t + 1;
 		hit.bool = (hit.t == 0.0) ? 0 : 1;
-		hit.color = plan.color;
-		hit.point_norm.x = -plan.normal.x;
-		hit.point_norm.y = -plan.normal.y;
-		hit.point_norm.z = -plan.normal.z;
-		hit.reflection = plan.reflection;
-		hit.specular = plan.specular;
-		hit.opacity = plan.opacity;
-		hit.ref_index = plan.ref_index;
-		hit.is_negativ = plan.is_negativ;
-		hit.texture  = plan.texture;
+		hit.color = plane->color;
+		hit.point_norm.x = -plane->normal.x;
+		hit.point_norm.y = -plane->normal.y;
+		hit.point_norm.z = -plane->normal.z;
+		hit.reflection = plane->reflection;
+		hit.specular = plane->specular;
+		hit.opacity = plane->opacity;
+		hit.ref_index = plane->ref_index;
+		hit.is_negativ = plane->is_negativ;
+		hit.texture  = plane->texture;
 	}
 	return (hit);
 }

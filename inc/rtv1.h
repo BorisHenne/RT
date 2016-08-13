@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/12 23:18:34 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/13 23:44:29 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <mlx.h>
 # include <libft.h>
 
+# include <aa.h>
 # include <camera.h>
 # include <cone.h>
 # include <cylinder.h>
@@ -51,7 +52,7 @@ typedef struct		s_env
 }					t_env;
 
 int					key_hook(int keycode, t_env *e);
-int					draw_scene(t_env *env, t_scene scene);
+int					draw_scene(t_env *env, t_scene *scene);
 double				deg_to_rad(double angle);
 
 t_color				add_color(t_color a, t_color b);
@@ -68,5 +69,7 @@ double				apply_wood_noise(int x, int y, double res, double **tab_noise);
 t_color				checkerboard(t_color color, t_vec vec);
 int					is_black_edge(t_hit *hit);
 
-t_color				color_render(t_scene scene, t_ray start, double noise);
+void				*apply_blur(t_env *env, int  blur_lvl);
+int					put_pixel_on_image(void *img, int x, int y, t_color color);
+t_color				color_render(t_scene *scene, t_ray *start, double noise);
 #endif

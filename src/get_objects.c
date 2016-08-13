@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/12 05:50:55 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/13 00:59:54 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int			get_specular(t_elem *elem, int *specular)
 
 int			get_reflection(t_elem *elem, double *reflection)
 {
-	if (reflection != 0)
+	if (*reflection != 0)
 	{
 		ft_putendl("'reflection' redefined");
 		return (0);

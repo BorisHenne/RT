@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/10 00:12:44 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/14 00:27:15 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-t_hit		find_closest_object(t_node *nodes, t_ray ray)
+t_hit		find_closest_object(t_node *nodes, t_ray *ray)
 {
 	t_node		*tmp;
 	t_hit		tmp_content;
@@ -34,15 +34,15 @@ t_hit		find_closest_object(t_node *nodes, t_ray ray)
 	while (tmp)
 	{
 		if (tmp->type == SPHERE)
-			tmp_content = is_sphere_hit(ray, *(t_sphere *)tmp->data);
+			tmp_content = is_sphere_hit(ray, (t_sphere *)tmp->data);
 		else if (tmp->type == CYLINDER)
-			tmp_content = is_cylinder_hit(ray, *(t_cylinder *)tmp->data);
+			tmp_content = is_cylinder_hit(ray, (t_cylinder *)tmp->data);
 		else if (tmp->type == PLANE)
-			tmp_content = is_plane_hit(ray, *(t_plane *)tmp->data);
+			tmp_content = is_plane_hit(ray, (t_plane *)tmp->data);
 		else if (tmp->type == CONE)
-			tmp_content = is_cone_hit(ray, *(t_cone *)tmp->data);
+			tmp_content = is_cone_hit(ray, (t_cone *)tmp->data);
 		else if (tmp->type == ELIPS)
-			tmp_content = is_elips_hit(ray, *(t_elips *)tmp->data);
+			tmp_content = is_elips_hit(ray, (t_elips *)tmp->data);
 		if (tmp_content.bool == 1)
 		{
 			if ((closest_hit.bool == 0 || tmp_content.t <= closest_hit.t) && tmp_content.t > 0)

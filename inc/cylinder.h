@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:30:13 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/07/25 16:02:04 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/14 00:16:22 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ typedef struct	s_cylinder
 	int			texture;
 }				t_cylinder;
 
-t_hit is_cylinder_hit(t_ray ray, t_cylinder cylinder);
+t_hit is_cylinder_hit(t_ray *ray, t_cylinder *cylinder);
 
 #endif

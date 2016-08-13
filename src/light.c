@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/10 02:55:04 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/14 00:27:08 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,15 @@ t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray)
 		while (tmp_object)
 		{
 			if (tmp_object->type == SPHERE)
-				tmp_content = is_sphere_hit(light_ray, *(t_sphere *)tmp_object->data);
+				tmp_content = is_sphere_hit(&light_ray, (t_sphere *)tmp_object->data);
 			else if (tmp_object->type == CYLINDER)
-				tmp_content = is_cylinder_hit(light_ray, *(t_cylinder *)tmp_object->data);
+				tmp_content = is_cylinder_hit(&light_ray, (t_cylinder *)tmp_object->data);
 			else if (tmp_object->type == PLANE)
-				tmp_content = is_plane_hit(light_ray, *(t_plane *)tmp_object->data);
+				tmp_content = is_plane_hit(&light_ray, (t_plane *)tmp_object->data);
 			else if (tmp_object->type == CONE)
-				tmp_content = is_cone_hit(light_ray, *(t_cone *)tmp_object->data);
+				tmp_content = is_cone_hit(&light_ray, (t_cone *)tmp_object->data);
 			else if (tmp_object->type == ELIPS)
-				tmp_content = is_elips_hit(light_ray, *(t_elips *)tmp_object->data);
+				tmp_content = is_elips_hit(&light_ray, (t_elips *)tmp_object->data);
 			if (tmp_content.bool == 1 && tmp_content.t > 0.0 && tmp_content.t <= light_ray.length)
 			{
 				shadow = 1;
