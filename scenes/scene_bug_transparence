@@ -18,13 +18,13 @@
 			{
 				{radius: 0.7}
 				{pos: 0, 0, 0}
-				{color: 0.8, 0.8, 0.4}
+				{color: 0.5, 0.3, 0.7}
 				{
 					options:
 					{
 						{specular: 50}
-						{ref_index: 1.33}
-						{opacity: 0.4}
+						{opacity: 0.1}
+						{ref_index: 1}
 					}
 				}
 			}
@@ -33,32 +33,34 @@
 			elips:
 			{
 				{radius: 0.3}
-				{pos: 0, 0.4, 1}
+				{pos: 0, 0.4, 3}
 				{quad : 1, 0.5, 1}
 				{color: 0.8, 1, 0.2}
 				{
 					options:
 					{
 						{specular: 50}
-						{opacity:0.8}
+						{opacity:1}
+						{ref_index: 1}
 					}
 				}
 			}
 		}
 		{
-			cone:
+#			cone:
+			cylinder:
 			{
 				{radius: 0.5}
-				{pos : 0, 0.4, -1}
+				{pos : 0, -10.4, -3}
 				{dir: 1, 0, 1}
-				{length: 1}
-				{color: 0.5, 0.5, 1}
+				{length: 2}
+				{color: 0.1, 0.1, 0.1}
 				{
 					options:
 					{
 						{specular: 50}
 						{opacity:0.7}
-						{ref_index:2.5}
+						{ref_index:1.5}
 					}
 				}
 			}
