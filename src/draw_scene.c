@@ -6,11 +6,12 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/15 00:50:44 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/15 01:22:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+#include <stdio.h>
 
 double		deg_to_rad(double angle)
 {
@@ -28,20 +29,14 @@ int         put_pixel_on_image(void *img, int x, int y, t_color color)
 	int     sl;
 	int     endian;
 
+	if (x >= WIDTH || y >= HEIGHT)
+		return (0);
 	data = mlx_get_data_addr(img, &bpp, &sl, &endian);
 	bpp /= 8;
 	i = x * bpp + y * sl;
-	if (x >= WIDTH || y >= HEIGHT)
-		return (0);
-	if (color.r > 127)
-		color.r -= 256;
-	if (color.g > 127)
-		color.g -= 256;
-	if (color.b > 127)
-		color.b -= 256;
-	data[i] = color.b;
-	data[i + 1] = color.g;
-	data[i + 2] = color.r;
+	data[i] = (int)(color.b);
+	data[i + 1] = (int)(color.g);
+	data[i + 2] = (int)(color.r);
 	return (0);
 }
 
@@ -121,14 +116,7 @@ t_color color_render(t_scene *scene, t_ray *start, double noise)
 		{
 			reflet = pow(drawn_pixel.reflection, r * 3);
 			drawn_pixel = find_closest_object(scene->objects, start);
-	/*		if (noise == 42)
-			{
-				printf("start->pos: x=%f, y=%f, z=%f\n", start->pos.x, start->pos.y, start->pos.z);
-				printf("start->dir: x=%f, y=%f, z=%f\n", start->dir.x, start->dir.y, start->dir.z);
-				printf("hit: bool=%d type=%d, opacity=%f, t=%f, t_max=%F\n\n", drawn_pixel.bool, drawn_pixel.type, drawn_pixel.opacity, drawn_pixel.t, drawn_pixel.t_max);
-				sleep(1);
-			}
-	*/		if (drawn_pixel.bool == 1)
+			if (drawn_pixel.bool == 1)
 			{
 				if (scene->is_real == CARTOON && is_black_edge(&drawn_pixel))
 					drawn_pixel.color = init_color(0, 0, 0);
