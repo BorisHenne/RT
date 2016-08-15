@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/15 01:22:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/15 03:23:40 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ t_color color_render(t_scene *scene, t_ray *start, double noise)
 					//faire attention condition ici
 					if (drawn_pixel.t != drawn_pixel.t_max)
 					{
-						drawn_pixel.color = apply_light(*scene, drawn_pixel, *start);
+						drawn_pixel.color = apply_light(scene, drawn_pixel, start);
 						drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
 					}
 					if (drawn_pixel.opacity < 1.0)
@@ -207,7 +207,9 @@ int		draw_scene(t_env *env, t_scene *scene)
 		}
 
 	}
-//	if (!(env->img = apply_blur(env, 3)))
+//	if (!(env->img = apply_blur(env, scene->blur)))
+//		return (0);
+//	if (!(env->img = sepia_filter(env->mlx, env->img, scene->filter)))
 //		return (0);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (0);
