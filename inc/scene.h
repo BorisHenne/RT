@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/15 01:03:18 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 04:04:15 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct	s_scene
 	int			is_real;
 	int			blur;
 	int			filter;
+	double		ambient;
 	t_cam		cam;
 	int			w;
 	int			h;

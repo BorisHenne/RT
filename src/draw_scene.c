@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/15 03:23:40 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 04:16:52 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,15 @@ int		is_black_edge(t_hit *hit)
 	return (0);
 }
 
+void	apply_ambient(t_color *color, float index)
+{
+	if (index >= 0 && index <= 10)
+	{
+		color->r *= 255 * index;
+		color->g *= 255 * index;
+		color->b *= 255 * index;
+	}
+}
 
 
 t_color color_render(t_scene *scene, t_ray *start, double noise)
@@ -104,6 +113,7 @@ t_color color_render(t_scene *scene, t_ray *start, double noise)
 	t_color final_color;
 	t_color white;
 	t_hit	drawn_pixel;
+	t_color	ambient;
 	int		r;
 
 	r = 0;
@@ -116,6 +126,8 @@ t_color color_render(t_scene *scene, t_ray *start, double noise)
 		{
 			reflet = pow(drawn_pixel.reflection, r * 3);
 			drawn_pixel = find_closest_object(scene->objects, start);
+			ambient = drawn_pixel.color;
+			apply_ambient(&ambient, scene->ambient);
 			if (drawn_pixel.bool == 1)
 			{
 				if (scene->is_real == CARTOON && is_black_edge(&drawn_pixel))
@@ -144,6 +156,7 @@ t_color color_render(t_scene *scene, t_ray *start, double noise)
 			start->pos = vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)); 
 			reflet = dot_product(start->dir, drawn_pixel.point_norm) * 2.0;
 			start->dir = normalize(vec_sub(scalar_product(drawn_pixel.point_norm, reflet), start->dir));
+			drawn_pixel.color = add_color(drawn_pixel.color, ambient);
 			final_color = add_color(final_color, drawn_pixel.color);
 		}
 		if (scene->is_real == CARTOON)

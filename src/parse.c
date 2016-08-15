@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 12:49:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/15 01:05:37 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 04:11:19 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,9 +243,10 @@ t_scene		*config(t_part *part)
 		ft_putendl("No Camera");
 		return (NULL);
 	}
-	if (is_init[2] == 0)
+	if (is_init[2] == 0 && scene->ambient <= 0.0)
 	{
 		ft_putendl("No Lights");
+		scene->ambient = 0.5;
 	}
 	if (is_init[3] == 0)
 	{

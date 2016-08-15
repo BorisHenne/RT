@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 06:18:17 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/15 01:08:30 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 04:14:48 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 t_scene		*get_scene(t_scene *scene, t_part *part)
 {
 	t_elem	*tmp;
-	int		is_init[3];
+	int		is_init[4];
 	int		is_cartoon;
 
 	tmp = part->elems;
 	is_init[0] = 0;
 	is_init[1] = 0;
 	is_init[2] = 0;
+	is_init[3] = 0;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, "cartoon"))
@@ -66,6 +67,21 @@ t_scene		*get_scene(t_scene *scene, t_part *part)
 				return (NULL);
 			}
 			is_init[2] = 1;
+		}
+		else if (!ft_strcmp(tmp->name, "ambient"))
+		{
+			if (is_init[3] > 0)
+			{
+				ft_putendl("'ambient' redefined");
+				return (NULL);
+			}
+			scene->ambient = (int)get_num(tmp->values);
+			if (scene->ambient < 0.0 || scene->ambient > 10.0)
+			{
+				ft_putendl("'ambient' < 0 or > 10");
+				return (NULL);
+			}
+			is_init[3] = 1;
 		}
 		tmp = tmp->next;
 	}
