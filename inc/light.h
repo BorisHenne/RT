@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 22:39:57 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/08 01:34:02 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 03:04:25 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ typedef struct		s_light
 	double		angle;
 }				t_light;
 
-t_color		apply_light(t_scene scene, t_hit curr_pixel, t_ray cam_ray);
+t_color		apply_light(t_scene *scene, t_hit curr_pixel, t_ray *cam_ray);
 
 #endif
