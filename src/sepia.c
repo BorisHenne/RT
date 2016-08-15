@@ -6,14 +6,14 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 00:20:42 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/05 04:45:43 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/15 01:02:26 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
 
-t_color		set_bw_color(t_color c)
+t_color		set_black_white_color(t_color c)
 {
 	t_color	s;
 
@@ -72,14 +72,17 @@ t_color		set_sepia_color(t_color c)
 	return (s);*/
 }
 
-void	*sepia_filter(void *mlx, void *img)
+void	*sepia_filter(void *mlx, void *img, int filter)
 {
 	void	*new;
 	int		i;
 	int		j;
 	t_color	c;
 
-	new = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (filter != SEPIA && filter != NOIR_BLANC)
+		return (img);
+	if (!(new = mlx_new_image(mlx, WIDTH, HEIGHT)))
+		return (NULL);
 	j = 0;
 	while (j < HEIGHT)
 	{
@@ -87,8 +90,10 @@ void	*sepia_filter(void *mlx, void *img)
 		while (i < WIDTH)
 		{
 			c = get_pixel_color(img, i, j);
-			c = set_sepia_color(c);
-			//c = set_bw_color(c);
+			if (filter == SEPIA)
+				c = set_sepia_color(c);
+			else if (filter == NOIR_BLANC)
+				c = set_black_white_color(c);
 			put_pixel_on_image(new, i, j, c);
 			i++;
 		}

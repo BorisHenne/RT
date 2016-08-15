@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/09 04:50:46 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 01:03:30 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_scene		*init_scene(void)
 	s->objects = NULL;
 	s->lights = NULL;
 	s->is_real = 0;
+	s->blur = 0;
+	s->filter = NONE;
 	return (s);
 }
 

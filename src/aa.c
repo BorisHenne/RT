@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/04 00:07:56 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/05 04:38:37 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/14 05:36:27 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,33 @@ t_color		get_pixel_color(void *img, int x, int y)
 	return (c);
 }
 
+t_color		get_median_value(t_color *av, int max)
+{
+	int	i;
+	int modif = 1;
+
+	i = 0;
+	while (modif)
+	{
+		modif = 0;
+		i = 1;
+		while (i < max)
+		{
+			int a = av[i - 1].r + av[i - 1].g + av[i - 1].b;
+			int b = av[i].r + av[i].g + av[i].b;
+			if (a > b)
+			{
+				modif = 1;
+				t_color	tmp = av[i - 1];
+				av[i - 1] = av[i];
+				av[i] = tmp;
+			}
+			i++;
+		}
+	}
+	return (av[4]);
+}
+
 t_color		get_av_color(void *img, int x, int y, int mode)
 {
 	t_color	*av;
@@ -77,49 +104,30 @@ t_color		get_av_color(void *img, int x, int y, int mode)
 		}
 		j++;
 	}
-//*
-if (mode == 1)
-{
-	int modif = 1;
-	while (modif)
+	//*
+	if (mode == 1)
 	{
-		modif = 0;
-		i = 1;
+		return (get_median_value(av, 9));
+	}
+	else
+	{
+		i = 0;
+		c.r = 0;
+		c.g = 0;
+		c.b = 0;
 		while (i < 9)
 		{
-			int a = av[i - 1].r + av[i - 1].g + av[i - 1].b;
-			int b = av[i].r + av[i].g + av[i].b;
-			if (a > b)
-			{
-				modif = 1;
-				t_color	tmp = av[i - 1];
-				av[i - 1] = av[i];
-				av[i] = tmp;
-			}
+			c.r += av[i].r;
+			c.g += av[i].g;
+			c.b += av[i].b;
 			i++;
 		}
+		c.r /= 9;
+		c.g /= 9;
+		c.b /= 9;
+		//printf("k = %d\n", k);
+		return (c);
 	}
-	return (av[4]);
-}
-else
-{
-	i = 0;
-	c.r = 0;
-	c.g = 0;
-	c.b = 0;
-	while (i < 9)
-	{
-		c.r += av[i].r;
-		c.g += av[i].g;
-		c.b += av[i].b;
-		i++;
-	}
-	c.r /= 9;
-	c.g /= 9;
-	c.b /= 9;
-	//printf("k = %d\n", k);
-	return (c);
-}
 }
 
 void	*aa(void *mlx, void *img, int mode)

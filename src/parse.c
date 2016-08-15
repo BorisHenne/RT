@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 12:49:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/12 05:40:36 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 01:05:37 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,10 @@ int			get_enum(char **values)
 		return (CHECKER);
 	else if (!strcmp(values[0], "none"))
 		return (NONE);
+	else if (!strcmp(values[0], "sepia"))
+		return (SEPIA);
+	else if (!strcmp(values[0], "bn"))
+		return (NOIR_BLANC);
 	return (-1);
 }
 

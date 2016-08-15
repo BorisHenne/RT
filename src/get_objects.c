@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/13 00:59:54 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/14 02:43:03 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ int		get_new_quad(t_elem *elem, t_quad **quad)
 	}
 	if (!(*quad = get_quad(elem->values)))
 		return (0);
+	if ((*quad)->A <= 0 || (*quad)->B <= 0 || (*quad)->C <= 0)
+	{
+		ft_putendl("'quad' value <= 0");
+		return (0);
+	}
 	return (1);
 }
 

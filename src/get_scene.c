@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 06:18:17 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/12 05:55:35 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 01:08:30 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,57 @@
 t_scene		*get_scene(t_scene *scene, t_part *part)
 {
 	t_elem	*tmp;
-	int		is_init;
+	int		is_init[3];
 	int		is_cartoon;
 
 	tmp = part->elems;
-	is_init = 0;
+	is_init[0] = 0;
+	is_init[1] = 0;
+	is_init[2] = 0;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, "cartoon"))
 		{
-			if (is_init > 0)
+			if (is_init[0] > 0)
+			{
+				ft_putendl("'cartoon' redefined");
 				return (NULL);
+			}
 			is_cartoon = get_bool(tmp->values);
 			scene->is_real = (is_cartoon == 0) ? REALISTIC : CARTOON;
-			is_init = 1;
+			is_init[0] = 1;
+		}
+		else if (!ft_strcmp(tmp->name, "blur"))
+		{
+			if (is_init[1] > 0)
+			{
+				ft_putendl("'blur' redefined");
+				return (NULL);
+			}
+			scene->blur = (int)get_num(tmp->values);
+			if (scene->blur < 0 || scene->blur > 100)
+			{
+				ft_putendl("'blur' < 0 or > 100");
+				return (NULL);
+			}
+			is_init[1] = 1;
+		}
+		else if (!ft_strcmp(tmp->name, "filter"))
+		{
+			if (is_init[2] > 0)
+			{
+				ft_putendl("'filter' redefined");
+				return (NULL);
+			}
+			scene->filter = get_enum(tmp->values);
+			if (scene->filter < 0)
+			{
+				ft_putstr("In 'filter': '");
+				ft_putstr(tmp->values[0]);
+				ft_putendl("' does not exist");
+				return (NULL);
+			}
+			is_init[2] = 1;
 		}
 		tmp = tmp->next;
 	}

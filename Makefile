@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/08/13 02:03:42 by nbelouni         ###   ########.fr        #
+#    Updated: 2016/08/15 01:15:08 by nbelouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =	main.c \
 		parse_tools.c \
 		plane.c \
 		refraction.c \
+		sepia.c \
 		scene.c \
 		sphere.c \
 		vector.c \
