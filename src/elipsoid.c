@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:52:42 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/14 00:26:52 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/14 03:36:00 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,24 @@ void	find_elips_closest_hit(double a, double b, double det, t_hit *hit)
 	double t1;
 	double t2;
 
-	t1 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
-	t1 /= (double)PRECISION;
+	t1 = (-b + sqrt(det)) / (2 * a);
 
-	t2 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
-	t2 /= (double)PRECISION;
+	t2 = (-b - sqrt(det)) / (2 * a);
 
-	if (t1 <= 0.0 && t2 <= 0.0)
+	if (t1 <= (double)(1.0 / PRECISION) && t2 <= (double)(1.0 / PRECISION))
 	{
 		hit->t = 0.0;
 		hit->t_max = 0.0;
 	}
-	if (t1 <= 0.0)
+	if (t1 <= (double)(1.0 / PRECISION))
 	{
 		hit->t = t2;
-		hit->t_max = t1;
+		hit->t_max = t2;
 	}
-	else if (t2 <= 0.0)
+	else if (t2 <= (double)(1.0 / PRECISION))
 	{
 		hit->t = t1;
-		hit->t_max = t2;
+		hit->t_max = t1;
 	}
 	else
 	{

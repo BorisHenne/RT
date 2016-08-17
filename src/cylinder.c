@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/14 00:20:13 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/17 03:59:50 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,47 @@
 #include <cylinder.h>
 #include <stdio.h>
 
+void	complete_hit(t_hit *hit, t_cylinder *cylinder)
+{
+	hit->type = CYLINDER;
+	hit->radius = cylinder->radius;
+	hit->length = cylinder->length;
+	hit->color.r = cylinder->color.r;
+	hit->color.g = cylinder->color.g;
+	hit->color.b = cylinder->color.b;
+	hit->opacity = cylinder->opacity;
+	hit->ref_index = cylinder->ref_index;
+	hit->specular = cylinder->specular;
+	hit->reflection = cylinder->reflection;
+	hit->texture = cylinder->texture;
+	hit->is_negativ = cylinder->is_negativ;
+}
+
 t_hit	create_disk(t_ray *ray, t_cylinder *cylinder, double side)
 {
 	t_hit	hit;
 	t_plane	*plane;
 	t_vec	new_dir;
 	t_vec	inter;
-	int		dir;
-	
+
 	plane = (t_plane *)malloc(sizeof(t_plane));
 	new_dir = scalar_product(cylinder->dir, side);
 	plane->pos = vec_add(cylinder->pos, scalar_product(new_dir, cylinder->length / 2.0));
 	plane->normal = scalar_product(new_dir, -1);
 	hit.t = find_plane_hit(ray, plane);
-	hit.t = (int)(hit.t * PRECISION);
-	hit.t /= (double)PRECISION;
 	hit.bool = 0;
 
-	if (hit.t != 0)
+	if (hit.t > (double)(1.0 / PRECISION))
 	{
 		inter = vec_add(ray->pos, scalar_product(ray->dir, hit.t));
 		if (get_length(vec_sub(plane->pos, inter)) < cylinder->radius)
 		{
 			hit.bool = 1;
-			dir = new_dir.z < 0 ? 1 : -1;
-			hit.point_norm = normalize(scalar_product(new_dir, dir));
+			hit.point_norm = new_dir;			
 		}
 	}
 	free(plane);
-	return hit;
+	return (hit);
 }
 
 double	find_cylinder_limit(t_ray *ray, t_cylinder *cylinder, double t, t_vec aa, t_vec ab, double ab2, t_hit *hit)
@@ -53,7 +65,7 @@ double	find_cylinder_limit(t_ray *ray, t_cylinder *cylinder, double t, t_vec aa,
 	double	tmp;
 
 	time = t;
-	if (time < 0)
+	if (time < (double)(1.0 / PRECISION))
 		return (0.0f);
 	inter = scalar_product(ray->dir, time);
 	inter = vec_add(inter, ray->pos);
@@ -113,8 +125,6 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 	{
 		// disk 1 et 2;
 		hit_size = create_disk(ray, cylinder, -1);
-
-		/*avant*/
 		hit = create_disk(ray, cylinder, 1);
 
 		if (hit.bool != 0)
@@ -131,32 +141,26 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 				// -> on passe tout dans struct hit car t1 et t2 seront < 0
 				if (hit_size.t < hit.t)
 				{
-				//	hit_size.t_max = hit.t;
 					hit.t_max = hit.t;
 					hit.t = hit_size.t;
 					hit.point_norm = hit_size.point_norm;
 				}
 				else
 				{
-//					hit_size.t_max =  hit_size.t;
-//					hit_size.t = hit.t;
-//					hit_size.point_norm = hit.point_norm;
 					hit.t_max = hit_size.t;
 				}
-//				hit = hit_size;
+				complete_hit(&hit, cylinder);
+				return (hit);
 			}
 		}
-
-		t1 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
-		t1 /= (double)PRECISION;
-		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
-		t2 /= (double)PRECISION;
+		t1 = (-b - sqrt(det)) / (2 * a);
+		t2 = (-b + sqrt(det)) / (2 * a);
 
 		t = t1 < t2 ? t1 : t2;
 		t_max = t1 < t2 ? t2 : t1;
 
 		time1 = find_cylinder_limit(ray, cylinder, t, aa, ab, ab2, &hit);
-		if (time1 > 0.0f)
+		if (time1 > (double)(1.0 / PRECISION))
 		{
 			hit.bool = 1;
 			if (hit_size.bool == 1)
@@ -170,13 +174,15 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 				hit.t = time1;
 				hit.t_max = t_max;
 			}
+			complete_hit(&hit, cylinder);
+			return (hit);
 		}
 		else
 		{
 			t = (t == t1) ? t2 : t1;
 			t_max = (t == t1) ? t1 : t2;
 			time1 = find_cylinder_limit(ray, cylinder, t_max, aa, ab, ab2, &hit);
-			if (time1 > 0.0f)
+			if (time1 > (double)(1.0 / PRECISION))
 			{
 				hit.bool = 1;
 				if (hit_size.bool == 1)
@@ -190,23 +196,16 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 					hit.t = time1;
 					hit.t_max = t_max;
 				}
+				complete_hit(&hit, cylinder);
+				return (hit);
 			}
 		}
-
-
-		hit.type = CYLINDER;
-		hit.radius = cylinder->radius;
-		hit.length = cylinder->length;
-		hit.color.r = cylinder->color.r;
-		hit.color.g = cylinder->color.g;
-		hit.color.b = cylinder->color.b;
-		hit.opacity = cylinder->opacity;
-		hit.ref_index = cylinder->ref_index;
-		hit.specular = cylinder->specular;
-		hit.reflection = cylinder->reflection;
-		hit.texture = cylinder->texture;
-		hit.is_negativ = cylinder->is_negativ;
+		if (hit_size.t_max < (double)(1.0 / PRECISION) || hit.t_max < (double)(1.0 / PRECISION))
+		{
+			hit = hit_size;
+			hit.t_max = hit.t;
+		}
+		complete_hit(&hit, cylinder);
 	}
-	//hit.point_norm = vec_sub(cylinder->pos, vec_add(ray->pos, scalar_product(ray->dir, hit.t)));
 	return (hit);
 }

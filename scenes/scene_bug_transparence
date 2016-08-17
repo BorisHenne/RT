@@ -16,15 +16,15 @@
 		{
 			sphere:
 			{
-				{radius: 0.7}
-				{pos: 0, 0, 0}
-				{color: 0.5, 0.3, 0.7}
+				{radius: 0.5}
+				{pos: 0.4, 0, -4}
+				{color: 0, 0, 1}
 				{
 					options:
 					{
 						{specular: 50}
-						{opacity: 0.1}
-						{ref_index: 1}
+						{opacity: 0.4}
+						{ref_index: 2.418}
 					}
 				}
 			}
@@ -32,29 +32,28 @@
 		{
 			elips:
 			{
-				{radius: 0.3}
-				{pos: 0, 0.4, 3}
-				{quad : 1, 0.5, 1}
-				{color: 0.8, 1, 0.2}
+				{radius: 0.4}
+				{pos : 0.2, 0, -2}
+				{quad: 0.7, 1, 1}
+				{color: 0, 1, 0}
 				{
 					options:
 					{
 						{specular: 50}
-						{opacity:1}
-						{ref_index: 1}
+						{opacity:0.2}
+						{ref_index:1}
 					}
 				}
 			}
 		}
 		{
-#			cone:
 			cylinder:
 			{
-				{radius: 0.5}
-				{pos : 0, -10.4, -3}
-				{dir: 1, 0, 1}
-				{length: 2}
-				{color: 0.1, 0.1, 0.1}
+				{radius: 0.6}
+				{pos : 0, 0, 0}
+				{dir: 0.4, 0.6, -.3}
+				{length: 1}
+				{color: 1, 0, 0}
 				{
 					options:
 					{
@@ -82,30 +81,32 @@
 #				}
 #			}
 #		}
-#		{
-#			plane:
-#			{
-#				{pos : 0, 0, 10}
-#				{normal: 0, 0, 1.2}
-#				{color: 0.1, 0.1, 0.1}
-#				{
-#					options:
-#					{
-#						{specular: 30}
-#					}
-#				}
-#			}
-#		}
 		{
 			plane:
 			{
-				{pos : 0, 1, 0}
-				{normal: 0, 1.2, 0}
-				{color: 0.3, 0.3, 0.3}
+				{pos : 0, 0, 10}
+				{normal: 0, 0, 1}
+				{color: 1, 1, 1}
 				{
 					options:
 					{
 						{specular: 30}
+						{texture: checker}
+					}
+				}
+			}
+		}
+		{
+			plane:
+			{
+				{pos : 0, 0.5, 0}
+				{normal: 0, 1.2, 0}
+				{color: 0.5, 0.5, 0.5}
+				{
+					options:
+					{
+						{specular: 30}
+						{texture: marble}
 					}
 				}
 			}
@@ -113,27 +114,27 @@
 	}
 	light:
 	{
-#		{
-#			diffuse:
-#			{
-#				{pos: -5, 0, -5}
-#				{color : 255, 255, 255}
-#				{dir: 0, 0, 0}
-#			}
-#		}
-#		{
-#			diffuse:
-#			{
-#				{pos: 5, 0, -5}
-#				{color : 255, 255, 255}
-#				{dir: 0, 0, 0}
-#			}
-#		}
 		{
 			diffuse:
 			{
-				{pos: 0, -5, -5}
-				{color : 255, 255, 255}
+				{pos: -5, 0, -5}
+				{color : 0, 0, 255}
+				{dir: 0, 0, 0}
+			}
+		}
+		{
+			diffuse:
+			{
+				{pos: -5, 0, 0}
+				{color : 0, 255, 0}
+				{dir: 0, 0, 0}
+			}
+		}
+		{
+			diffuse:
+			{
+				{pos: -5, -5, -7}
+				{color : 255, 0, 0}
 				{dir: 0, 0, 0}
 			}
 		}

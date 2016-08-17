@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/14 00:21:27 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 02:30:35 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ t_hit	is_plane_hit(t_ray *ray, t_plane *plane)
 	hit.color.b = 0;
 	
 	res = find_plane_hit(ray, plane);
-	res = (int)(res * PRECISION);
-	res /= (double)PRECISION;
-	if (res != 0)
+	if (res > (double)(1.0 / PRECISION))
 	{
 		hit.type = PLANE;
 		hit.radius = 0;

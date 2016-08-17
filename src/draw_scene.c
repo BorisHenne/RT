@@ -120,8 +120,6 @@ t_color color_render(t_scene *scene, t_ray *start, double noise)
 	final_color = init_color(0, 0, 0);
 	while (r < 3)
 	{		
-		drawn_pixel.reflection = (int)(PRECISION * drawn_pixel.reflection);
-		drawn_pixel.reflection /= (double)PRECISION;
 		if (r == 0 || drawn_pixel.reflection != 0)
 		{
 			reflet = pow(drawn_pixel.reflection, r * 3);
@@ -134,14 +132,10 @@ t_color color_render(t_scene *scene, t_ray *start, double noise)
 					drawn_pixel.color = init_color(0, 0, 0);
 				else
 				{
-					//faire attention condition ici
-					if (drawn_pixel.t != drawn_pixel.t_max)
-					{
-						drawn_pixel.color = apply_light(scene, drawn_pixel, start);
-						drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
-					}
+					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
+					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
 					if (drawn_pixel.opacity < 1.0)
-						drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(*start, *scene, drawn_pixel, noise));
+						drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(start, scene, drawn_pixel, noise));
 					if (drawn_pixel.texture == MARBLE)
 						drawn_pixel.color = mult_color(drawn_pixel.color, noise / 255);
 					if (drawn_pixel.texture == CHECKER)

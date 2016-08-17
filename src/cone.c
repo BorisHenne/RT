@@ -110,10 +110,8 @@ t_hit		is_cone_hit(t_ray *ray, t_cone *cone)
 	det = find_cone_det(a, b, c);
 	if (det >= 0)
 	{
-		t1 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
-		t1 /= (double)PRECISION;
-		t2 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
-		t2 /= (double)PRECISION;
+		t1 = (-b - sqrt(det)) / (2 * a);
+		t2 = (-b + sqrt(det)) / (2 * a);
 
 
 		t = t1 < t2 ? t1 : t2;
@@ -121,7 +119,7 @@ t_hit		is_cone_hit(t_ray *ray, t_cone *cone)
 
 		time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
 
-		if (time1 > 0.0)
+		if (time1 > (double)(1.0 / PRECISION))
 		{
 			hit.bool = 1;
 			hit.t = time1;
@@ -138,7 +136,7 @@ t_hit		is_cone_hit(t_ray *ray, t_cone *cone)
 			t_max = (t == t1)? t1 : t2;
 
 			time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
-			if (time1 > 0.0)
+			if (time1 > (double)(1.0 / PRECISION))
 			{
 	//			hit.point_norm = scalar_product(hit.point_norm, -1);
 				hit.bool = 1;
