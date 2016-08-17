@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/14 00:14:21 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/14 02:45:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ double	find_sphere_det(t_ray *ray, t_sphere *sphere, double *a, double *b)
 	*b = 2.0 * dot_product(ray->dir, tmp);
 
 	c = dot_product(tmp, tmp) - pow(sphere->radius, 2);
-	return (pow(*b, 2) - (4 * (*a) * c));
+	return ((*b) * (*b) - 4 * (*a) * c);
 }
 
 void	find_sphere_closest_hit(double a, double b, double det, t_hit *hit)
@@ -32,26 +32,23 @@ void	find_sphere_closest_hit(double a, double b, double det, t_hit *hit)
 	double t1;
 	double t2;
 
-	t1 = (int)((-b + sqrt(det)) / (2 * a) * PRECISION);
-	t1 /= (double)PRECISION;
+	t1 = (-b + sqrt(det)) / (2 * a);
+	t2 = (-b - sqrt(det)) / (2 * a);
 
-	t2 = (int)((-b - sqrt(det)) / (2 * a) * PRECISION);
-	t2 /= (double)PRECISION;
-
-	if (t1 <= 0.0 && t2 <= 0.0)
+	if (t1 <= (double)(1.0 / PRECISION) && t2 <= (double)(1.0 / PRECISION))
 	{
-		hit->t = 0.0;
-		hit->t_max = 0.0;
+		hit->t = -1.0;
+		hit->t_max = -1.0;
 	}
-	if (t1 < 0.0)
+	if (t1 <= (double)(1.0 / PRECISION))
 	{
 		hit->t = t2;
-		hit->t_max = t1;
+		hit->t_max = t2;
 	}
-	else if (t2 < 0.0)
+	else if (t2 <= (double)(1.0 / PRECISION))
 	{
 		hit->t = t1;
-		hit->t_max = t2;
+		hit->t_max = t1;
 	}
 	else
 	{
