@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 03:06:03 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/13 23:46:15 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/16 06:32:42 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define FIND_CLOSEST_OBJECT
 
 t_hit		find_closest_object(t_node *nodes, t_ray *ray);
+t_hit		init_hit(void);
 
 #endif

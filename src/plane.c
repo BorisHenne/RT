@@ -42,6 +42,7 @@ t_hit	is_plane_hit(t_ray *ray, t_plane *plane)
 		hit.t_max = hit.t + 1;
 		hit.bool = (hit.t == 0.0) ? 0 : 1;
 		hit.color = plane->color;
+		hit.pos = plane->pos;
 		hit.point_norm.x = -plane->normal.x;
 		hit.point_norm.y = -plane->normal.y;
 		hit.point_norm.z = -plane->normal.z;

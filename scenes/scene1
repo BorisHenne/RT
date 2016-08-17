@@ -4,153 +4,117 @@
 		{
 			options: 
 			{
-				{cartoon : y}
+				{ambient : 0.9}
 			 }
 		}
 	}
 
 	camera :
 	{
-		{pos : 0.0, -20.0 ,-20}
-		{look_at : -45, 0, 0}
+		{pos : 0.0, 0.0 ,-10}
+		{look_at : 0, 0, 0}
 	}
 
 	objects :
 	{
-#		COMMENT	
-		{
-			elips:
-			{
-				{radius : 0.3}
-				{pos : 1, 0.5, 4}
-				{quad : 0.3, 1, 1}
-				{color : 0.5, 1.0, 1.0}
-				{
-					options:
-					{
-						{specular : 90}
-					}
-				}
-
-			}
-		}
 		{
 			sphere:
-			{
-				{radius : 0.3}
-				{pos : -0.3, 0.5, 2.0}
-				{color : 0.1, 0.1, 0.1}
-				{
-					options: 
-					{
-						{reflection: 1}
-						{specular : 50}
-					}
-				}
-			}
-		}
-		{
-			sphere:
-			{
-				{radius : 0.3}
-				{pos : -0.3, -0.1, 4.0}
-				{color : 0.8, 0.1, 0.1}
-				{
-					options: 
-					{
-						{specular : 90}
-						{texture:marble}
-					}
-				}
-			}
-		}
-		{
-			sphere:
-			{
-				{radius : 0.3}
-				{pos : -1, 0.5, 6.0}
-				{color : 0.1, 0.2, 1}
-				{
-					options: 
-					{
-						{reflection: 0}
-						{specular : 50}
-						{texture:marble}
-					}
-				}
-			}
-		}
-		{
-			cylinder:
-			{
-				{radius : 0.2}
-				{pos : 0, 0, 3.0}
-				{dir: 1, 0, 0.4}
-				{length : 4}
-				{color : 0.1, 1, 0.1}
-				{
-					options: 
-					{
-						{specular : 100}
-						{opacity : 0.4}
-						{texture:marble}
-					}
-				}
-			}
-		}
-		{
-			cone:
+#			elips:
+#			cone:
+#			cylinder:
 			{
 				{radius : 0.5}
-				{pos : 0.2, 0, 2.0}
-				{dir: 0.8, 0.5, -0.3}
-				{length : 1}
-				{color : 1, 0.4, 0.4}
+				{pos : 0.0, 0.5, 0.0}
+#				{quad : 0.5, 1, 1}
+#				{dir : 1.0, 0.0, 0.0}
+#				{length : 2}
+				{color : 0.1, 0.8, 0.2}
 				{
 					options: 
 					{
 						{specular : 50}
-						{opacity : 0.6}
-						{ref_index: 1.33}
 					}
 				}
 			}
 		}
-		{
-			plane:
-			{
-				{pos : 0, 1, 0}
-				{normal: 0, 1.2, 0}
-				{color : 0.8, 0.8, 0.8}
-				{
-					options: 
-					{
-						{specular : 99}
-						{texture: checker}
-					}
-				}
-			}
-		}
+#		{
+#			cylinder:
+##			cone:
+##			sphere:
+##			elips:
+#			{
+#				{radius : 0.3}
+#				{pos : 0, 0.5, -0.3}
+##				{quad : 0.5, 1, 1}
+#				{dir : 1, 0.0, 0}
+#				{length: 2}
+#				{color : 1, 0.4, 0.4}
+#				{
+#					options: 
+#					{
+#						{specular : 50}
+#						{is_negativ: n}
+#					}
+#				}
+#			}
+#		}
+#		{
+#			elips:
+#			{
+#				{radius : 0.3}
+#				{pos : 0, 0, 4.0}
+#				{quad : 0.5, 1, 1}
+#				{color : 0.1, 0.8, 0.1}
+#				{
+#					options: 
+#					{
+#						{specular : 90}
+#					}
+#				}
+#			}
+#		}
+#		{
+#			plane:
+#			{
+#				{pos : 0, 1, 0}
+#				{normal: 0, 1.2, 0}
+#				{color : 0.8, 0.8, 0.8}
+#				{
+#					options: 
+#					{
+#						{specular : 98}
+#						{texture: checker}
+#					}
+#				}
+#			}
+#		}
 	}
 
 	light:
 	{
+#		{
+#			direct:
+#			{
+#				{pos : 0, -5.0, -4.0}
+#				{color : 255.0, 255.0, 255.0}
+#				{dir : 0.0, 0.0, 0.0}
+#				{angle : 360}
+#			}
+#		}
 		{
-			direct:
+			diffuse: 
 			{
-				{pos : 0, -5.0, -4.0}
-				{color : 255.0, 255.0, 255.0}
+				{pos : 5, -5, 0}
+				{color : 255, 255, 255}
 				{dir : 0.0, 0.0, 0.0}
-				{angle : 360}
 			}
 		}
 		{
-			direct: 
+			diffuse: 
 			{
-				{pos : 0.6, -1.4, -1.6}
-				{color : 0, 0, 255.0}
-				{dir : 0.0, 0.0, -10.0}
-				{angle : 30}
+				{pos : -5, 0, -5}
+				{color : 255, 255, 255}
+				{dir : 0.0, 0.0, 0.0}
 			}
 		}
 	}

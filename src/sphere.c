@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/14 02:45:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/17 07:59:15 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ void	find_sphere_closest_hit(double a, double b, double det, t_hit *hit)
 	t1 = (-b + sqrt(det)) / (2 * a);
 	t2 = (-b - sqrt(det)) / (2 * a);
 
-	if (t1 <= (double)(1.0 / PRECISION) && t2 <= (double)(1.0 / PRECISION))
+	if (t1 <= (double)(1.0 / PRECISION) && t2 <=  (double)(1.0 / PRECISION))
 	{
 		hit->t = -1.0;
 		hit->t_max = -1.0;
 	}
-	if (t1 <= (double)(1.0 / PRECISION))
+	if (t1 < (double)(1.0 / PRECISION))
 	{
 		hit->t = t2;
 		hit->t_max = t2;
 	}
-	else if (t2 <= (double)(1.0 / PRECISION))
+	else if (t2 < (double)(1.0 / PRECISION))
 	{
 		hit->t = t1;
 		hit->t_max = t1;
@@ -93,6 +93,7 @@ t_hit	is_sphere_hit(t_ray *ray, t_sphere *sphere)
 		hit.type = SPHERE;
 		hit.radius = sphere->radius;
 		hit.length = 0;
+		hit.pos = sphere->center;
 		hit.color = sphere->color;
 		hit.point_norm = normalize(vec_sub(sphere->center, vec_add(ray->pos, scalar_product(ray->dir, hit.t))));
 		hit.specular = sphere->specular;

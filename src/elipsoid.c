@@ -115,6 +115,7 @@ t_hit	is_elips_hit(t_ray *ray, t_elips *elips)
 		hit.type = ELIPS;
 		hit.radius = elips->radius;
 		hit.length = 0;
+		hit.pos = elips->center;
 		hit.color = elips->color;
 		hit.specular = elips->specular;
 		hit.reflection = elips->reflection;

@@ -133,6 +133,7 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 			{
 				hit_size.bool = 1;
 				hit_size.t = hit.t;
+				hit_size.point_norm_max = hit_size.point_norm;
 				hit_size.point_norm = hit.point_norm;
 			}
 			else
@@ -143,11 +144,13 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 				{
 					hit.t_max = hit.t;
 					hit.t = hit_size.t;
+					hit.point_norm_max = hit.point_norm;
 					hit.point_norm = hit_size.point_norm;
 				}
 				else
 				{
 					hit.t_max = hit_size.t;
+					hit.point_norm_max = hit_size.point_norm;
 				}
 				complete_hit(&hit, cylinder);
 				return (hit);
@@ -167,12 +170,15 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 			{
 				hit.t = time1 < hit_size.t ? time1 : hit_size.t;
 				hit.t_max = time1 < hit_size.t ? hit_size.t : time1;
+				hit.point_norm_max = time1 < hit_size.t ? hit_size.point_norm : hit.point_norm;
 				hit.point_norm = time1 < hit_size.t ? hit.point_norm : hit_size.point_norm;
 			}
 			else
 			{
 				hit.t = time1;
 				hit.t_max = t_max;
+				hit.point_norm_max = init_vector(0, 0, 0);
+				hit.point_norm_max = scalar_product(hit.point_norm, -1);
 			}
 			complete_hit(&hit, cylinder);
 			return (hit);
@@ -189,12 +195,14 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 				{
 					hit.t = time1 < hit_size.t ? time1 : hit_size.t;
 					hit.t_max = time1 < hit_size.t ? hit_size.t : time1;
+					hit.point_norm_max = time1 < hit_size.t ? hit_size.point_norm : hit.point_norm;
 					hit.point_norm = time1 < hit_size.t ? hit.point_norm : hit_size.point_norm;
 				}
 				else
 				{
 					hit.t = time1;
 					hit.t_max = t_max;
+					hit.point_norm_max = scalar_product(hit.point_norm, -1);
 				}
 				complete_hit(&hit, cylinder);
 				return (hit);

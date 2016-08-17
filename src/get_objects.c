@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/14 02:43:03 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/15 05:11:42 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ int			get_specular(t_elem *elem, int *specular)
 		return (0);
 	}
 	*specular = (int)get_num(elem->values);
-	if (*specular < 0 || *specular > 100)
+	if (*specular < 0 || *specular > 100 || (int)*specular % 2 == 1)
 	{
-		ft_putendl("'specular' < 0 or > 100");
+		ft_putendl("'specular' < 0 or > 100 or odd");
 		return (0);
 	}
 	return (1);

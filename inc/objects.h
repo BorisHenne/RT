@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/06 04:46:09 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/16 14:14:18 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ typedef struct s_hit
 	double 		t_max;
 	double		dist_from_center;
 	double		radius;
+	t_vec		pos;
 	double		length;
 	t_color		color;
 	int			bool;
-	t_vec		point_norm; // a calculer pour la brillance
+	t_vec		point_norm;
+	t_vec		point_norm_max;
 	int			specular;
 	double		reflection;
 	double		opacity;	//0 a 1

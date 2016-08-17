@@ -151,6 +151,7 @@ t_hit		is_cone_hit(t_ray *ray, t_cone *cone)
 		}
 		hit.type = CONE;
 		hit.length = cone->len;
+		hit.pos = cone->pos;
 		hit.radius = cone->r;
 		hit.specular = cone->specular;
 		hit.reflection = cone->reflection;

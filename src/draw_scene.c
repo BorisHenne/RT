@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/15 04:16:52 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/16 08:14:33 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,8 @@ t_color color_render(t_scene *scene, t_ray *start, double noise)
 			start->pos = vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)); 
 			reflet = dot_product(start->dir, drawn_pixel.point_norm) * 2.0;
 			start->dir = normalize(vec_sub(scalar_product(drawn_pixel.point_norm, reflet), start->dir));
-			drawn_pixel.color = add_color(drawn_pixel.color, ambient);
+			if (!(scene->is_real == CARTOON && is_black_edge(&drawn_pixel)))
+				drawn_pixel.color = add_color(drawn_pixel.color, ambient);
 			final_color = add_color(final_color, drawn_pixel.color);
 		}
 		if (scene->is_real == CARTOON)

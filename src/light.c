@@ -84,6 +84,7 @@ t_color		apply_light(t_scene *scene, t_hit curr_pixel, t_ray *cam_ray)
 	int			shadow;
 	t_vec		reflection;
 	t_hit		closest_hit;
+	t_hit		negativ_hit;
 
 	t_vec		light_look;
 	double		angle2;
@@ -110,9 +111,9 @@ t_color		apply_light(t_scene *scene, t_hit curr_pixel, t_ray *cam_ray)
 		}
 
 		tmp_object = scene->objects;
-		tmp_content.t = 0;
-		tmp_content.bool = 0;
-		closest_hit = tmp_content;
+		tmp_content = init_hit();
+		closest_hit = init_hit();
+		negativ_hit = init_hit();
 		while (tmp_object)
 		{
 			if (tmp_object->type == SPHERE)
@@ -125,13 +126,54 @@ t_color		apply_light(t_scene *scene, t_hit curr_pixel, t_ray *cam_ray)
 				tmp_content = is_cone_hit(light_ray, (t_cone *)tmp_object->data);
 			else if (tmp_object->type == ELIPS)
 				tmp_content = is_elips_hit(light_ray, (t_elips *)tmp_object->data);
-			if (tmp_content.bool == 1 && tmp_content.t > 0.0 && tmp_content.t <= light_ray->length)
+//			printf("CLOSE : bool : %d, t : %f, t_max : %f, is_neg : %d\n", tmp_content.bool, tmp_content.t, tmp_content.t_max, tmp_content.is_negativ);
+			if (tmp_content.bool == 1)
 			{
-				shadow = 1;
-				if (closest_hit.bool == 0 || tmp_content.opacity >= closest_hit.opacity)
-					closest_hit = tmp_content;
+				if (tmp_content.is_negativ == 1)
+				{
+					negativ_hit = tmp_content;
+				}
+				else if (tmp_content.t > 0.0 && tmp_content.t <= light_ray->length)
+				{
+					shadow = 1;
+					if (closest_hit.bool == 0 || tmp_content.opacity >= closest_hit.opacity)
+					{
+//				
+						closest_hit = tmp_content;
+					}
+				}
 			}
 			tmp_object = tmp_object->next;
+		}
+//			printf("NEG : bool : %d, t : %f, t_max : %f\n", negativ_hit.bool, negativ_hit.t, negativ_hit.t_max);
+//			printf("CLOSE : bool : %d, t : %f, t_max : %f\n", closest_hit.bool, closest_hit.t, closest_hit.t_max);
+//			printf("CURR: bool : %d, t : %f, t_max : %f\n\n", curr_pixel.bool, curr_pixel.t, curr_pixel.t_max);
+//			sleep(1);
+		if (negativ_hit.bool == 1)// && negativ_hit.t > 0)
+		{
+//			printf("type : %d, is_neg : %d\n", curr_pixel.type, curr_pixel.is_negativ);
+//			if (closest_hit.type == SPHERE)
+//			{
+//			}
+	//		if (/*closest_hit.t <= closest_hit.t_max && negativ_hit.t <= negativ_hit.t_max &&*/ closest_hit.t <= closest_hit.t_max)
+//			{
+//				printf("__________1\n");
+//				closest_hit.t = negativ_hit.t_max;
+//				closest_hit.point_norm = curr_pixel.point_norm;//scalar_product(negativ_hit.point_norm, 1);
+//				if (negativ_hit.t_max < closest_hit.t_max)
+				
+				if (negativ_hit.t > 0.0 && negativ_hit.t <= light_ray->length &&
+				(negativ_hit.t < closest_hit.t || negativ_hit.t_max < closest_hit.t))// && negativ_hit.t_max > closest_hit.t_max)
+					shadow = 0;
+//				else if (closest_hit.type == SPHERE)
+//				{
+//					printf("NEG : t : %f, t_max : %f\n", negativ_hit.t, negativ_hit.t_max);
+//					printf("CLOSE : t : %f, t_max : %f\n", closest_hit.t, closest_hit.t_max);
+//					sleep(3);
+//				}
+
+				closest_hit = init_hit();
+//			}
 		}
 
 		if (((t_light *)(tmp_light->data))->type == DIRECT)
@@ -154,6 +196,8 @@ t_color		apply_light(t_scene *scene, t_hit curr_pixel, t_ray *cam_ray)
 			}
 			else if (closest_hit.opacity < 1 && shadow == 1)
 				tmp_color = add_color(tmp_color, diffuse_shadow(curr_pixel, light_ray, ((t_light *)(tmp_light->data)), closest_hit));
+//			else if (shadow == 1)
+//				return (init_color(123, 123, 123));
 			reflection = vec_sub(scalar_product(curr_pixel.point_norm, dot_product(light_ray->dir, curr_pixel.point_norm) * 2), light_ray->dir);
 			if ((shadow == 0 || closest_hit.opacity < 1) && curr_pixel.t != curr_pixel.t_max)
 				tmp_color = add_color(tmp_color, (specular_light(curr_pixel, reflection, ((t_light *)(tmp_light->data)), cam_ray)));
