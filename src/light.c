@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/17 04:00:53 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/22 16:49:31 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,10 @@ t_color		apply_light(t_scene *scene, t_hit curr_pixel, t_ray *cam_ray)
 				tmp_content = is_cone_hit(light_ray, (t_cone *)tmp_object->data);
 			else if (tmp_object->type == ELIPS)
 				tmp_content = is_elips_hit(light_ray, (t_elips *)tmp_object->data);
+			else if (tmp_object->type == TRIAN)
+				tmp_content = is_trian_hit(light_ray, (t_triangle *)tmp_object->data);
+			else if (tmp_object->type == PARA)
+				tmp_content = is_parallelo_hit(light_ray, (t_parallelo *)tmp_object->data);
 //			printf("CLOSE : bool : %d, t : %f, t_max : %f, is_neg : %d\n", tmp_content.bool, tmp_content.t, tmp_content.t_max, tmp_content.is_negativ);
 			if (tmp_content.bool == 1)
 			{

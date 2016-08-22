@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/08 23:58:27 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/22 17:02:14 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define PLANE		7
 # define CONE		8
 # define ELIPS		9
+# define TRIAN		10
+# define PARA		11
 
 # define INT_MAX	2147483647
 # define INT_MIN	-2147483648

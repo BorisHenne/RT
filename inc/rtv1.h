@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/15 02:05:28 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/22 17:02:32 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # include <vector.h>
 # include <elipsoid.h>
 # include <quad.h>
+# include <triangle.h>
+# include <parallelo.h>
 
 # define ESCAPE	53
 # define WIDTH 1920

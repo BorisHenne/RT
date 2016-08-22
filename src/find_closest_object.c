@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/16 16:24:25 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/22 16:48:14 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ t_hit		get_hit(t_ray *ray, t_node *tmp)
 		tmp_content = is_cone_hit(ray, (t_cone *)tmp->data);
 	else if (tmp->type == ELIPS)
 		tmp_content = is_elips_hit(ray, (t_elips *)tmp->data);
+	else if (tmp->type == TRIAN)
+		tmp_content = is_trian_hit(ray, (t_triangle *)tmp->data);
+	else if (tmp->type == PARA)
+		tmp_content = is_parallelo_hit(ray, (t_parallelo *)tmp->data);
 	return (tmp_content);
 }
 

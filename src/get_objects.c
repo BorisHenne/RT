@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/15 05:11:42 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/22 17:56:33 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -616,6 +616,240 @@ t_cone	*get_cone(t_part *part)
 	return (cone);
 }
 
+t_parallelo *init_para(void)
+{
+	t_parallelo *para;
+
+	if(!(para = (t_parallelo *)malloc(sizeof(t_parallelo))))
+		return(NULL);
+	para->v0 = init_vector(0, 0, 0);
+	para->v1 = init_vector(0, 0, 0);
+	para->v2 = init_vector(0, 0, 0);
+	para->color = init_color(0, 0, 0);
+	para->specular = 0;
+	para->reflection = 0;
+	para->opacity = 1;
+	para->ref_index = 1;
+	para->texture = NONE;
+	para->is_negativ = 0;
+	return(para);
+}
+
+t_parallelo *get_para(t_part *part)
+{
+	t_elem		*tmp2;
+	t_vec		*pos1;
+	t_vec		*pos2;
+	t_vec		*pos3;
+	t_color		*color;
+	t_parallelo	*para;
+
+	pos1 = NULL;
+	pos2 = NULL;
+	pos3 = NULL;
+	color = NULL;
+	if (!(para= init_para()))
+		return (NULL);
+	tmp2 = part->elems;
+	while (tmp2)
+	{
+		if (!ft_strcmp(tmp2->name, "v0"))
+		{
+			if (!get_new_vec(tmp2, &pos1))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "v1"))
+		{
+			if (!get_new_vec(tmp2, &pos2))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "v2"))
+		{
+			if (!get_new_vec(tmp2, &pos3))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "color"))
+		{
+			if (!get_new_color(tmp2, &color, OBJECT))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "specular"))
+		{
+			if (!get_specular(tmp2, &(para->specular)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "reflection"))
+		{
+			if (!get_reflection(tmp2, &(para->reflection)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "opacity"))
+		{
+			if (!get_opacity(tmp2, &(para->opacity)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "ref_index"))
+		{
+			if (!get_ref_index(tmp2, &(para->ref_index)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "is_negativ"))
+		{
+			if (!get_is_negativ(tmp2, &(para->is_negativ)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "texture"))
+		{
+			if (!get_texture(tmp2, &(para->texture)))
+				return (NULL);
+		}
+		else
+		{
+			return_invalid_arg(tmp2->name);
+			return (NULL);
+		}
+		tmp2 = tmp2->next;
+	}
+	if (!pos1 || !pos2 || !pos3 || !color)
+	{
+		if (!pos1)
+			ft_putendl("'v0' missing");
+		if (!pos2)
+			ft_putendl("'v1' missing");
+		if (!pos3)
+			ft_putendl("'v2' missing");
+		if (!color)
+			ft_putendl("'color' missing");
+	}
+	para->v0 = *pos1;
+	para->v1 = *pos2;
+	para->v2 = *pos3;
+	para->color = *color;
+	free(pos1);
+	free(pos2);
+	free(pos3);
+	free(color);
+	return (para);
+}
+
+t_triangle *init_triangle(void)
+{
+	t_triangle *triangle;
+
+	if(!(triangle = (t_triangle *)malloc(sizeof(t_triangle))))
+		return(NULL);
+	triangle->v0 = init_vector(0, 0, 0);
+	triangle->v1 = init_vector(0, 0, 0);
+	triangle->v2 = init_vector(0, 0, 0);
+	triangle->color = init_color(0, 0, 0);
+	triangle->specular = 0;
+	triangle->reflection = 0;
+	triangle->opacity = 1;
+	triangle->ref_index = 1;
+	triangle->texture = NONE;
+	triangle->is_negativ = 0;
+	return(triangle);
+}
+
+t_triangle	*get_triangle(t_part *part)
+{
+	t_elem		*tmp2;
+	t_vec		*pos1;
+	t_vec		*pos2;
+	t_vec		*pos3;
+	t_color		*color;
+	t_triangle	*triangle;
+
+	pos1 = NULL;
+	pos2 = NULL;
+	pos3 = NULL;
+	color = NULL;
+	if (!(triangle = init_triangle()))
+		return (NULL);
+	tmp2 = part->elems;
+	while (tmp2)
+	{
+		if (!ft_strcmp(tmp2->name, "v0"))
+		{
+			if (!get_new_vec(tmp2, &pos1))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "v1"))
+		{
+			if (!get_new_vec(tmp2, &pos2))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "v2"))
+		{
+			if (!get_new_vec(tmp2, &pos3))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "color"))
+		{
+			if (!get_new_color(tmp2, &color, OBJECT))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "specular"))
+		{
+			if (!get_specular(tmp2, &(triangle->specular)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "reflection"))
+		{
+			if (!get_reflection(tmp2, &(triangle->reflection)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "opacity"))
+		{
+			if (!get_opacity(tmp2, &(triangle->opacity)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "ref_index"))
+		{
+			if (!get_ref_index(tmp2, &(triangle->ref_index)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "is_negativ"))
+		{
+			if (!get_is_negativ(tmp2, &(triangle->is_negativ)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "texture"))
+		{
+			if (!get_texture(tmp2, &(triangle->texture)))
+				return (NULL);
+		}
+		else
+		{
+			return_invalid_arg(tmp2->name);
+			return (NULL);
+		}
+		tmp2 = tmp2->next;
+	}
+	if (!pos1 || !pos2 || !pos3 || !color)
+	{
+		if (!pos1)
+			ft_putendl("'v0' missing");
+		if (!pos2)
+			ft_putendl("'v1' missing");
+		if (!pos3)
+			ft_putendl("'v2' missing");
+		if (!color)
+			ft_putendl("'color' missing");
+	}
+	triangle->v0 = *pos1;
+	triangle->v1 = *pos2;
+	triangle->v2 = *pos3;
+	triangle->color = *color;
+	free(pos1);
+	free(pos2);
+	free(pos3);
+	free(color);
+	return (triangle);
+
+}
+
+
 t_elips	*init_elips(void)
 {
 	t_elips	*elips;
@@ -768,6 +1002,16 @@ t_scene		*get_objects(t_scene *scene, t_part *part)
 		else if (tmp->type == ELIPS)
 		{
 			if (!(data = get_elips(tmp)))
+				return (NULL);
+		}
+		else if (tmp->type ==TRIAN)
+		{
+			if (!(data = get_triangle(tmp)))
+				return (NULL);
+		}
+		else if (tmp->type ==PARA)
+		{
+			if (!(data = get_triangle(tmp)))
 				return (NULL);
 		}
 		else

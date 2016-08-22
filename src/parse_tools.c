@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:46:22 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/12 01:45:30 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/22 17:35:56 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int			find_type(char *s)
 		return (CYLINDER);
 	if (!ft_strcmp(s, "plane:"))
 		return (PLANE);
+	if (!ft_strcmp(s, "triangle:"))
+		return (TRIAN);
+	if (!ft_strcmp(s, "parallelo:"))
+		return (PARA);
 	if (!ft_strcmp(s, "cone:"))
 		return (CONE);
 	if (!ft_strcmp(s, "elips:"))

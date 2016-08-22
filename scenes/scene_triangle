@@ -1,0 +1,93 @@
+{
+	scene :
+	{
+		{
+			options: 
+			{
+				{ambient : 0.9}
+			 }
+		}
+	}
+
+	camera :
+	{
+		{pos : 0.0, 0.0 ,-10}
+		{look_at : 0, 0, 0}
+	}
+
+	objects :
+	{
+#		{
+#			sphere:
+#			{
+#				{radius : 0.5}
+#				{pos : 0.0, 0.5, 0.0}
+#				{color : 0.1, 0.8, 0.2}
+#				{
+#					options: 
+#					{
+#						{specular : 50}
+#					}
+#				}
+#			}#		}
+		{
+			parallelo:
+			{
+				{v0 : 1, -1, 0}
+				{v1 : 0, -1, 0}
+				{v2 : 0, 0, 1}
+				{color : 0.1, 0.8, 0.2}
+				{
+					options: 
+					{
+						{specular : 100}
+					}
+				}
+			}
+		}
+		{
+			plane:
+			{
+				{pos : 0, 1, 0}
+				{normal: 0, 1.2, 0}
+				{color : 0.8, 0.8, 0.8}
+				{
+					options: 
+					{
+						{specular : 90}
+						{texture : checker}
+					}
+				}
+			}
+		}
+	}
+
+	light:
+	{
+#		{
+#			direct:
+#			{
+#				{pos : 0, -5.0, -4.0}
+#				{color : 255.0, 255.0, 255.0}
+#				{dir : 0.0, 0.0, 0.0}
+#				{angle : 360}
+#			}
+#		}
+		{
+			diffuse: 
+			{
+				{pos : 5, -5, 0}
+				{color : 255, 255, 255}
+				{dir : 0.0, 0.0, 0.0}
+			}
+		}
+		{
+			diffuse: 
+			{
+				{pos : -5, 0, -5}
+				{color : 255, 255, 255}
+				{dir : 0.0, 0.0, 0.0}
+			}
+		}
+	}
+}
