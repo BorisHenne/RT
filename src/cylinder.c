@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/17 03:59:50 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/17 20:00:37 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 	double	det, t1, t2;
 	double	t_max, t;
 	double	time1;
+	double	time2;
 
 	hit.bool = 0;
 	hit.color.r = 0;
@@ -133,7 +134,7 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 			{
 				hit_size.bool = 1;
 				hit_size.t = hit.t;
-				hit_size.point_norm_max = hit_size.point_norm;
+//				hit_size.point_norm_max = hit.point_norm;
 				hit_size.point_norm = hit.point_norm;
 			}
 			else
@@ -162,7 +163,11 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 		t = t1 < t2 ? t1 : t2;
 		t_max = t1 < t2 ? t2 : t1;
 
+		t_hit hit_max;
+		time2 = find_cylinder_limit(ray, cylinder, t_max, aa, ab, ab2, &hit_max);
+		hit.point_norm_max = hit_max.point_norm;
 		time1 = find_cylinder_limit(ray, cylinder, t, aa, ab, ab2, &hit);
+		hit_max.point_norm_max = hit.point_norm;
 		if (time1 > (double)(1.0 / PRECISION))
 		{
 			hit.bool = 1;
@@ -177,8 +182,8 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 			{
 				hit.t = time1;
 				hit.t_max = t_max;
-				hit.point_norm_max = init_vector(0, 0, 0);
-				hit.point_norm_max = scalar_product(hit.point_norm, -1);
+//				hit.point_norm_max = init_vector(0, 0, 0);
+//				hit.point_norm_max = scalar_product(hit.point_norm, -1);
 			}
 			complete_hit(&hit, cylinder);
 			return (hit);
@@ -186,23 +191,25 @@ t_hit	is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
 		else
 		{
 			t = (t == t1) ? t2 : t1;
-			t_max = (t == t1) ? t1 : t2;
-			time1 = find_cylinder_limit(ray, cylinder, t_max, aa, ab, ab2, &hit);
-			if (time1 > (double)(1.0 / PRECISION))
+			t_max = (t == t1) ? t1 : t2;	
+			hit = hit_max;
+			if (time2 > (double)(1.0 / PRECISION))
 			{
+//				t = (t == t1) ? t2 : t1;
+//				t_max = (t_max == t1) ? t1 : t2;
 				hit.bool = 1;
 				if (hit_size.bool == 1)
 				{
-					hit.t = time1 < hit_size.t ? time1 : hit_size.t;
-					hit.t_max = time1 < hit_size.t ? hit_size.t : time1;
-					hit.point_norm_max = time1 < hit_size.t ? hit_size.point_norm : hit.point_norm;
-					hit.point_norm = time1 < hit_size.t ? hit.point_norm : hit_size.point_norm;
+					hit.t = time2 < hit_size.t ? time2 : hit_size.t;
+					hit.t_max = time2 < hit_size.t ? hit_size.t : time2;
+					hit.point_norm = time2 < hit_size.t ? hit.point_norm : hit_size.point_norm;
+					hit.point_norm_max = time2 < hit_size.t ? hit_size.point_norm : hit.point_norm;
 				}
 				else
 				{
-					hit.t = time1;
+					hit.t = time2;
 					hit.t_max = t_max;
-					hit.point_norm_max = scalar_product(hit.point_norm, -1);
+	//				hit.point_norm_max = scalar_product(hit.point_norm, -1);
 				}
 				complete_hit(&hit, cylinder);
 				return (hit);
