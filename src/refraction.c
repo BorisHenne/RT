@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 04:58:48 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/19 15:18:45 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/23 17:12:21 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,14 @@ t_color		apply_refraction(t_ray *start, t_scene *scene, t_hit drawn_pixel, doubl
 	double	refract_indice;
 	t_color	tmp_color;
 	int test;
-	static int	a = 0;
 	tmp_color = drawn_pixel.color;
 	if (drawn_pixel.t_max == drawn_pixel.t)
 	{
-		if (a == 1)
-			refract_indice = drawn_pixel.ref_index;
-		else
-			refract_indice = 1.0;
+		refract_indice = drawn_pixel.ref_index;
 		test = -1;
-		a = 0;
 	}
 	else
 	{
-		a = 1;
 		test = 1;
 		refract_indice = 1.0 / drawn_pixel.ref_index;
 	}

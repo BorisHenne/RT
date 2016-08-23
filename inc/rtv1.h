@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/22 17:02:32 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/08/23 13:43:33 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # include <quad.h>
 # include <triangle.h>
 # include <parallelo.h>
+# include <cyco_internal_struct.h>
 
 # define ESCAPE	53
 # define WIDTH 1920

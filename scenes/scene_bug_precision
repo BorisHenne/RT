@@ -41,6 +41,7 @@
 					{
 						{specular: 50}
 						{opacity:1}
+						{reflection:1}
 					}
 				}
 			}

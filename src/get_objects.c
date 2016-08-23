@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 17:56:33 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/08/23 16:49:17 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,13 @@ int			get_ref_index(t_elem *elem, double *ref_index)
 	return (1);
 }
 
-int			get_is_negativ(t_elem *elem, int *is_negativ)
+int			get_is(t_elem *elem, int *is_negativ)
 {
 	if ((*is_negativ = get_bool(elem->values)) == -1)
 	{
-		ft_putendl("value of 'is_negativ' != 'y' and 'n'\n");
+		ft_putstr("value of '");
+		ft_putstr(elem->name);
+		ft_putendl("' != 'y' and 'n'\n");
 		return (0);
 	}
 	return (1);
@@ -244,7 +246,7 @@ t_sphere	*get_sphere(t_part *part)
 		}
 		else if (!ft_strcmp(tmp2->name, "is_negativ"))
 		{
-			if (!get_is_negativ(tmp2, &(sphere->is_negativ)))
+			if (!get_is(tmp2, &(sphere->is_negativ)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "texture"))
@@ -347,7 +349,7 @@ t_plane	*get_plane(t_part *part)
 		}
 		else if (!ft_strcmp(tmp2->name, "is_negativ"))
 		{
-			if (!get_is_negativ(tmp2, &(plane->is_negativ)))
+			if (!get_is(tmp2, &(plane->is_negativ)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "texture"))
@@ -399,6 +401,7 @@ t_cylinder	*init_cylinder(void)
 	cylinder->ref_index = 1;
 	cylinder->is_negativ = 0;
 	cylinder->texture = NONE;
+	cylinder->is_closed = 0;
 	return (cylinder);
 }
 
@@ -465,7 +468,12 @@ t_cylinder	*get_cylinder(t_part *part)
 		}
 		else if (!ft_strcmp(tmp2->name, "is_negativ"))
 		{
-			if (!get_is_negativ(tmp2, &(cylinder->is_negativ)))
+			if (!get_is(tmp2, &(cylinder->is_negativ)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "is_closed"))
+		{
+			if (!get_is(tmp2, &(cylinder->is_closed)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "texture"))
@@ -493,6 +501,11 @@ t_cylinder	*get_cylinder(t_part *part)
 	cylinder->pos = *pos;
 	cylinder->dir = *dir;
 	cylinder->color = *color;
+	if (cylinder->is_closed == 0 && cylinder->ref_index != 1)
+	{
+		ft_putendl("'cylinder' : empty object cannot refract\n");
+		cylinder->ref_index = 1;
+	}
 	free(pos);
 	free(dir);
 	free(color);
@@ -517,6 +530,7 @@ t_cone	*init_cone(void)
 	cone->ref_index = 1;
 	cone->is_negativ = 0;
 	cone->texture = NONE;
+	cone->is_closed = 0;
 	return (cone);
 }
 
@@ -578,13 +592,17 @@ t_cone	*get_cone(t_part *part)
 		}
 		else if (!ft_strcmp(tmp2->name, "ref_index"))
 		{
-			ft_putendl("'cone' : 'ref_index' always == 1");
-//			if (!get_ref_index(tmp2, &(cone->ref_index)))
+			if (!get_ref_index(tmp2, &(cone->ref_index)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "is_negativ"))
 		{
-			if (!get_is_negativ(tmp2, &(cone->is_negativ)))
+			if (!get_is(tmp2, &(cone->is_negativ)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "is_closed"))
+		{
+			if (!get_is(tmp2, &(cone->is_closed)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "texture"))
@@ -612,6 +630,11 @@ t_cone	*get_cone(t_part *part)
 	cone->pos = *pos;
 	cone->dir = *dir;
 	cone->color = *color;
+	if (cone->is_closed == 0 && cone->ref_index != 1)
+	{
+		ft_putendl("'cone' : empty object cannot refract\n");
+		cone->ref_index = 1;
+	}
 	free(pos);
 	free(dir);
 	free(color);
@@ -697,7 +720,7 @@ t_parallelo *get_para(t_part *part)
 		}
 		else if (!ft_strcmp(tmp2->name, "is_negativ"))
 		{
-			if (!get_is_negativ(tmp2, &(para->is_negativ)))
+			if (!get_is(tmp2, &(para->is_negativ)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "texture"))
@@ -813,7 +836,7 @@ t_triangle	*get_triangle(t_part *part)
 		}
 		else if (!ft_strcmp(tmp2->name, "is_negativ"))
 		{
-			if (!get_is_negativ(tmp2, &(triangle->is_negativ)))
+			if (!get_is(tmp2, &(triangle->is_negativ)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "texture"))
@@ -931,7 +954,7 @@ t_elips	*get_elips(t_part *part)
 		}
 		else if (!ft_strcmp(tmp2->name, "is_negativ"))
 		{
-			if (!get_is_negativ(tmp2, &(elips->is_negativ)))
+			if (!get_is(tmp2, &(elips->is_negativ)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "texture"))
