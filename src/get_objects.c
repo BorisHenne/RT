@@ -37,13 +37,13 @@ int		get_unsigned_double(t_elem *elem, double *radius)
 	{
 		write(1, "'", 1);
 		ft_putstr(elem->name);
-		ft_putendl("' redefined");
+		ft_putendl("' redefined\n");
 		return (0);
 	}
 	 *radius = get_num(elem->values);
 	 if (radius < 0)
 	 {
-		ft_putendl("'radius' < 0");
+		ft_putendl("'radius' < 0\n");
 		return (0);
 	 }
 	return (1);
@@ -55,7 +55,7 @@ int		get_new_vec(t_elem *elem, t_vec **pos)
 	{
 		write(1, "'", 1);
 		ft_putstr(elem->name);
-		ft_putendl("' redefined");
+		ft_putendl("' redefined\n");
 		return (0);
 	}
 	if (!(*pos = get_vec(elem->values, elem->name)))
@@ -69,14 +69,14 @@ int		get_new_quad(t_elem *elem, t_quad **quad)
 	{
 		write(1, "'", 1);
 		ft_putstr(elem->name);
-		ft_putendl("' redefined");
+		ft_putendl("' redefined\n");
 		return (0);
 	}
 	if (!(*quad = get_quad(elem->values)))
 		return (0);
 	if ((*quad)->A <= 0 || (*quad)->B <= 0 || (*quad)->C <= 0)
 	{
-		ft_putendl("'quad' value <= 0");
+		ft_putendl("'quad' value <= 0\n");
 		return (0);
 	}
 	return (1);
@@ -86,7 +86,7 @@ int		get_new_color(t_elem *elem, t_color **color, int type)
 {
 	if (*color)
 	{
-		ft_putendl("'color' redefined");
+		ft_putendl("'color' redefined\n");
 		return (0);
 	}
 	if (!(*color = get_color(elem->values, type)))
@@ -98,13 +98,13 @@ int			get_specular(t_elem *elem, int *specular)
 {
 	if (*specular != 0)
 	{
-		ft_putendl("'specular' redefined");
+		ft_putendl("'specular' redefined\n");
 		return (0);
 	}
 	*specular = (int)get_num(elem->values);
 	if (*specular < 0 || *specular > 100 || (int)*specular % 2 == 1)
 	{
-		ft_putendl("'specular' < 0 or > 100 or odd");
+		ft_putendl("'specular' < 0 or > 100 or odd\n");
 		return (0);
 	}
 	return (1);
@@ -114,13 +114,13 @@ int			get_reflection(t_elem *elem, double *reflection)
 {
 	if (*reflection != 0)
 	{
-		ft_putendl("'reflection' redefined");
+		ft_putendl("'reflection' redefined\n");
 		return (0);
 	}
 	*reflection = get_num(elem->values);
 	if (*reflection < 0 || *reflection > 1)
 	{
-		ft_putendl("'reflection' < 0 or > 1");
+		ft_putendl("'reflection' < 0 or > 1\n");
 		return (0);
 	}
 	return (1);
@@ -130,13 +130,13 @@ int			get_opacity(t_elem *elem, double *opacity)
 {
 	if (*opacity != 1)
 	{
-		ft_putendl("'opacity' redefined");
+		ft_putendl("'opacity' redefined\n");
 		return (0);
 	}
 	*opacity = get_num(elem->values);
 	if (*opacity < 0 || *opacity > 1)
 	{
-		ft_putendl("'opacity' < 0 or > 1");
+		ft_putendl("'opacity' < 0 or > 1\n");
 		return (0);
 	}
 	return (1);
@@ -146,13 +146,13 @@ int			get_ref_index(t_elem *elem, double *ref_index)
 {
 	if (*ref_index != 1)
 	{
-		ft_putendl("'ref_index' redefined");
+		ft_putendl("'ref_index' redefined\n");
 		return (0);
 	}
 	*ref_index = get_num(elem->values);
 	if (*ref_index < 1 || *ref_index > 10)
 	{
-		ft_putendl("'ref_index' < 1 or > 10");
+		ft_putendl("'ref_index' < 1 or > 10\n");
 		return (0);
 	}
 	return (1);
@@ -162,7 +162,7 @@ int			get_is_negativ(t_elem *elem, int *is_negativ)
 {
 	if ((*is_negativ = get_bool(elem->values)) == -1)
 	{
-		ft_putendl("value of 'is_negativ' != 'y' and 'n'");
+		ft_putendl("value of 'is_negativ' != 'y' and 'n'\n");
 		return (0);
 	}
 	return (1);
@@ -172,15 +172,15 @@ int			get_texture(t_elem *elem, int *texture)
 {
 	if (*texture != NONE)
 	{
-		ft_putendl("'texture' redefined");
+		ft_putendl("'texture' redefined\n");
 		return (0);
 	}
 	*texture = get_enum(elem->values);
 	if (*texture == -1)
 	{
-		ft_putstr("texture '");
+		ft_putstr("texture '\n");
 		ft_putstr(elem->values[0]);
-		ft_putendl("' does not exist");
+		ft_putendl("' does not exist\n");
 		return (0);
 	}
 	return (1);
@@ -188,9 +188,9 @@ int			get_texture(t_elem *elem, int *texture)
 
 void		return_invalid_arg(char *name)
 {
-	ft_putstr("'");
+	ft_putstr("'\n");
 	ft_putstr(name);
-	ft_putendl("' invalid");
+	ft_putendl("' invalid\n");
 }
 
 t_sphere	*get_sphere(t_part *part)
@@ -262,9 +262,9 @@ t_sphere	*get_sphere(t_part *part)
 	if (!pos || !color)
 	{
 		if (!pos)
-			ft_putendl("'pos' missing");
+			ft_putendl("'pos' missing\n");
 		if (!color)
-			ft_putendl("'color' missing");
+			ft_putendl("'color' missing\n");
 		return (NULL);
 	}
 	sphere->center = *pos;
@@ -341,7 +341,8 @@ t_plane	*get_plane(t_part *part)
 		}
 		else if (!ft_strcmp(tmp2->name, "ref_index"))
 		{
-			if (!get_ref_index(tmp2, &(plane->ref_index)))
+			ft_putendl("'plane' : 'ref_index' always == 1\n\n");
+//			if (!get_ref_index(tmp2, &(plane->ref_index)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "is_negativ"))
@@ -364,11 +365,11 @@ t_plane	*get_plane(t_part *part)
 	if (!pos || !color || !normal)
 	{
 		if (!pos)
-			ft_putendl("'pos' missing");
+			ft_putendl("'pos' missing\n");
 		if (!color)
-			ft_putendl("'color' missing");
+			ft_putendl("'color' missing\n");
 		if (!normal)
-			ft_putendl("'normal' missing");
+			ft_putendl("'normal' missing\n");
 		return (NULL);
 	}
 	plane->pos = *pos;
@@ -482,11 +483,11 @@ t_cylinder	*get_cylinder(t_part *part)
 	if (!pos || !color || !dir)
 	{
 		if (!pos)
-			ft_putendl("'pos' missing");
+			ft_putendl("'pos' missing\n");
 		if (!color)
-			ft_putendl("'color' missing");
+			ft_putendl("'color' missing\n");
 		if (!dir)
-			ft_putendl("'dir' missing");
+			ft_putendl("'dir' missing\n");
 		return (NULL);
 	}
 	cylinder->pos = *pos;
@@ -577,7 +578,8 @@ t_cone	*get_cone(t_part *part)
 		}
 		else if (!ft_strcmp(tmp2->name, "ref_index"))
 		{
-			if (!get_ref_index(tmp2, &(cone->ref_index)))
+			ft_putendl("'cone' : 'ref_index' always == 1");
+//			if (!get_ref_index(tmp2, &(cone->ref_index)))
 				return (NULL);
 		}
 		else if (!ft_strcmp(tmp2->name, "is_negativ"))
@@ -600,11 +602,11 @@ t_cone	*get_cone(t_part *part)
 	if (!pos || !color || !dir)
 	{
 		if (!pos)
-			ft_putendl("'pos' missing");
+			ft_putendl("'pos' missing\n");
 		if (!color)
-			ft_putendl("'color' missing");
+			ft_putendl("'color' missing\n");
 		if (!dir)
-			ft_putendl("'dir' missing");
+			ft_putendl("'dir' missing\n");
 		return (NULL);
 	}
 	cone->pos = *pos;
@@ -947,11 +949,11 @@ t_elips	*get_elips(t_part *part)
 	if (!pos || !quad || !color)
 	{
 		if (!pos)
-			ft_putendl("'pos' missing");
+			ft_putendl("'pos' missing\n");
 		if (!color)
-			ft_putendl("'color' missing");
+			ft_putendl("'color' missing\n");
 		if (!quad)
-			ft_putendl("'quad' missing");
+			ft_putendl("'quad' missing\n");
 		return (NULL);
 	}
 	elips->center = *pos;
@@ -971,7 +973,7 @@ t_scene		*get_objects(t_scene *scene, t_part *part)
 
 	if (!(tmp = part->sub_parts))
 	{
-		ft_putendl("Empty Object");
+		ft_putendl("Empty Object\n");
 		return (NULL);
 	}
 	while (tmp)

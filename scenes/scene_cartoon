@@ -3,7 +3,7 @@
 	{
 		options:
 		{
-			{cartoon:y}
+			{cartoon:n}
 		}
 	}
 	camera:
@@ -17,48 +17,49 @@
 			sphere:
 			{
 				{radius: 0.7}
-				{pos: 0, 0, -1}
+				{pos: 0, 0.3, 0}
 				{color: 0.8, 0.8, 0.4}
 				{
 					options:
 					{
 						{specular: 50}
-						{ref_index: 1.33}
-						{opacity: 0.4}
+#						{ref_index: 1.33}
+						{opacity: 1}
 					}
 				}
 			}
 		}
+#		{
+#			elips:
+#			{
+#				{radius: 0.3}
+#				{pos: 0, 0.4, 1}
+#				{quad : 1, 0.5, 1}
+#				{color: 0.2, 1, 0.2}
+#				{
+#					options:
+#					{
+#						{specular: 50}
+#						{opacity:1}
+#					}
+#				}
+#			}
+#		}
 		{
-			elips:
-			{
-				{radius: 0.3}
-				{pos: 0, 0.4, 1}
-				{quad : 1, 0.5, 1}
-				{color: 0.2, 1, 0.2}
-				{
-					options:
-					{
-						{specular: 50}
-						{opacity:1}
-					}
-				}
-			}
-		}
-		{
-			cone:
+#			cone:
+			cylinder:
 			{
 				{radius: 0.5}
-				{pos : 0, 0.4, -1}
-				{dir: 1, 0, 1}
+				{pos : 0, 0.5, -2}
+				{dir: 0, 0, -1}
 				{length: 1}
 				{color: 0.5, 0.5, 1}
 				{
 					options:
 					{
 						{specular: 98}
-						{opacity:0.9}
-#						{ref_index:2.5}
+						{opacity:0.1}
+						{ref_index:1.55}
 					}
 				}
 			}
@@ -119,21 +120,21 @@
 #				{dir: 0, 0, 0}
 #			}
 #		}
-#		{
-#			diffuse:
-#			{
-#				{pos: 5, 0, -5}
-#				{color : 255, 255, 255}
-#				{dir: 0, 0, 0}
-#			}
-#		}
 		{
 			diffuse:
 			{
-				{pos: 0, -5, -5}
+				{pos: 5, 0, -5}
 				{color : 255, 255, 255}
 				{dir: 0, 0, 0}
 			}
 		}
+#		{
+#			parallel:
+#			{
+#				{pos: -1, 1, 0}
+#				{color : 255, 255, 255}
+#				{dir: 0, 0, 0}
+#			}
+#		}
 	}
 }

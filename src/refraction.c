@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 04:58:48 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/17 03:59:41 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/19 15:18:45 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_color		apply_refraction(t_ray *start, t_scene *scene, t_hit drawn_pixel, doubl
 			return (tmp_color);
 		}
 		else
-			tmp_color = add_color(tmp_color, color_render(scene, start, noise));
+			tmp_color = add_color(tmp_color, color_render(scene, start, noise, NULL));
 	}
 	check_color(&tmp_color);
 	return (tmp_color);

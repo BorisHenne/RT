@@ -6,26 +6,21 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 12:49:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/15 04:11:19 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/22 16:51:59 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-
-#include<stdio.h>
-
-int			is_valid(char *s)
+void		set_tmp(t_part *tmp, t_part **part)
 {
-	while (*s)
+	if (!*part)
+		*part = tmp;
+	else if (tmp)
 	{
-		if (*s != '}')
-		{
-			return (1);
-		}
-		s++;
+		tmp->next = *part;
+		*part = tmp;
 	}
-	return (0);
 }
 
 t_part		*parse_content(char *s, t_part *part)
@@ -47,157 +42,45 @@ t_part		*parse_content(char *s, t_part *part)
 		}
 		else
 			tmp = NULL;
+		set_tmp(tmp, &part);
 		free(scop);
-		if (!part)
-			part = tmp;
-		else if (tmp)
-		{
-			tmp->next = part;
-			part = tmp;
-		}
 	}
 	return (part);
 }
 
-int			is_number(char *s)
+int			get_all(t_part *tmp, t_scene *scene, int *is_init)
 {
-	while (*s)
+	if (tmp->type == SCENE)
 	{
-		if (!((*s >= '0' && *s <= '9') || *s == '.' || *s == '+' || *s == '-'))
-		{
+		if (is_init[0] > 0 || !(scene = get_scene(scene, tmp)))
 			return (0);
-		}
-		s++;
+		is_init[0] = 1;
+	}
+	if (tmp->type == LIGHT)
+	{
+		if (!(scene = get_lights(scene, tmp)))
+			return (0);
+		is_init[2] += 1;
+	}
+	if (tmp->type == OBJECT)
+	{
+		if (!(scene = get_objects(scene, tmp)))
+			return (0);
+		is_init[3] += 1;
+	}
+	if (tmp->type == CAMERA)
+	{
+		if (is_init[1] > 0 || !(get_cam(scene, tmp)))
+			return (0);
+		is_init[1] = 1;
 	}
 	return (1);
-}
-t_vec		*get_vec(char **values, char *name)
-{
-	t_vec 	*vec;
-	int		n_values;
-
-	if ((n_values = arr_len(values)) != 3)
-	{
-		if (n_values < 3)
-			ft_putstr("missing value in '");
-		else
-			ft_putstr("too many values in '");
-		ft_putstr(name);
-		ft_putendl("'");
-		return (NULL);
-	}
-	if (!is_number(values[0]) || !is_number(values[1]) || !is_number(values[2]))
-	{
-		ft_putstr("value != number in '");
-		ft_putstr(name);
-		ft_putendl("'");
-		return (NULL);
-	}
-	if (!(vec = (t_vec *)malloc(sizeof(t_vec))))
-		return (NULL);
-	vec->x = ft_atof(values[0]);
-	vec->y = ft_atof(values[1]);
-	vec->z = ft_atof(values[2]);
-	return (vec);
-}
-
-t_color		*get_color(char **values, int ref)
-{
-	t_color 	*color;
-	double		color_max;
-	int		n_values;
-
-	color_max = (ref == OBJECT) ? 1.0 : 255.0;
-	if ((n_values = arr_len(values)) != 3)
-	{
-		if (n_values < 3)
-			ft_putendl("missing value in 'color'");
-		else
-			ft_putendl("too many values in 'color'");
-		return (NULL);
-	}
-	if (!is_number(values[0]) || !is_number(values[1]) || !is_number(values[2]))
-	{
-		ft_putstr("value != number in 'color'");
-		return (NULL);
-	}
-	if (!(color = (t_color *)malloc(sizeof(t_color))))
-		return (NULL);
-	color->r = ft_atof(values[0]);
-	color->g = ft_atof(values[1]);
-	color->b = ft_atof(values[2]);
-	if ((color->r < 0 || color->r > color_max)
-	|| (color->g < 0 || color->g > color_max)
-	|| (color->b < 0 || color->b > color_max))
-	{
-		ft_putstr("value < 0 or > ");
-		ft_putnbr(color_max);
-		ft_putendl("'color'");
-		return (NULL);
-	}
-	return (color);
-}
-
-float		get_num(char **values)
-{
-	return (ft_atof(values[0]));
-}
-
-int			get_bool(char **values)
-{
-	if (!ft_strcmp(values[0], "y"))
-		return (1);
-	else if (!ft_strcmp(values[0], "n"))
-		return (0);
-	return (-1);
-}
-
-int			get_enum(char **values)
-{
-	if (!strcmp(values[0], "marble"))
-		return (MARBLE);
-	else if (!strcmp(values[0], "checker"))
-		return (CHECKER);
-	else if (!strcmp(values[0], "none"))
-		return (NONE);
-	else if (!strcmp(values[0], "sepia"))
-		return (SEPIA);
-	else if (!strcmp(values[0], "bn"))
-		return (NOIR_BLANC);
-	return (-1);
-}
-
-t_quad		*get_quad(char **values)
-{
-	t_quad 	*quad;
-	int		n_values;
-
-	if ((n_values = arr_len(values)) != 3)
-	{
-		if (n_values < 3)
-			ft_putendl("missing value in 'quad'");
-		else
-			ft_putendl("too many values in 'quad'");
-		return (NULL);
-	}
-	if (!is_number(values[0]) || !is_number(values[1]) || !is_number(values[2]))
-	{
-		ft_putstr("value != number in 'quad'");
-		return (NULL);
-	}
-	if (!(quad = (t_quad *)malloc(sizeof(t_quad))))
-		return (NULL);
-	quad->A = ft_atof(values[0]);
-	quad->B = ft_atof(values[1]);
-	quad->C = ft_atof(values[2]);
-	return (quad);
 }
 
 t_scene		*config(t_part *part)
 {
 	t_part	*tmp;
 	t_scene	*scene;
-	t_cam	*tmp_cam;
 	int		is_init[4];
 
 	scene = init_scene();
@@ -208,51 +91,12 @@ t_scene		*config(t_part *part)
 	tmp = part;
 	while (tmp)
 	{
-		if (tmp->type == SCENE)
-		{
-			if (is_init[0] > 0)
-				return (NULL);
-			if (!(scene = get_scene(scene, tmp)))
-				return (NULL);
-			is_init[0] = 1;
-		}
-		if (tmp->type == LIGHT)
-		{
-			if (!(scene = get_lights(scene, tmp)))
-				return (NULL);
-			is_init[2] += 1;
-		}
-		if (tmp->type == OBJECT)
-		{
-			if (!(scene = get_objects(scene, tmp)))
-				return (NULL);
-			is_init[3] += 1;
-		}
-		if (tmp->type == CAMERA)
-		{
-			if (is_init[1] > 0)
-				return (NULL);
-			if (!(tmp_cam = get_cam(scene, tmp)))
-				return (NULL);
-			is_init[1] = 1;
-		}
+		get_all(tmp, scene, is_init);
 		tmp = tmp->next;
 	}
-	if (is_init[1] == 0)
-	{
-		ft_putendl("No Camera");
-		return (NULL);
-	}
-	if (is_init[2] == 0 && scene->ambient <= 0.0)
-	{
-		ft_putendl("No Lights");
-		scene->ambient = 0.5;
-	}
-	if (is_init[3] == 0)
-	{
-		ft_putendl("No Objects");
-	}
-	return (scene);
+	if (is_initialized(is_init, scene))
+		return (scene);
+	return (NULL);
 }
 
 t_scene		*parse(char *file_name)
@@ -270,9 +114,7 @@ t_scene		*parse(char *file_name)
 		return (NULL);
 	if (!(scene = config(part)))
 		return (NULL);
-//	write_scene(*scene);
 	free_part(&part);
 	free(file_content);
-
 	return (scene);
 }

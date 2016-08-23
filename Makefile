@@ -17,18 +17,21 @@ SRC =	main.c \
 		blur.c \
 		camera.c \
 		cylinder.c \
+		depth_of_field.c \
 		draw_scene.c \
 		events.c \
 		find_closest_object.c \
 		get_file_content.c \
 		get_objects.c \
 		get_scene.c \
+		get_val.c \
 		light.c \
 		node.c \
 		part.c \
 		parse.c \
 		parse_scop.c \
 		parse_tools.c \
+		parse_tools_is.c \
 		plane.c \
 		refraction.c \
 		sepia.c \
@@ -43,6 +46,7 @@ SRC =	main.c \
 		elipsoid.c \
 		triangle.c \
 		parallelo.c\
+		write_scene.c \
 
 SRCDIR = src/
 

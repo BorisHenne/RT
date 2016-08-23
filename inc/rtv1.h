@@ -72,6 +72,7 @@ t_color				checkerboard(t_color color, t_vec vec);
 int					is_black_edge(t_hit *hit);
 
 void				*apply_blur(t_env *env, int  blur_lvl);
+void				*apply_depth_of_field(t_env *env, t_blur *array, double dof);
 int					put_pixel_on_image(void *img, int x, int y, t_color color);
-t_color				color_render(t_scene *scene, t_ray *start, double noise);
+t_color				color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur);
 #endif

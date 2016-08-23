@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/17 07:59:15 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/18 18:06:08 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ t_hit	is_sphere_hit(t_ray *ray, t_sphere *sphere)
 		{
 			/* une solution unique */
 			hit.t = (-b / (2 * a));
-//			hit.t_max = (-b / (2 * a));
-			hit.t_max = 42;			
+			hit.t_max = (-b / (2 * a));
 			hit.bool = hit.t > 0.0 ? 1 : 0;
 			hit.color = sphere->color;
 
@@ -96,6 +95,7 @@ t_hit	is_sphere_hit(t_ray *ray, t_sphere *sphere)
 		hit.pos = sphere->center;
 		hit.color = sphere->color;
 		hit.point_norm = normalize(vec_sub(sphere->center, vec_add(ray->pos, scalar_product(ray->dir, hit.t))));
+		hit.point_norm_max = normalize(vec_sub(sphere->center, vec_add(ray->pos, scalar_product(ray->dir, hit.t_max))));
 		hit.specular = sphere->specular;
 		hit.reflection = sphere->reflection;
 		hit.opacity = sphere->opacity;

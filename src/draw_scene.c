@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/16 08:14:33 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/22 19:54:04 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	apply_ambient(t_color *color, float index)
 }
 
 
-t_color color_render(t_scene *scene, t_ray *start, double noise)
+t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 {
 	double	reflet;
 	t_color final_color;
@@ -167,7 +167,18 @@ t_color color_render(t_scene *scene, t_ray *start, double noise)
 		white = init_color(255, 255, 255);
 		final_color = sub_color(white, final_color);
 	}
-
+	if (blur)
+	{
+		blur->p_obj = 0;
+		t_vec tmp;
+//		printf("t : %f\n", drawn_pixel.t);
+//		write_vector(start->dir, "cam->dir");
+		tmp = (vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)));
+	//	write_vector(tmp, "tmp");
+		blur->t = tmp.z;
+		if (blur->t == scene->cam.ray.pos.z)
+			blur->t = 0;
+	}
 	return (final_color);
 }
 
@@ -196,8 +207,6 @@ int		draw_scene(t_env *env, t_scene *scene)
 		y++;
 	}
 	////////////////////////////
-
-//	write_scene(scene);
 	x = -1;
 	while (++x < WIDTH)
 	{
@@ -209,12 +218,14 @@ int		draw_scene(t_env *env, t_scene *scene)
 			start.pos = scene->cam.ray.pos;
 			start.dir = normalize(calc_vec_dir(x, y, scene->cam, scene->cam.look_at));
 
-			final_color = color_render(scene, &start, noise);
+			final_color = color_render(scene, &start, noise, &(scene->blur_array[x * HEIGHT + y]));
 
 			put_pixel_on_image(env->img, x, y, final_color);
 		}
 
 	}
+	if (!(env->img = apply_depth_of_field(env, scene->blur_array, 13)))
+		return (0);
 //	if (!(env->img = apply_blur(env, scene->blur)))
 //		return (0);
 //	if (!(env->img = sepia_filter(env->mlx, env->img, scene->filter)))

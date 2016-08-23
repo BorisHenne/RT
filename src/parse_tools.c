@@ -12,6 +12,26 @@
 
 #include <rtv1.h>
 
+int			find_object(char *s)
+{
+	if (!ft_strcmp(s, "sphere:"))
+		return (SPHERE);
+	if (!ft_strcmp(s, "cylinder:"))
+		return (CYLINDER);
+	if (!ft_strcmp(s, "plane:"))
+		return (PLANE);
+	if (!ft_strcmp(s, "cone:"))
+		return (CONE);
+	if (!ft_strcmp(s, "elips:"))
+		return (ELIPS);
+	if (!ft_strcmp(s, "triangle:"))
+		return (TRIAN);
+	if (!ft_strcmp(s, "parallelo:"))
+		return (PARA);
+
+	return (NONE);
+}
+
 int			find_type(char *s)
 {
 	if (!s)
@@ -24,27 +44,13 @@ int			find_type(char *s)
 		return (OBJECT);
 	if (!ft_strcmp(s, "camera:"))
 		return (CAMERA);
-	if (!ft_strcmp(s, "sphere:"))
-		return (SPHERE);
-	if (!ft_strcmp(s, "cylinder:"))
-		return (CYLINDER);
-	if (!ft_strcmp(s, "plane:"))
-		return (PLANE);
-	if (!ft_strcmp(s, "triangle:"))
-		return (TRIAN);
-	if (!ft_strcmp(s, "parallelo:"))
-		return (PARA);
-	if (!ft_strcmp(s, "cone:"))
-		return (CONE);
-	if (!ft_strcmp(s, "elips:"))
-		return (ELIPS);
 	if (!ft_strcmp(s, "diffuse:"))
 		return (DIFFUSE);
 	if (!ft_strcmp(s, "parallel:"))
 		return (PARALLEL);
 	if (!ft_strcmp(s, "direct:"))
 		return (DIRECT);
-	return (NONE);
+	return (find_object(s));
 }
 
 char		*find_scop(char *s, int ref_level)

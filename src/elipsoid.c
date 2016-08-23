@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:52:42 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/14 03:36:00 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/17 17:08:46 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ void	find_normal(t_ray *ray, t_elips *elips, t_hit *hit)
 	hit->point_norm.y *= 2.0 * (elips->quad.B * elips->quad.B);
 	hit->point_norm.z *= 2.0 * (elips->quad.C * elips->quad.C);
 	hit->point_norm = normalize(hit->point_norm);
+	hit->point_norm_max = vec_add(ray->pos, scalar_product(ray->dir, hit->t_max));
+	hit->point_norm_max = vec_sub(elips->center, hit->point_norm_max);
+	hit->point_norm_max.x *= 2.0 * (elips->quad.A * elips->quad.A);
+	hit->point_norm_max.y *= 2.0 * (elips->quad.B * elips->quad.B);
+	hit->point_norm_max.z *= 2.0 * (elips->quad.C * elips->quad.C);
+	hit->point_norm_max = normalize(hit->point_norm_max);
+
 }
 
 double	find_elips_det(t_ray *ray, t_elips *elips, double *a, double *b)

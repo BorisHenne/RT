@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:20:20 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/08 06:23:37 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/22 18:27:36 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,11 @@ t_vec		calc_vec_dir(int x, int y, t_cam cam, t_vec look)
 
 	x_indent = cam.w / (double)WIDTH;
 	y_indent = cam.h / (double)HEIGHT;
-
-	res.x = ((x - (double)WIDTH/2.0) * x_indent);
-	res.y = ((y - (double)HEIGHT/2.0) * y_indent);
+	res.x = ((x - (double)WIDTH / 2.0) * x_indent);
+	res.y = ((y - (double)HEIGHT / 2.0) * y_indent);
 	res.z = cam.d;
-//	printf("res: x = %.2f, y = %.2f, z = %.2f\n", res.x, res.y, res.z);
-	// calcul pour faire une rotation sur l'axe des z;
-
 	tmp = vec_rot_x(res, look.x);
 	tmp = vec_rot_y(tmp, look.y);
 	tmp = vec_rot_z(tmp, look.z);
-
 	return (tmp);
 }

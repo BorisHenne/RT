@@ -117,34 +117,36 @@ t_hit		is_cone_hit(t_ray *ray, t_cone *cone)
 		t = t1 < t2 ? t1 : t2;
 		t_max = t1 < t2 ? t2 : t1;
 
+		double	time2;
+		t_hit	hit_max;
+
+		time2 = find_cone_limit(ray, cone, t_max, aa, ab, ab2, &hit);
+		hit.point_norm_max = hit.point_norm;
 		time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
+		hit_max.point_norm_max = hit.point_norm;
 
 		if (time1 > (double)(1.0 / PRECISION))
 		{
 			hit.bool = 1;
 			hit.t = time1;
 			hit.t_max = t_max;
-			hit.color.r = cone->color.r;
-			hit.color.g = cone->color.g;
-			hit.color.b = cone->color.b;
+			hit.color = cone->color;
 			hit.opacity = cone->opacity;
 			hit.ref_index = cone->ref_index;
 		}
 		else
 		{
-			t = (t == t1)? t2 : t1;
-			t_max = (t == t1)? t1 : t2;
-
-			time1 = find_cone_limit(ray, cone, t, aa, ab, ab2, &hit);
-			if (time1 > (double)(1.0 / PRECISION))
+			hit = hit_max;
+			if (time2 > (double)(1.0 / PRECISION))
 			{
 	//			hit.point_norm = scalar_product(hit.point_norm, -1);
 				hit.bool = 1;
-				hit.t = time1;
+				hit.t = time2;
 				hit.t_max = t_max;
-				hit.color.r = cone->color.r;
-				hit.color.g = cone->color.g;
-				hit.color.b = cone->color.b;
+				hit.color = cone->color;
+				t_vec tmp = hit.point_norm;
+				hit.point_norm_max = tmp;
+				hit.point_norm = hit.point_norm_max;
 				hit.opacity = cone->opacity;
 				hit.ref_index = cone->ref_index;
 			}
