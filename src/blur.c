@@ -6,13 +6,12 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/13 01:45:04 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 14:57:28 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/23 13:36:00 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-#include <stdio.h>
 t_color		mix_color(t_color *mixed_color, int n_color)
 {
 	t_color	new_color;
@@ -85,7 +84,6 @@ void		*apply_blur(t_env *env, int blur_lvl)
 
 	if (blur_lvl <= 0)
 		return (env->img);
-	printf("ok\n");
 	if (!(blurred_img = mlx_new_image(env->mlx, WIDTH, HEIGHT)))
 		return (NULL);
 	i = -1;

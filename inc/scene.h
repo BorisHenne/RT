@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/19 15:01:41 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/23 20:00:14 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct	s_blur
 typedef struct	s_scene
 {
 	int			is_real;
+	int			is_dof;
+	int			dof;
 	int			blur;
 	int			filter;
 	double		ambient;

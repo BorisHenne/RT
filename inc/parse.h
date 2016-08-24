@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 14:27:54 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 16:54:27 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/24 12:37:52 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void				free_elem(t_elem **elem);
 int					arr_len(char **array);
 char				**cpy_carray(char **array);
 
+void				return_invalid_arg(char *name);
+
 int					is_number(char *s);
 int					is_valid(char *s);
 int					is_initialized(int *is_init, t_scene *scene);
@@ -52,6 +54,7 @@ int					get_bool(char **values);
 int					get_enum(char **values);
 t_color				*get_color(char **values, int ref);
 t_quad				*get_quad(char **values);
+int					get_is(t_elem *elem, int *is_negativ);
 
 int					get_unsigned_double(t_elem *elem, double *radius);
 int					get_new_vec(t_elem *elem, t_vec **pos);

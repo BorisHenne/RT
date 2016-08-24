@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 16:49:31 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/08/23 19:08:37 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_color		apply_light(t_scene *scene, t_hit curr_pixel, t_ray *cam_ray)
 	t_vec		reflection;
 	t_hit		closest_hit;
 	t_hit		negativ_hit;
+	int			is_neg;
 
 	t_vec		light_look;
 	double		angle2;
@@ -114,8 +115,11 @@ t_color		apply_light(t_scene *scene, t_hit curr_pixel, t_ray *cam_ray)
 		tmp_content = init_hit();
 		closest_hit = init_hit();
 		negativ_hit = init_hit();
+		is_neg = 0;
 		while (tmp_object)
 		{
+			if (is_neg == 0)
+				is_neg = neg_exists(tmp_object);
 			tmp_content = get_hit(light_ray, tmp_object, 0);
 			if (tmp_content.bool == 1)
 			{
@@ -137,7 +141,7 @@ t_color		apply_light(t_scene *scene, t_hit curr_pixel, t_ray *cam_ray)
 			}
 			tmp_object = tmp_object->next;
 		}
-		if (shadow == 1)
+		if (shadow == 1 && is_neg)
 		{
 			tmp_object = scene->objects;
 			tmp_content = init_hit();

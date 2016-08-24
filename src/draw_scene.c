@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 19:54:04 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/24 12:40:26 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 	t_color	ambient;
 	int		r;
 
+	(void)blur;
 	r = 0;
 	final_color = init_color(0, 0, 0);
 	while (r < 3)
@@ -144,9 +145,35 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 						drawn_pixel.color = checkerboard(drawn_pixel.color, tmp);
 					}	
 				}
+				if (blur && r == 0)
+				{
+					blur->p_obj = 0;
+					t_vec tmp2;
+//					printf("t : %f\n", drawn_pixel.t);
+//					write_vector(start->dir, "cam->dir");
+//					write_vector(start->pos, "start->pos");
+//					write_vector(start->dir, "start->dir");
+					if (drawn_pixel.bool == 1)
+					{
+						tmp2 = (vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)));
+//						write_vector(tmp2, "tmp2");
+						blur->t = tmp2.z;
+						if (blur->t == scene->cam.ray.pos.z)
+							blur->t = 0;
+						if (blur->t > 100)
+							blur->t = 100;
+
+					}
+					else
+						blur->t = 10;
+				}
 			}
 			else
+			{
+				if (blur)
+					blur->t = 100;
 				break;
+			}
 			start->pos = vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)); 
 			reflet = dot_product(start->dir, drawn_pixel.point_norm) * 2.0;
 			start->dir = normalize(vec_sub(scalar_product(drawn_pixel.point_norm, reflet), start->dir));
@@ -166,18 +193,6 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 	{
 		white = init_color(255, 255, 255);
 		final_color = sub_color(white, final_color);
-	}
-	if (blur)
-	{
-		blur->p_obj = 0;
-		t_vec tmp;
-//		printf("t : %f\n", drawn_pixel.t);
-//		write_vector(start->dir, "cam->dir");
-		tmp = (vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)));
-	//	write_vector(tmp, "tmp");
-		blur->t = tmp.z;
-		if (blur->t == scene->cam.ray.pos.z)
-			blur->t = 0;
 	}
 	return (final_color);
 }
@@ -224,8 +239,11 @@ int		draw_scene(t_env *env, t_scene *scene)
 		}
 
 	}
-	if (!(env->img = apply_depth_of_field(env, scene->blur_array, 13)))
+	if (scene->is_dof)
+	{
+		if (!(env->img = apply_depth_of_field(env, scene->blur_array, scene->dof)))
 		return (0);
+	}
 //	if (!(env->img = apply_blur(env, scene->blur)))
 //		return (0);
 //	if (!(env->img = sepia_filter(env->mlx, env->img, scene->filter)))

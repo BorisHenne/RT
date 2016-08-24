@@ -44,6 +44,12 @@
 # define HEIGHT 1080
 # define PRECISION 10000000
 
+typedef struct	s_iter
+{
+	int			i;
+	int			j;
+}				t_iter;
+
 typedef struct		s_env
 {
 	void			*mlx;
@@ -54,6 +60,11 @@ typedef struct		s_env
 	int				fd;
 }					t_env;
 
+t_color		mix_color(t_color *mixed_color, int n_color);
+t_color		*new_color_array(int blur_lvl);
+
+void				*apply_depth_of_field(t_env *env, t_blur *array, double dof);
+void				*apply_blur(t_env *env, int  blur_lvl);
 int					key_hook(int keycode, t_env *e);
 int					draw_scene(t_env *env, t_scene *scene);
 double				deg_to_rad(double angle);

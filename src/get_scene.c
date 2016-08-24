@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 06:18:17 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/15 04:14:48 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/24 12:39:13 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_scene		*get_scene(t_scene *scene, t_part *part)
 {
 	t_elem	*tmp;
-	int		is_init[4];
+	int		is_init[6];
 	int		is_cartoon;
 
 	tmp = part->elems;
@@ -23,6 +23,8 @@ t_scene		*get_scene(t_scene *scene, t_part *part)
 	is_init[1] = 0;
 	is_init[2] = 0;
 	is_init[3] = 0;
+	is_init[4] = 0;
+	is_init[5] = 0;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, "cartoon"))
@@ -32,9 +34,31 @@ t_scene		*get_scene(t_scene *scene, t_part *part)
 				ft_putendl("'cartoon' redefined");
 				return (NULL);
 			}
-			is_cartoon = get_bool(tmp->values);
+			if (!(get_is(tmp, &is_cartoon)))
+				return (NULL);
 			scene->is_real = (is_cartoon == 0) ? REALISTIC : CARTOON;
 			is_init[0] = 1;
+		}
+		else if (!ft_strcmp(tmp->name, "depth"))
+		{
+			if (is_init[4] > 0)
+			{
+				ft_putendl("'depth' redefined");
+				return (NULL);
+			}
+			if (!(get_is(tmp, &(scene->is_dof))))
+				return (NULL);
+			is_init[4] = 1;
+		}
+		else if (!ft_strcmp(tmp->name, "focus"))
+		{
+			if (is_init[5] > 0)
+			{
+				ft_putendl("'focus' redefined");
+				return (NULL);
+			}
+			scene->dof = get_num(tmp->values);
+			is_init[5] = 1;
 		}
 		else if (!ft_strcmp(tmp->name, "blur"))
 		{
@@ -82,6 +106,11 @@ t_scene		*get_scene(t_scene *scene, t_part *part)
 				return (NULL);
 			}
 			is_init[3] = 1;
+		}
+		else
+		{
+			return_invalid_arg(tmp->name);
+			return (NULL);
 		}
 		tmp = tmp->next;
 	}

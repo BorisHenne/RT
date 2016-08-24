@@ -1,0 +1,144 @@
+{
+	scene :
+	{
+		{
+			options: 
+			{
+				{ambient : 0}
+				{cartoon : y}
+			 }
+		}
+	}
+
+	camera :
+	{
+		{pos : 0, 0.0 , -7}
+		{look_at : 0, 0, 0}
+	}
+
+	objects :
+	{
+#		{
+#			sphere:
+#			{
+#				{radius : 0.1}
+#				{pos : 0, 0.0, 0.0}
+#				{color : 0.3, 0.6, 0.8}
+#				{
+#					options: 
+#					{
+#						{specular : 50}
+#					}
+#				}
+#			}
+#		}
+#		{
+#			elips:
+#			{
+#				{radius : 0.2}
+#				{quad: 0.5, 1, 1}
+#				{pos : 0.0, 0.4, 0}
+#				{color : 1, 0.4, 0.4}
+#				{
+#					options: 
+#					{
+#						{specular : 50}
+#					}
+#				}
+#			}
+#		}
+		{
+			cylinder:
+			{
+				{radius : 0.3}
+				{pos : 0, -0.4, 0}
+				{dir : 1, 0, 1}
+				{length : 1}
+				{color : 1, 0.4, 0.4}
+				{
+					options: 
+					{
+						{specular : 50}
+						{is_closed:y}
+					}
+				}
+			}
+		}
+		{
+			cone:
+			{
+				{radius : 0.3}
+				{pos : 0, 0.4, 0}
+				{dir : 1, 0, 1}
+				{length : 0.5}
+				{color : 1, 0.4, 0.4}
+				{
+					options: 
+					{
+						{specular : 50}
+						{is_closed:y}
+					}
+				}
+			}
+		}
+		{
+			plane:
+			{
+				{pos : 0, 0, 10}
+				{normal: 0, 0, 1}
+				{color: 0.1, 0.1, 0.1}
+				{
+					options:
+					{
+						{specular: 30}
+					}
+				}
+			}
+		}
+	}
+
+	light:
+	{
+#		{
+#			direct:
+#			{
+#				{pos : 0, -5.0, -4.0}
+#				{color : 255.0, 255.0, 255.0}
+#				{dir : 0.0, 0.0, 0.0}
+#				{angle : 360}
+#			}
+#		}
+		{
+			diffuse: 
+			{
+				{pos : 0, 0, -5}
+				{color : 255, 255, 255}
+				{dir : 0.0, 0.0, 0.0}
+			}
+		}
+#		{
+#			parallel: 
+#			{
+#				{pos : 1, 1, 0}
+#				{color : 255, 255, 255}
+#				{dir : 0.0, 0.0, 0.0}
+#			}
+#		}
+#		{
+#			parallel: 
+#			{
+#				{pos : -1, 1, 1}
+#				{color : 255, 255, 0}
+#				{dir : 0.0, 0.0, 0.0}
+#			}
+#		}
+#		{
+#			parallel: 
+#			{
+#				{pos : 1, 1, 1}
+#				{color : 0, 255,255}
+#				{dir : 0.0, 0.0, 0.0}
+#			}
+#		}
+	}
+}

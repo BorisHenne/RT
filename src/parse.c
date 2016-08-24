@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 12:49:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 16:51:59 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/23 16:13:50 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ t_scene		*config(t_part *part)
 	tmp = part;
 	while (tmp)
 	{
-		get_all(tmp, scene, is_init);
+		if (!(get_all(tmp, scene, is_init)))
+			return (NULL);
 		tmp = tmp->next;
 	}
 	if (is_initialized(is_init, scene))

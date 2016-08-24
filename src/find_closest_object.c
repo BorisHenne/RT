@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 16:48:14 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/08/23 18:49:54 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,25 @@ t_hit		get_hit(t_ray *ray, t_node *tmp, int is_neg)
 		tmp_content = is_cone_hit(ray, (t_cone *)tmp->data);
 	else if (tmp->type == ELIPS && ((t_elips *)(tmp->data))->is_negativ == is_neg)
 		tmp_content = is_elips_hit(ray, (t_elips *)tmp->data);
-	else if (tmp->type == TRIAN)
+	else if (tmp->type == TRIAN && ((t_triangle *)(tmp->data))->is_negativ == is_neg)
 		tmp_content = is_trian_hit(ray, (t_triangle *)tmp->data);
-	else if (tmp->type == PARA)
+	else if (tmp->type == PARA && ((t_parallelo *)(tmp->data))->is_negativ == is_neg)
 		tmp_content = is_parallelo_hit(ray, (t_parallelo *)tmp->data);
 	return (tmp_content);
 }
 
+int			neg_exists(t_node *tmp)
+{
+	if ((tmp->type == SPHERE && ((t_sphere *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == CYLINDER && ((t_cylinder *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == PLANE && ((t_plane *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == CONE && ((t_cone *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == ELIPS && ((t_elips *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == TRIAN && ((t_triangle *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == PARA && ((t_parallelo *)(tmp->data))->is_negativ == 1))
+		return (1);
+	return (0);
+}
 #include <stdio.h>
 t_hit		find_closest_object(t_node *nodes, t_ray *ray)
 {
@@ -59,13 +71,17 @@ t_hit		find_closest_object(t_node *nodes, t_ray *ray)
 	t_hit		tmp_content;
 	t_hit		negativ_hit;
 	t_hit		closest_hit;
+	int			is_neg;
 
 
 	closest_hit = init_hit();
 	negativ_hit = init_hit();
 	tmp = nodes;
+	is_neg = 0;
 	while (tmp)
 	{
+		if (is_neg == 0)
+			is_neg = neg_exists(tmp);
 		tmp_content = get_hit(ray, tmp, 0);
 		if (tmp_content.bool == 1)
 		{
@@ -78,7 +94,7 @@ t_hit		find_closest_object(t_node *nodes, t_ray *ray)
 	}
 
 	tmp = nodes;
-	while (tmp)
+	while (is_neg && tmp)
 	{
 		tmp_content = get_hit(ray, tmp, 1);
 		if (tmp_content.bool == 1 &&
